@@ -54,7 +54,7 @@ importers:
         specifier: ^4.0.0
         version: 4.1.9(@types/node@24.13.2)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.48.0)(yaml@2.9.0))
 
-  apps/doc:
+  apps/docs:
     dependencies:
       '@docusaurus/core':
         specifier: ^3.8.1
@@ -14939,7 +14939,7 @@ snapshots:
 
   randombytes@2.1.0:
     dependencies:
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
 
   range-parser@1.2.0: {}
 
@@ -16258,7 +16258,7 @@ snapshots:
   websocket-driver@0.7.5:
     dependencies:
       http-parser-js: 0.5.10
-      safe-buffer: 5.1.2
+      safe-buffer: 5.2.1
       websocket-extensions: 0.1.4
 
   websocket-extensions@0.1.4: {}

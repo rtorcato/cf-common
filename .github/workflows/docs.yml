@@ -4,7 +4,7 @@ on:
     push:
         branches: [main]
         paths:
-            - 'apps/doc/**'
+            - 'apps/docs/**'
             - '.github/workflows/docs.yml'
             - 'pnpm-workspace.yaml'
     workflow_dispatch:
@@ -45,7 +45,7 @@ jobs:
             - name: 📤 Upload Pages artifact
               uses: actions/upload-pages-artifact@v5
               with:
-                  path: apps/doc/build
+                  path: apps/docs/build
 
     deploy:
         needs: build

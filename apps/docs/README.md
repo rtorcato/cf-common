@@ -24,4 +24,4 @@ pnpm --filter @rtorcato/cf-common-docs test:e2e # Playwright smoke tests
 ## Deploy
 
 Pushed automatically by `.github/workflows/docs.yml` on every push to `main`
-that touches `apps/doc/**`.
+that touches `apps/docs/**`.
