@@ -1,0 +1,17 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.1/schema.json",
+  "extends": ["@rtorcato/js-tooling/biome"],
+  "files": {
+    "includes": [
+      "**/src/**/*",
+      "**/*.ts",
+      "**/*.js",
+      "**/*.tsx",
+      "**/*.jsx",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/build",
+      "!**/.next"
+    ]
+  }
+}

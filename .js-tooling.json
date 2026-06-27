@@ -1,0 +1,29 @@
+{
+  "$schema": "https://rtorcato.github.io/js-tooling/schemas/lockfile.json",
+  "version": 1,
+  "config": {
+    "linting": {
+      "tool": "biome"
+    },
+    "formatting": {
+      "tool": "biome"
+    },
+    "testing": {
+      "framework": "vitest",
+      "environment": "node"
+    },
+    "gitHooks": true,
+    "commitLint": true,
+    "semanticRelease": true,
+    "securityAutomation": true,
+    "projectName": "cf-common",
+    "projectType": "library",
+    "typescript": {
+      "enabled": true,
+      "config": "base"
+    },
+    "bundler": "tsup"
+  },
+  "writtenBy": "@rtorcato/js-tooling@2.19.0",
+  "writtenAt": "2026-06-27T15:26:16.703Z"
+}
