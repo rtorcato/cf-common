@@ -1,0 +1,65 @@
+---
+title: cf-common
+description: Typed TypeScript wrappers and helpers for Cloudflare bindings and APIs.
+sidebar_position: 0
+---
+
+import InstallTabs from '@site/src/components/InstallTabs'
+
+# cf-common
+
+Typed TypeScript wrappers and helpers for working with Cloudflare bindings and
+APIs — in the spirit of [`js-common`](https://rtorcato.github.io/js-common/) and
+[`browser-common`](https://rtorcato.github.io/browser-common/).
+
+Each module is a **thin, well-typed convenience layer** over a Cloudflare
+service — not a framework. Tree-shakeable subpath exports, zero required runtime
+dependencies.
+
+- **Typed end-to-end** — strict types over every binding; no `any` at the edges.
+- **Tree-shakeable** — named subpath exports; import only the service you use.
+- **Thin, not a framework** — a convenience layer, never a wrapper you fight.
+- **Workers-native** — pure helpers over the runtime APIs you already have.
+
+## Install
+
+<InstallTabs pkg="@rtorcato/cf-common" />
+
+**Requirements:** a Cloudflare Workers project (Wrangler). TypeScript ≥ 5.0 is
+recommended — every public API ships with strict types and JSDoc.
+
+## Status
+
+`cf-common` is early. The foundations and per-service modules land
+incrementally — track progress in the
+[roadmap](https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md) and the
+[issues list](https://github.com/rtorcato/cf-common/issues).
+
+| Version | Scope | Modules |
+| --- | --- | --- |
+| v0.1 | Foundations | `errors`, `env` |
+| v0.2 | Storage | `kv`, `r2`, `d1` |
+| v0.3 | Messaging & Compute | `queues`, `do`, `cache` |
+| v0.4 | AI & Data | `ai`, `vectorize`, `hyperdrive` |
+| v0.5 | REST API client | `api` |
+
+## Design principles
+
+- **Thin over a service, never a framework.** Each module covers one Cloudflare
+  binding. If something needs heavy machinery, reach for a dedicated library.
+- **Subpath imports are the contract.** You always import from
+  `@rtorcato/cf-common/<module>` so tree-shaking is automatic.
+- **Strict TS, no implicit `any` in public APIs.** Generic helpers preserve
+  narrow types through the call.
+
+## Next steps
+
+- [**Getting started**](./guides/getting-started.md) — install and wire your first binding.
+- [**Roadmap**](https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md) — what ships when.
+
+## Project
+
+- Source: [github.com/rtorcato/cf-common](https://github.com/rtorcato/cf-common)
+- npm: [@rtorcato/cf-common](https://www.npmjs.com/package/@rtorcato/cf-common)
+- License: [MIT](https://github.com/rtorcato/cf-common/blob/main/LICENSE)
+- Issues: [GitHub Issues](https://github.com/rtorcato/cf-common/issues)

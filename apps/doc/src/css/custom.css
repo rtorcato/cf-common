@@ -1,0 +1,432 @@
+/**
+ * cf-common — Docusaurus theme
+ * Cloudflare-orange palette. Structure mirrors the @rtorcato sibling sites;
+ * only the accent tokens differ. Internal token names keep the `--jc-*`
+ * prefix shared across the family — they hold orange values here.
+ */
+
+/* ---------- Fonts ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap");
+
+/* ---------- Light (default) ---------- */
+:root {
+	--ifm-color-primary: #f38020;
+	--ifm-color-primary-dark: #e57211;
+	--ifm-color-primary-darker: #d96b0f;
+	--ifm-color-primary-darkest: #b3580c;
+	--ifm-color-primary-light: #f5904a;
+	--ifm-color-primary-lighter: #f69a5d;
+	--ifm-color-primary-lightest: #f9b88c;
+
+	--ifm-font-family-base: "Geist", system-ui, -apple-system, sans-serif;
+	--ifm-font-family-monospace: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+	--ifm-heading-font-weight: 800;
+	--ifm-code-font-size: 92%;
+
+	--ifm-background-color: #ffffff;
+	--ifm-background-surface-color: #ffffff;
+	--ifm-navbar-background-color: rgba(255, 255, 255, 0.8);
+	--ifm-heading-color: #0a0e16;
+	--ifm-font-color-base: #374253;
+	--ifm-link-color: #d96b0f;
+	--ifm-toc-border-color: rgba(12, 18, 28, 0.1);
+	--ifm-code-background: #f3f6f9;
+	--docusaurus-highlighted-code-line-bg: rgba(243, 128, 32, 0.14);
+
+	/* cf-common custom tokens (Cloudflare orange) */
+	--jc-gold: #d96b0f;
+	--jc-gold-fill: #f38020;
+	--jc-on-gold: #ffffff;
+	--jc-bg: #ffffff;
+	--jc-bg2: #f6f8fb;
+	--jc-surface: #ffffff;
+	--jc-surface2: #f3f6f9;
+	--jc-code-bg: #f3f6f9;
+	--jc-border: rgba(12, 18, 28, 0.1);
+	--jc-border2: rgba(12, 18, 28, 0.16);
+	--jc-heading: #0a0e16;
+	--jc-text: #374253;
+	--jc-muted: #5b6675;
+	--jc-faint: #8a95a5;
+	--jc-gold-soft: rgba(243, 128, 32, 0.16);
+	--jc-gold-border: rgba(243, 128, 32, 0.5);
+	--jc-shadow: 0 22px 50px -26px rgba(20, 28, 44, 0.3);
+}
+
+/* ---------- Dark ---------- */
+[data-theme="dark"] {
+	--ifm-color-primary: #faad3f;
+	--ifm-color-primary-dark: #f99c1c;
+	--ifm-color-primary-darker: #f49410;
+	--ifm-color-primary-darkest: #c9790a;
+	--ifm-color-primary-light: #fbba62;
+	--ifm-color-primary-lighter: #fcc174;
+	--ifm-color-primary-lightest: #fdd9a9;
+
+	--ifm-background-color: #0a0e16;
+	--ifm-background-surface-color: #111824;
+	--ifm-navbar-background-color: #0a0e16;
+	--ifm-heading-color: #ffffff;
+	--ifm-font-color-base: #dfe5ee;
+	--ifm-link-color: #faad3f;
+	--ifm-toc-border-color: rgba(255, 255, 255, 0.08);
+	--ifm-code-background: #0d131d;
+	--docusaurus-highlighted-code-line-bg: rgba(250, 173, 63, 0.12);
+
+	--jc-gold: #faad3f;
+	--jc-gold-fill: #faad3f;
+	--jc-on-gold: #0a0e16;
+	--jc-bg: #0a0e16;
+	--jc-bg2: #0b101a;
+	--jc-surface: #111824;
+	--jc-surface2: #0d131d;
+	--jc-code-bg: #0c111b;
+	--jc-border: rgba(255, 255, 255, 0.08);
+	--jc-border2: rgba(255, 255, 255, 0.14);
+	--jc-heading: #ffffff;
+	--jc-text: #dfe5ee;
+	--jc-muted: #94a1b4;
+	--jc-faint: #647184;
+	--jc-gold-soft: rgba(250, 173, 63, 0.12);
+	--jc-gold-border: rgba(250, 173, 63, 0.34);
+	--jc-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+	border-bottom: 1px solid var(--jc-border);
+	box-shadow: none;
+}
+.navbar__brand {
+	font-weight: 800;
+	letter-spacing: -0.03em;
+}
+.navbar__link--active {
+	color: var(--jc-heading);
+}
+
+/* ---------- Mobile drawer: collapse primary/secondary into one menu ----------
+   The primary→secondary "Back to main menu" UX is confusing here. We swizzle
+   theme/Navbar/MobileSidebar/PrimaryMenu to render the full menu directly and
+   stub out SecondaryMenu. On doc pages Docusaurus still flips its internal
+   secondary state (the doc plugin contributes a mobile-sidebar filler), adding
+   the --show-secondary class — that class translates the primary menu off
+   screen, so we lock the transform here. */
+.navbar-sidebar__items,
+.navbar-sidebar__items.navbar-sidebar__items--show-secondary {
+	transform: translate3d(0, 0, 0) !important;
+}
+.navbar-sidebar__items > .navbar-sidebar__item:nth-child(2),
+.navbar-sidebar__back {
+	display: none !important;
+}
+.jc-mobile-menu {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 4px 0;
+	margin: 0;
+	list-style: none;
+}
+.jc-mobile-menu__link {
+	display: block;
+	padding: 12px 14px;
+	border-radius: 8px;
+	color: var(--jc-heading);
+	font-weight: 600;
+	font-size: 15px;
+	text-decoration: none;
+}
+.jc-mobile-menu__link:hover,
+.jc-mobile-menu__link:focus-visible {
+	background: var(--jc-surface2);
+	color: var(--jc-heading);
+	text-decoration: none;
+}
+.jc-mobile-menu__link--active {
+	background: var(--jc-gold-soft);
+	color: var(--jc-gold);
+}
+.jc-mobile-menu__external::after {
+	content: " ↗";
+	color: var(--jc-faint);
+	font-weight: 400;
+}
+
+/* ---------- Backgrounds ---------- */
+html,
+body,
+#__docusaurus,
+.main-wrapper {
+	background: var(--ifm-background-color);
+}
+.theme-doc-sidebar-container {
+	background: var(--ifm-background-color);
+	border-right: 1px solid var(--jc-border) !important;
+}
+
+/* ---------- Sidebar ---------- */
+.menu {
+	font-size: 14px;
+	background: transparent;
+	padding: 16px 12px;
+}
+.menu__list .menu__list {
+	padding-left: 8px;
+}
+.menu__link {
+	border-radius: 8px;
+	color: var(--jc-muted);
+	line-height: 1.4;
+}
+.menu__link:hover {
+	background: var(--jc-surface2);
+	color: var(--jc-heading);
+}
+.menu__link--active:not(.menu__link--sublist) {
+	color: var(--jc-gold);
+	background: var(--jc-gold-soft);
+	font-weight: 600;
+}
+.menu__list-item-collapsible .menu__link {
+	font-weight: 600;
+	color: var(--jc-heading);
+	background: transparent;
+}
+.menu__list-item-collapsible .menu__link--active {
+	color: var(--jc-gold);
+	background: transparent;
+}
+.menu__list-item-collapsible:hover {
+	background: var(--jc-surface2);
+	border-radius: 8px;
+}
+.menu__caret:hover {
+	background: transparent;
+}
+
+/* ---------- Table of contents ---------- */
+.table-of-contents__link--active {
+	color: var(--jc-gold);
+	font-weight: 600;
+}
+.table-of-contents .table-of-contents__link:hover {
+	color: var(--jc-heading);
+}
+
+/* ---------- Footer ---------- */
+.footer,
+.footer--dark {
+	--ifm-footer-background-color: var(--jc-bg2);
+	--ifm-footer-color: var(--jc-text);
+	--ifm-footer-link-color: var(--jc-text);
+	--ifm-footer-title-color: var(--jc-faint);
+	border-top: 1px solid var(--jc-border);
+}
+.footer__title {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--jc-faint);
+}
+.footer__link-item {
+	color: var(--jc-text);
+}
+.footer__link-item:hover {
+	color: var(--jc-gold);
+	text-decoration: none;
+}
+.footer__copyright {
+	color: var(--jc-faint);
+	font-size: 13px;
+	text-align: left;
+}
+.footer__col {
+	font-size: 14px;
+}
+.footer__link-item svg,
+.footer__link-item [class*="iconExternalLink"] {
+	display: none;
+}
+
+/* ---------- Code ----------
+   Prism is vsDark in both light & dark mode, so fenced blocks stay dark in
+   both themes; inline code keeps the themed background. */
+.theme-code-block,
+div[class*="codeBlockContainer"],
+pre[class*="language-"] {
+	border: 1px solid var(--jc-border);
+	border-radius: 12px;
+	background: #0c111b !important;
+}
+.theme-code-block code,
+pre[class*="language-"] code {
+	background: transparent !important;
+	color: #dfe5ee;
+}
+div[class*="codeBlockTitle"] {
+	background: #0a0e16 !important;
+	color: #94a1b4 !important;
+	border-bottom: 1px solid var(--jc-border);
+}
+[data-theme="light"] .theme-code-block,
+[data-theme="light"] div[class*="codeBlockContainer"],
+[data-theme="light"] pre[class*="language-"] {
+	border-color: rgba(12, 18, 28, 0.16);
+	box-shadow: 0 8px 24px -18px rgba(12, 18, 28, 0.5);
+}
+code {
+	font-family: var(--ifm-font-family-monospace);
+}
+
+/* ---------- Markdown tables ---------- */
+.markdown table,
+.theme-doc-markdown table,
+article table {
+	display: table;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 22px 0;
+	border: 1px solid var(--jc-border);
+	border-radius: 12px;
+	overflow: hidden;
+	font-size: 14px;
+}
+.markdown table thead,
+article table thead {
+	background: var(--jc-bg2);
+}
+.markdown table thead tr,
+article table thead tr {
+	border: none;
+	background: transparent;
+}
+.markdown table th,
+article table th {
+	text-align: left;
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--jc-faint);
+	border: none;
+	border-bottom: 1px solid var(--jc-border);
+	padding: 14px 18px;
+}
+.markdown table tbody tr,
+article table tbody tr {
+	background: transparent !important;
+	border: none;
+}
+.markdown table td,
+article table td {
+	border: none;
+	border-bottom: 1px solid var(--jc-border);
+	padding: 13px 18px;
+	vertical-align: middle;
+	color: var(--jc-text);
+}
+.markdown table tbody tr:last-child td,
+article table tbody tr:last-child td {
+	border-bottom: none;
+}
+.markdown table td:first-child,
+article table td:first-child {
+	font-weight: 600;
+	color: var(--jc-heading);
+	white-space: nowrap;
+}
+.markdown table td code,
+.markdown table th code,
+article table td code {
+	background: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+	font-size: 13px;
+}
+.markdown table td:nth-child(2) code,
+article table td:nth-child(2) code {
+	color: var(--jc-gold);
+}
+.markdown table td:nth-child(3),
+article table td:nth-child(3) {
+	color: var(--jc-muted);
+	line-height: 1.9;
+}
+.markdown table td:nth-child(3) code,
+article table td:nth-child(3) code {
+	color: var(--jc-muted);
+}
+
+/* ---------- Buttons ---------- */
+.button--primary {
+	background: var(--jc-gold-fill);
+	border-color: var(--jc-gold-fill);
+	color: var(--jc-on-gold);
+	font-weight: 700;
+}
+.button--primary:hover {
+	background: #f5904a;
+	border-color: #f5904a;
+	color: var(--jc-on-gold);
+}
+.button--secondary {
+	background: transparent;
+	border-color: var(--jc-border2);
+	color: var(--jc-heading);
+}
+
+::selection {
+	background: rgba(243, 128, 32, 0.28);
+}
+
+/* ============================================================
+   HARDENED DARK SURFACES
+   ============================================================ */
+[data-theme="dark"] {
+	--ifm-background-color: #0a0e16;
+	--ifm-background-surface-color: #111824;
+	--ifm-navbar-background-color: #0a0e16;
+	--ifm-footer-background-color: #0b101a;
+}
+[data-theme="dark"],
+[data-theme="dark"] body,
+[data-theme="dark"] #__docusaurus,
+[data-theme="dark"] .main-wrapper,
+[data-theme="dark"] .navbar,
+[data-theme="dark"] main {
+	background-color: #0a0e16;
+}
+html[data-theme="light"] .footer,
+html[data-theme="light"] .footer--dark {
+	background-color: var(--jc-bg2) !important;
+	border-top: 1px solid var(--jc-border);
+}
+html[data-theme="light"] .footer__link-item {
+	color: var(--jc-text) !important;
+}
+html[data-theme="light"] .footer__title {
+	color: var(--jc-faint) !important;
+}
+html[data-theme="light"] .footer__copyright {
+	color: var(--jc-faint) !important;
+}
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .footer--dark {
+	background-color: #0a0e16 !important;
+	border-top: 1px solid var(--jc-border);
+}
+html[data-theme="dark"] .footer__link-item {
+	color: var(--jc-text) !important;
+}
+html[data-theme="dark"] .footer__title {
+	color: var(--jc-faint) !important;
+}
+html[data-theme="dark"] .footer__copyright {
+	color: var(--jc-faint) !important;
+}
+.footer__link-item:hover {
+	color: var(--jc-gold) !important;
+}
