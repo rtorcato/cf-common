@@ -57,7 +57,7 @@
     "node": ">=22"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": "biome check --fix",
-    "*.{json,md,yml,yaml}": "biome format --write"
+    "*.{js,ts,jsx,tsx}": "biome check --fix --no-errors-on-unmatched",
+    "*.{json,md,yml,yaml}": "biome format --write --no-errors-on-unmatched"
   }
 }
