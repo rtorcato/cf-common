@@ -175,7 +175,20 @@ function Hero(): ReactElement {
 		<header className={styles.hero}>
 			<div className={styles.heroGlow} aria-hidden />
 			<div className={styles.heroInner}>
-				<CodeWindow />
+				<div className={styles.wordmark}>
+					<span className={styles.wmName}>cf</span>
+					<span className={styles.wmDash}>-</span>
+					<span className={styles.wmCommon}>common</span>
+				</div>
+				<p className={styles.tagline}>
+					Typed TypeScript wrappers and helpers for Cloudflare bindings and APIs — one
+					tree-shakeable module per service.
+				</p>
+
+				<div className={styles.heroBody}>
+					<CodeWindow />
+				</div>
+
 				<div className={styles.heroActions}>
 					<div className={styles.heroButtons}>
 						<Link
