@@ -1,8 +1,9 @@
 import { defineConfig } from 'tsup'
 
-// ponytail: inlined instead of extending @rtorcato/js-tooling/tsup — that subpath
-// ships raw .ts, which Node 24 refuses to type-strip under node_modules
-// (ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING). Re-extend once js-tooling ships compiled JS.
+// ponytail: inlined instead of extending @rtorcato/js-tooling/tsup. js-tooling now
+// ships compiled .mjs (the old type-stripping blocker is gone), but its base sets
+// bundle:false + format ['cjs','esm'] + splitting, which diverge from this package's
+// ESM-only, multi-entry subpath build. Re-extend only after diffing dist output.
 export default defineConfig({
 	// One entry per module → one subpath export. The runtime is workerd, so ESM only.
 	entry: ['src/index.ts', 'src/*/index.ts'],
