@@ -34,7 +34,7 @@ jobs:
       cache-key: ${{ steps.cache-key.outputs.key }}
     steps:
       - name: 📦 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
@@ -69,7 +69,7 @@ jobs:
     if: needs.check-skip.outputs.should-skip != 'true'
     steps:
       - name: 📦 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
@@ -98,7 +98,7 @@ jobs:
     if: needs.check-skip.outputs.should-skip != 'true'
     steps:
       - name: 📦 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
@@ -127,7 +127,7 @@ jobs:
     if: needs.check-skip.outputs.should-skip != 'true'
     steps:
       - name: 📦 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
@@ -156,7 +156,7 @@ jobs:
     if: needs.check-skip.outputs.should-skip != 'true'
     steps:
       - name: 📦 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
@@ -200,7 +200,7 @@ jobs:
       id-token: write
     steps:
       - name: 📦 Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
