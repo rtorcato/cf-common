@@ -5,5 +5,7 @@ export default defineConfig({
 		globals: true,
 		environment: 'node',
 		setupFiles: ['./vitest.setup.ts'],
+		// Library tests live in src/. apps/* (docs) own their runners (Playwright).
+		include: ['src/**/*.{test,spec}.ts'],
 	},
 })
