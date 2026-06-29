@@ -30,18 +30,24 @@ recommended — every public API ships with strict types and JSDoc.
 
 ## Status
 
-`cf-common` is early. The foundations and per-service modules land
-incrementally — track progress in the
-[roadmap](https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md) and the
+Foundations and storage are published; the rest land incrementally — track
+progress in the
+[roadmap](https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md), the
+[Beta milestone](https://github.com/rtorcato/cf-common/milestone/1), and the
 [issues list](https://github.com/rtorcato/cf-common/issues).
 
-| Version | Scope | Modules |
+| Area | Modules | Status |
 | --- | --- | --- |
-| v0.1 | Foundations | `errors`, `env` |
-| v0.2 | Storage | `kv`, `r2`, `d1` |
-| v0.3 | Messaging & Compute | `queues`, `do`, `cache` |
-| v0.4 | AI & Data | `ai`, `vectorize`, `hyperdrive` |
-| v0.5 | REST API client | `api` |
+| Foundations | `errors`, `env` | ✅ Shipped |
+| Storage | `kv`, `r2`, `d1` | ✅ Shipped |
+| Web essentials | `http`, `request` | 🚧 Beta target |
+| Messaging & Compute | `queues`, `do`, `cache`, `rpc`, `cron`, `workflows` | Planned |
+| Security & auth | `access`, `turnstile`, `ratelimit` | Planned |
+| AI & Data | `ai`, `vectorize`, `hyperdrive`, `ai-gateway` | Planned |
+| Integrations | `email`, `analytics`, `images` | Planned |
+| REST API client | `api` | Planned |
+
+See the [API Reference](./api/errors/index.md) for the shipped modules.
 
 ## Design principles
 
