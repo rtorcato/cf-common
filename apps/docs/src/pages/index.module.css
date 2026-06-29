@@ -23,6 +23,42 @@
 	text-align: center;
 }
 
+/* Text-only wordmark — "cf" in heading color, "-common" in the Cloudflare accent. */
+.wordmark {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 2px;
+	font-family: var(--ifm-font-family-base);
+	font-size: clamp(40px, 8vw, 64px);
+	font-weight: 800;
+	letter-spacing: -0.04em;
+	line-height: 1;
+	margin: 0 0 18px;
+}
+.wmName {
+	color: var(--jc-heading);
+}
+.wmDash {
+	color: var(--jc-faint);
+}
+.wmCommon {
+	color: var(--jc-gold);
+}
+
+.tagline {
+	max-width: 640px;
+	margin: 0 auto 40px;
+	font-size: clamp(15px, 1.6vw, 18px);
+	line-height: 1.55;
+	color: var(--jc-muted);
+}
+
+.heroBody {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 8px;
+}
+
 /* Banner (desktop) vs composed hero (mobile) */
 .bannerWrap {
 	position: relative;
