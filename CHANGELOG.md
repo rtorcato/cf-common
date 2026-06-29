@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/rtorcato/cf-common/compare/v1.1.0...v1.1.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* **docs:** add wordmark title + tagline to homepage hero ([#41](https://github.com/rtorcato/cf-common/issues/41)) ([2afbdad](https://github.com/rtorcato/cf-common/commit/2afbdad68906a5e058834c540a17f2a2fcc0d75f))
+
 # [1.1.0](https://github.com/rtorcato/cf-common/compare/v1.0.0...v1.1.0) (2026-06-29)
 
 
