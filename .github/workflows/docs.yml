@@ -3,10 +3,21 @@ name: 📘 Deploy docs to GitHub Pages
 on:
     push:
         branches: [main]
+        # `src/**` so a shipped module regenerates its TypeDoc API page;
+        # `package.json`/`README.md` so a release's version bump + readme
+        # changes redeploy. Without src/**, merging a module never refreshed
+        # the site (the original "docs don't show new stuff" bug).
         paths:
             - 'apps/docs/**'
+            - 'src/**'
+            - 'package.json'
+            - 'README.md'
             - '.github/workflows/docs.yml'
             - 'pnpm-workspace.yaml'
+    # semantic-release publishes a GitHub Release after the version commit lands;
+    # rebuild then too, so the site always tracks the latest release.
+    release:
+        types: [published]
     workflow_dispatch:
 
 concurrency:

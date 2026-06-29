@@ -2,6 +2,32 @@ import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
 
+// One typedoc plugin instance per subpath module. Each reads `../../src/<mod>`
+// directly (no build needed) and writes docs/api/<mod>/index.md, which
+// sidebars.ts links to by doc id. Add a module here when it ships — that's the
+// only edit needed; the API docs regenerate from source JSDoc on every build.
+const MODULES = ['errors', 'env', 'kv', 'r2', 'd1'] as const
+
+const typedocPlugins = MODULES.map((mod) => [
+	'docusaurus-plugin-typedoc',
+	{
+		id: mod,
+		entryPoints: [`../../src/${mod}/index.ts`],
+		tsconfig: '../../tsconfig.json',
+		// The library targets workerd types and typechecks on its own toolchain;
+		// the docs workspace pins an older TS. Skip TypeDoc's redundant check.
+		skipErrorChecking: true,
+		out: `docs/api/${mod}`,
+		readme: 'none',
+		includeVersion: false,
+		excludePrivate: true,
+		excludeInternal: true,
+		excludeExternals: true,
+		sort: ['source-order'],
+		outputFileStrategy: 'modules',
+	},
+])
+
 const config: Config = {
 	title: 'cf-common',
 	tagline: 'Typed TypeScript wrappers and helpers for Cloudflare bindings and APIs.',
@@ -60,10 +86,8 @@ const config: Config = {
 		],
 	],
 
-	// TypeDoc API reference is intentionally omitted until the library ships
-	// typed modules (KV #3, R2 #4, D1 #5, …). Wire docusaurus-plugin-typedoc
-	// back in — pointed at ../../src/*/index.ts — once those land.
 	plugins: [
+		...typedocPlugins,
 		[
 			'@easyops-cn/docusaurus-search-local',
 			{
@@ -75,7 +99,7 @@ const config: Config = {
 				searchBarShortcutHint: false,
 			},
 		],
-	],
+	] as Config['plugins'],
 
 	themeConfig: {
 		colorMode: {

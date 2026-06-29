@@ -8,9 +8,21 @@ const sidebars: SidebarsConfig = {
 			collapsed: false,
 			items: ['index', 'guides/getting-started'],
 		},
-		// Module pages get wired in here as they land — one per Cloudflare
-		// service (KV #3, R2 #4, D1 #5, Queues #6, DO #7, Cache #8,
-		// Workers AI #9, Vectorize #10, Hyperdrive #11, REST client #12).
+		{
+			// One typedoc instance per module generates docs/api/<mod>/index.md.
+			// Add the doc id here when a module ships (see MODULES in
+			// docusaurus.config.ts).
+			type: 'category',
+			label: 'API Reference',
+			collapsed: false,
+			items: [
+				{ type: 'doc', id: 'api/errors/index', label: 'errors' },
+				{ type: 'doc', id: 'api/env/index', label: 'env' },
+				{ type: 'doc', id: 'api/kv/index', label: 'kv' },
+				{ type: 'doc', id: 'api/r2/index', label: 'r2' },
+				{ type: 'doc', id: 'api/d1/index', label: 'd1' },
+			],
+		},
 	],
 }
 

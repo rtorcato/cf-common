@@ -1,6 +1,13 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.1/schema.json",
   "extends": ["@rtorcato/js-tooling/biome"],
+  // Respect .gitignore so generated, ignored output (dist, build,
+  // apps/docs/docs/api typedoc files) isn't linted from a single source of truth.
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "files": {
     "includes": [
       "**/src/**/*",
