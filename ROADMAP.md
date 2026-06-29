@@ -21,11 +21,11 @@ not a framework. Tree-shakeable subpath exports, zero required runtime deps.
 ## v0.1 — Foundations & build
 
 - [x] Tooling, CI, semantic-release (`@rtorcato/js-tooling`)
-- [ ] ESM-only subpath-export build (multi-entry `tsup`) — #20
-- [ ] `@cloudflare/workers-types` + depend on `@rtorcato/js-common` — #21
+- [x] ESM-only subpath-export build (multi-entry `tsup`) — #20
+- [x] `@cloudflare/workers-types` + depend on `@rtorcato/js-common` — #21
 - [ ] `vitest-pool-workers` test harness (workerd) — #22
-- [ ] Typed error model (`CloudflareError`, result helpers; extends `js-common/errors`) — #1
-- [ ] Shared types + env binding helpers (`getBinding`, typed `env`) — #2
+- [x] Typed error model (`CloudflareError`, result helpers; extends `js-common/errors`) — #1
+- [x] Shared types + env binding helpers (`getBinding`, typed `env`) — #2
 
 ## v0.2 — Web essentials
 
@@ -36,9 +36,9 @@ The boilerplate every Worker repeats.
 
 ## v0.3 — Storage
 
-- [ ] **KV** — typed get/put/list with JSON (de)serialization + TTL helpers — #3
-- [ ] **R2** — object get/put/list, presigned URLs, multipart helpers — #4
-- [ ] **D1** — typed query helper, batch, migration runner — #5
+- [x] **KV** — typed get/put/list with JSON (de)serialization + TTL helpers — #3
+- [x] **R2** — object get/put/list, multipart helpers (presigned URLs deferred — need S3 API + SigV4) — #4
+- [x] **D1** — typed query helper, batch, migration runner — #5
 
 ## v0.4 — Messaging & Compute
 

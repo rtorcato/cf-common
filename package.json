@@ -52,6 +52,18 @@
     "./env": {
       "import": "./dist/env/index.js",
       "types": "./dist/env/index.d.ts"
+    },
+    "./kv": {
+      "import": "./dist/kv/index.js",
+      "types": "./dist/kv/index.d.ts"
+    },
+    "./r2": {
+      "import": "./dist/r2/index.js",
+      "types": "./dist/r2/index.d.ts"
+    },
+    "./d1": {
+      "import": "./dist/d1/index.js",
+      "types": "./dist/d1/index.d.ts"
     }
   },
   "files": [

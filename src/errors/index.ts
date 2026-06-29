@@ -15,14 +15,17 @@ export class CloudflareError extends Error {
 	override readonly name = 'CloudflareError'
 	readonly status: number
 	readonly expose: boolean
+	/** Optional machine-readable code (e.g. `KV_PARSE_FAILED`) for branching on a specific failure. */
+	readonly code?: string
 
 	constructor(
 		message: string,
-		options: { status?: number; expose?: boolean; cause?: unknown } = {}
+		options: { status?: number; expose?: boolean; code?: string; cause?: unknown } = {}
 	) {
 		super(message, { cause: options.cause })
 		this.status = options.status ?? 500
 		this.expose = options.expose ?? this.status < 500
+		this.code = options.code
 	}
 }
 
