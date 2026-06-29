@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/cf-common",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Typed TypeScript wrappers and helpers for working with Cloudflare bindings and APIs.",
   "type": "module",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.0",
+    "@cloudflare/workers-types": "^4.20260626.1",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@rtorcato/js-tooling": "latest",
@@ -36,17 +37,21 @@
     "typescript": "^5.9.3",
     "vitest": "^4.0.0"
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": {
-        "import": "./dist/index.d.ts",
-        "require": "./dist/index.d.cts"
-      },
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/index.d.ts"
+    },
+    "./errors": {
+      "import": "./dist/errors/index.js",
+      "types": "./dist/errors/index.d.ts"
+    },
+    "./env": {
+      "import": "./dist/env/index.js",
+      "types": "./dist/env/index.d.ts"
     }
   },
   "files": [
@@ -61,5 +66,8 @@
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "biome check --fix --no-errors-on-unmatched",
     "*.{json,md,yml,yaml}": "biome format --write --no-errors-on-unmatched"
+  },
+  "dependencies": {
+    "@rtorcato/js-common": "^2.8.1"
   }
 }

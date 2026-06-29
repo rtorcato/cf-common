@@ -12,7 +12,12 @@
     },
     "outDir": "./dist",
     "rootDir": "./src",
-    "incremental": false
+    "incremental": false,
+    "types": [
+      "node",
+      "vitest",
+      "@cloudflare/workers-types"
+    ]
   },
   "include": [
     "src/**/*",
