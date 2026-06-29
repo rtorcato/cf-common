@@ -4,8 +4,9 @@ import { defineConfig } from 'tsup'
 // ships raw .ts, which Node 24 refuses to type-strip under node_modules
 // (ERR_UNSUPPORTED_NODE_MODULES_TYPE_STRIPPING). Re-extend once js-tooling ships compiled JS.
 export default defineConfig({
-	entry: ['src/index.ts'],
-	format: ['cjs', 'esm'],
+	// One entry per module → one subpath export. The runtime is workerd, so ESM only.
+	entry: ['src/index.ts', 'src/*/index.ts'],
+	format: ['esm'],
 	dts: true,
 	clean: true,
 	splitting: false,
