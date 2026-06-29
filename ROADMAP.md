@@ -18,6 +18,23 @@ not a framework. Tree-shakeable subpath exports, zero required runtime deps.
 - **Subpath imports are the contract.** Always `@rtorcato/cf-common/<module>`,
   so tree-shaking is automatic.
 
+## Beta target
+
+**Beta = an early adopter can build a complete Worker end-to-end with
+cf-common.** That means foundations + storage (shipped) plus the HTTP/request
+layer every Worker repeats, and a test harness that runs against real workerd.
+
+Gated by (see the [Beta milestone](https://github.com/rtorcato/cf-common/milestone/1)):
+
+- [ ] **HTTP** — `Response`/JSON/CORS helpers + `defineFetch` wrapper — #33
+- [ ] **Request** — typed `request.cf`, body + auth parsing — #34
+- [ ] **workerd test harness** — `vitest-pool-workers` for binding tests — #22
+
+Foundations (`errors`, `env`) and storage (`kv`, `r2`, `d1`) are already
+published. "Beta" is a maturity label, not a semver: the package is past
+`1.0.0`, so betas ship under the npm `beta` dist-tag rather than a `0.x`
+version.
+
 ## v0.1 — Foundations & build
 
 - [x] Tooling, CI, semantic-release (`@rtorcato/js-tooling`)
