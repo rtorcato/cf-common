@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/rtorcato/cf-common/compare/v1.1.1...v1.2.0) (2026-07-06)
+
+
+### Features
+
+* **docs:** auto-generated API reference + release-triggered deploy ([#44](https://github.com/rtorcato/cf-common/issues/44)) ([742fcf0](https://github.com/rtorcato/cf-common/commit/742fcf0e48d6d57126387f5d52a9da4be892ced9))
+
 ## [1.1.1](https://github.com/rtorcato/cf-common/compare/v1.1.0...v1.1.1) (2026-06-29)
 
 
