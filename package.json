@@ -20,7 +20,7 @@
     "verify": "pnpm typecheck && pnpm check && pnpm exec vitest run"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.0",
+    "@biomejs/biome": "^2.5.2",
     "@cloudflare/workers-types": "^4.20260626.1",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^21.2.0",
