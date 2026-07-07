@@ -1,0 +1,19 @@
+{
+	"extends": "@rtorcato/js-tooling/typescript/base",
+	"compilerOptions": {
+		"ignoreDeprecations": "6.0",
+		"baseUrl": ".",
+		"rootDir": "src",
+		"types": [
+			"@cloudflare/workers-types"
+		],
+		"noEmit": true
+	},
+	"include": [
+		"src/**/*",
+		"wrangler.jsonc"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}
