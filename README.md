@@ -68,8 +68,9 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/d1`](https://rtorcato.github.io/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
 
 More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers
-AI, …). See the [roadmap](./ROADMAP.md) and the
-[Beta milestone](https://github.com/rtorcato/cf-common/milestone/1).
+AI, …). See the [milestones](https://github.com/rtorcato/cf-common/milestones)
+for the roadmap, or the
+[Beta milestone](https://github.com/rtorcato/cf-common/milestone/1) for what's next.
 
 ## Documentation
 
