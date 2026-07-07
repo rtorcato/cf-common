@@ -64,6 +64,18 @@
     "./d1": {
       "import": "./dist/d1/index.js",
       "types": "./dist/d1/index.d.ts"
+    },
+    "./http": {
+      "import": "./dist/http/index.js",
+      "types": "./dist/http/index.d.ts"
+    },
+    "./turnstile": {
+      "import": "./dist/turnstile/index.js",
+      "types": "./dist/turnstile/index.d.ts"
+    },
+    "./cron": {
+      "import": "./dist/cron/index.js",
+      "types": "./dist/cron/index.d.ts"
     }
   },
   "files": [
