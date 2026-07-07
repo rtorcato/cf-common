@@ -6,7 +6,7 @@ const sidebars: SidebarsConfig = {
 			type: 'category',
 			label: 'Start here',
 			collapsed: false,
-			items: ['index', 'guides/getting-started'],
+			items: ['index', 'guides/getting-started', 'guides/example-worker'],
 		},
 		{
 			// One typedoc instance per module generates docs/api/<mod>/index.md.

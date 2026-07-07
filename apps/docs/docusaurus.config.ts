@@ -156,7 +156,7 @@ const config: Config = {
 						{ label: 'npm', href: 'https://www.npmjs.com/package/@rtorcato/cf-common' },
 						{
 							label: 'Roadmap',
-							href: 'https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md',
+							href: 'https://github.com/rtorcato/cf-common/milestones',
 						},
 					],
 				},
@@ -172,7 +172,7 @@ const config: Config = {
 							label: 'License (MIT)',
 							href: 'https://github.com/rtorcato/cf-common/blob/main/LICENSE',
 						},
-						{ label: 'GitHub profile', href: GITHUB_PROFILE },
+						{ label: '@rtorcato', href: GITHUB_PROFILE },
 					],
 				},
 			],

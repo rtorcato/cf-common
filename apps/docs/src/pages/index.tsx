@@ -248,8 +248,7 @@ function Modules(): ReactElement {
 					<h2 className={styles.h2}>One module per Cloudflare service</h2>
 					<p className={styles.sub}>
 						Each lands as a typed, tree-shakeable subpath. See the{' '}
-						<Link to="https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md">roadmap</Link> for
-						status.
+						<Link to="https://github.com/rtorcato/cf-common/milestones">roadmap</Link> for status.
 					</p>
 				</div>
 			</div>

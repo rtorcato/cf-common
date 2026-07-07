@@ -26,7 +26,8 @@ automatic — `tsup` already globs `src/*/index.ts`):
    category in `apps/docs/sidebars.ts`. The page generates from your JSDoc.
 4. **Listings** — add a row to the modules table in `README.md` and the Status
    table in `apps/docs/docs/index.mdx`.
-5. **Roadmap** — tick the item in `ROADMAP.md`.
+5. **Roadmap** — close (or tick) the module's issue under its
+   [milestone](https://github.com/rtorcato/cf-common/milestones).
 6. **Commit** — `feat(<mod>): …`. The release and docs deploy run on merge.
 
 ## Local checks
