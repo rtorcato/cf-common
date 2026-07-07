@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/cf-common",
-  "version": "1.1.1",
+  "version": "1.3.0",
   "description": "Typed TypeScript wrappers and helpers for working with Cloudflare bindings and APIs.",
   "type": "module",
   "scripts": {
