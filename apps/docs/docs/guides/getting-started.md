@@ -62,12 +62,12 @@ export default {
 
 :::note
 The module APIs shown here land incrementally — see the
-[roadmap](https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md) for which
+[milestones](https://github.com/rtorcato/cf-common/milestones) for which
 modules are published. This page updates as each one ships.
 :::
 
 ## Next steps
 
-- Browse the [roadmap](https://github.com/rtorcato/cf-common/blob/main/ROADMAP.md)
+- Browse the [milestones](https://github.com/rtorcato/cf-common/milestones)
   to see what's available and what's coming.
 - Follow [issues](https://github.com/rtorcato/cf-common/issues) for per-module progress.
