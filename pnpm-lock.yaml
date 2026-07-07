@@ -26,7 +26,7 @@ importers:
         version: 21.2.0
       '@rtorcato/js-tooling':
         specifier: latest
-        version: 2.29.1(9dc5ff07969d8483358c4c50e0d04c2e)
+        version: 2.29.1(6959f066e4a949b56926a792129a67d3)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@25.0.5(typescript@5.9.3))
@@ -37,8 +37,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/github':
-        specifier: ^12.0.0
-        version: 12.0.8(semantic-release@25.0.5(typescript@5.9.3))
+        specifier: ^12.0.9
+        version: 12.0.9(semantic-release@25.0.5(typescript@5.9.3))
       '@types/node':
         specifier: ^24.0.0
         version: 24.13.2
@@ -2444,8 +2444,8 @@ packages:
     resolution: {integrity: sha512-KMQIfq5sOPpkQYajXHwnhjCC0slzCNScLHs9JafXc4RAJI+9f+jNDlBNaIMTvazOPLgb4BnlhGJOTbnN0wIjPw==}
     engines: {node: '>= 20'}
 
-  '@octokit/request@10.0.10':
-    resolution: {integrity: sha512-KxNC2pTqqhszMNrf12ZRd4PonRgyJdsM4F/jySiddQK+DsRcfBtUvqn8t7UsyZhnRJHvX46OohDt5N3VqIWC2w==}
+  '@octokit/request@10.0.11':
+    resolution: {integrity: sha512-+s7HUxjfFqOMS9VlIwDffq0MikjSAK0gSpG73W+meAvVAvX4MBrHYTK5Bj3Uot55qFT4gzUtfzE4mGWY4Br8/Q==}
     engines: {node: '>= 20'}
 
   '@octokit/types@16.0.0':
@@ -2895,8 +2895,8 @@ packages:
     peerDependencies:
       semantic-release: '>=18.0.0'
 
-  '@semantic-release/github@12.0.8':
-    resolution: {integrity: sha512-tej5AAgK5X9wHRoDmYhecMXEHEkFeGOY1XsEblKxu8pIQwahzf1STYyr7iPU6Lpbg6C5I3N2w/ocXrBo+L7jhw==}
+  '@semantic-release/github@12.0.9':
+    resolution: {integrity: sha512-ODIqb0V3QqndipryEEiaBxUQCFjvv7Oese5Dt4omMGa60YRNEW0Sx3K+zri0uac2Y6S9nOlMehciWIzvvRCTGQ==}
     engines: {node: ^22.14.0 || >= 24.10.0}
     peerDependencies:
       semantic-release: '>=24.1.0'
@@ -6185,8 +6185,8 @@ packages:
     resolution: {integrity: sha512-/bjOqmgETBYB5BoEeGVea8dmvHb2m9GLy1E9W43yeyfP6QQCZGFNa+XRceJEuDB6zqr+gKpIAmlLebMpykw/MQ==}
     engines: {node: '>=10'}
 
-  p-map@7.0.4:
-    resolution: {integrity: sha512-tkAQEw8ysMzmkhgw8k+1U/iPhWNhykKnSk4Rd5zLoPJCuJaGRPo6YposrZgaxHKzDHdDWWZvE/Sk7hsL2X/CpQ==}
+  p-map@7.0.5:
+    resolution: {integrity: sha512-e8vJF4XdVkzqqSHguEMz41mQO1wKwxKm5ENrUJQUu9kLDCtn83cxbyHZcszr4QC5zEA7WffRRC4gsTecC7J9oA==}
     engines: {node: '>=18'}
 
   p-queue@6.6.2:
@@ -11379,7 +11379,7 @@ snapshots:
     dependencies:
       '@octokit/auth-token': 6.0.0
       '@octokit/graphql': 9.0.3
-      '@octokit/request': 10.0.10
+      '@octokit/request': 10.0.11
       '@octokit/request-error': 7.1.0
       '@octokit/types': 16.0.0
       before-after-hook: 4.0.0
@@ -11392,7 +11392,7 @@ snapshots:
 
   '@octokit/graphql@9.0.3':
     dependencies:
-      '@octokit/request': 10.0.10
+      '@octokit/request': 10.0.11
       '@octokit/types': 16.0.0
       universal-user-agent: 7.0.3
 
@@ -11420,7 +11420,7 @@ snapshots:
     dependencies:
       '@octokit/types': 16.0.0
 
-  '@octokit/request@10.0.10':
+  '@octokit/request@10.0.11':
     dependencies:
       '@octokit/endpoint': 11.0.3
       '@octokit/request-error': 7.1.0
@@ -11706,7 +11706,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/js-tooling@2.29.1(9dc5ff07969d8483358c4c50e0d04c2e)':
+  '@rtorcato/js-tooling@2.29.1(6959f066e4a949b56926a792129a67d3)':
     dependencies:
       chalk: 5.6.2
       commander: 14.0.3
@@ -11722,7 +11722,7 @@ snapshots:
       '@semantic-release/commit-analyzer': 13.0.1(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/exec': 7.1.0(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/git': 10.0.1(semantic-release@25.0.5(typescript@5.9.3))
-      '@semantic-release/github': 12.0.8(semantic-release@25.0.5(typescript@5.9.3))
+      '@semantic-release/github': 12.0.9(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/npm': 13.1.5(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.5(typescript@5.9.3))
       conventional-changelog-conventionalcommits: 9.3.1
@@ -11790,7 +11790,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@semantic-release/github@12.0.8(semantic-release@25.0.5(typescript@5.9.3))':
+  '@semantic-release/github@12.0.9(semantic-release@25.0.5(typescript@5.9.3))':
     dependencies:
       '@octokit/core': 7.0.6
       '@octokit/plugin-paginate-rest': 14.0.0(@octokit/core@7.0.6)
@@ -15489,7 +15489,7 @@ snapshots:
 
   p-filter@4.1.0:
     dependencies:
-      p-map: 7.0.4
+      p-map: 7.0.5
 
   p-finally@1.0.0: {}
 
@@ -15523,7 +15523,7 @@ snapshots:
     dependencies:
       aggregate-error: 3.1.0
 
-  p-map@7.0.4: {}
+  p-map@7.0.5: {}
 
   p-queue@6.6.2:
     dependencies:
@@ -16693,7 +16693,7 @@ snapshots:
     dependencies:
       '@semantic-release/commit-analyzer': 13.0.1(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/error': 4.0.0
-      '@semantic-release/github': 12.0.8(semantic-release@25.0.5(typescript@5.9.3))
+      '@semantic-release/github': 12.0.9(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/npm': 13.1.5(semantic-release@25.0.5(typescript@5.9.3))
       '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.5(typescript@5.9.3))
       aggregate-error: 5.0.0
