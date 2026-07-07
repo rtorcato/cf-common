@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/rtorcato/cf-common/compare/v1.2.0...v1.3.0) (2026-07-07)
+
+
+### Features
+
+* **example:** add runnable sample Worker + docs ([#74](https://github.com/rtorcato/cf-common/issues/74)) ([beac102](https://github.com/rtorcato/cf-common/commit/beac102a9d19d12eda431ffe948344030d5e33a1))
+
 # [1.2.0](https://github.com/rtorcato/cf-common/compare/v1.1.1...v1.2.0) (2026-07-06)
 
 

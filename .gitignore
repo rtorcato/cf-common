@@ -44,3 +44,6 @@ coverage/
 
 # TypeScript
 *.tsbuildinfo
+
+# Wrangler / Miniflare local state
+.wrangler/
