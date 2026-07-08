@@ -102,7 +102,7 @@ importers:
         version: 1.61.1
       '@rtorcato/shared-docs':
         specifier: github:rtorcato/shared-docs
-        version: https://codeload.github.com/rtorcato/shared-docs/tar.gz/93e47df97b7f3da8949c9b146401efb8f68c341f
+        version: https://codeload.github.com/rtorcato/shared-docs/tar.gz/b499e9158674dd4de36f96d207edf2d219427618(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.17
@@ -2906,10 +2906,13 @@ packages:
       vitest:
         optional: true
 
-  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/93e47df97b7f3da8949c9b146401efb8f68c341f':
-    resolution: {gitHosted: true, integrity: sha512-AEvVZf0ULSXMNKVKapqFkMHfxgw8OneQtlygyyoVsvJnp+Gvx8H0kuB3IfIW+VDFRNY2xEYfyek1K3EMJnMF5w==, tarball: https://codeload.github.com/rtorcato/shared-docs/tar.gz/93e47df97b7f3da8949c9b146401efb8f68c341f}
+  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/b499e9158674dd4de36f96d207edf2d219427618':
+    resolution: {gitHosted: true, integrity: sha512-9Cz49GjyfeVP0XJO7xoinou3PaZWfiOtw5sWCRBVxR9qsetUmDMI2mgcSHLbk1lbfPiV+u9X0vvoQ8iayp6FQg==, tarball: https://codeload.github.com/rtorcato/shared-docs/tar.gz/b499e9158674dd4de36f96d207edf2d219427618}
     version: 0.1.0
     engines: {node: '>=22'}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -11840,7 +11843,10 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/93e47df97b7f3da8949c9b146401efb8f68c341f': {}
+  '@rtorcato/shared-docs@https://codeload.github.com/rtorcato/shared-docs/tar.gz/b499e9158674dd4de36f96d207edf2d219427618(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+    dependencies:
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
 
   '@sec-ant/readable-stream@0.4.1': {}
 

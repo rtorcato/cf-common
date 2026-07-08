@@ -2,8 +2,8 @@ import Link from '@docusaurus/Link'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import type { ReactElement } from 'react'
-import { siblings } from '@rtorcato/shared-docs'
-import InstallTabs from '@site/src/components/InstallTabs'
+import InstallTabs from '@rtorcato/shared-docs/components/InstallTabs'
+import Siblings from '@rtorcato/shared-docs/components/Siblings'
 import styles from './index.module.css'
 
 /* ------------------------------------------------------------------ */
@@ -271,37 +271,6 @@ function Modules(): ReactElement {
 	)
 }
 
-// The landing grid shows the siblings — the whole family minus cf-common itself.
-const SIBLINGS = siblings('@rtorcato/cf-common')
-
-function Siblings(): ReactElement {
-	return (
-		<section className={styles.section}>
-			<div className={styles.sectionHead}>
-				<div>
-					<h2 className={styles.h2}>Sibling projects</h2>
-					<p className={styles.sub}>
-						More from <code>@rtorcato</code> — same conventions, same release pipeline.
-					</p>
-				</div>
-			</div>
-			<div className={styles.siblingGrid}>
-				{SIBLINGS.map((s) => (
-					<Link key={s.name} href={s.href} className={styles.card}>
-						<div className={styles.cardHead}>
-							<div className={styles.cardName} style={{ color: s.accent }}>
-								{s.name}
-							</div>
-							<div className={styles.cardCount}>{s.dest} ↗</div>
-						</div>
-						<p className={styles.cardDesc}>{s.tagline}</p>
-					</Link>
-				))}
-			</div>
-		</section>
-	)
-}
-
 export default function Home(): ReactElement {
 	return (
 		<Layout
@@ -312,7 +281,7 @@ export default function Home(): ReactElement {
 				<Hero />
 				<Pillars />
 				<Modules />
-				<Siblings />
+				<Siblings self="@rtorcato/cf-common" />
 			</main>
 		</Layout>
 	)
