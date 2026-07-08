@@ -1,21 +1,14 @@
 import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
+import { projectFamilyItems } from '@rtorcato/shared-docs'
 
 // The @rtorcato open-source family. Surfaced as a navbar "Projects" dropdown
 // (Docusaurus renders navbar items in the mobile menu too) and in the footer,
-// so every sibling site cross-links to the rest. Keep in sync across repos.
+// so every sibling site cross-links to the rest. Sourced from the shared
+// @rtorcato/shared-docs package — the single place to edit the family.
 const GITHUB_PROFILE = 'https://github.com/rtorcato'
-const PROJECT_FAMILY = [
-	{ label: 'js-common', href: 'https://rtorcato.github.io/js-common/' },
-	{ label: 'api-common', href: 'https://rtorcato.github.io/api-common/' },
-	{ label: 'browser-common', href: 'https://rtorcato.github.io/browser-common/' },
-	{ label: 'db-common', href: 'https://rtorcato.github.io/db-common/' },
-	{ label: 'cf-common', href: 'https://rtorcato.github.io/cf-common/' },
-	{ label: 'react-common', href: 'https://github.com/rtorcato/react-common' },
-	{ label: 'swift-common', href: 'https://rtorcato.github.io/swift-common/' },
-	{ label: 'js-tooling', href: 'https://rtorcato.github.io/js-tooling/' },
-]
+const PROJECT_FAMILY = projectFamilyItems()
 
 // One typedoc plugin instance per subpath module. Each reads `../../src/<mod>`
 // directly (no build needed) and writes docs/api/<mod>/index.md, which
