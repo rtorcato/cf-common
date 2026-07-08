@@ -1,13 +1,12 @@
 import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
-import { projectFamilyItems } from '@rtorcato/shared-docs'
+import { copyright, GITHUB_PROFILE, projectFamilyItems } from '@rtorcato/shared-docs'
 
 // The @rtorcato open-source family. Surfaced as a navbar "Projects" dropdown
 // (Docusaurus renders navbar items in the mobile menu too) and in the footer,
 // so every sibling site cross-links to the rest. Sourced from the shared
 // @rtorcato/shared-docs package — the single place to edit the family.
-const GITHUB_PROFILE = 'https://github.com/rtorcato'
 const PROJECT_FAMILY = projectFamilyItems()
 
 // One typedoc plugin instance per subpath module. Each reads `../../src/<mod>`
@@ -169,7 +168,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: `Copyright © ${new Date().getFullYear()} Richard Torcato. Built with Docusaurus.`,
+			copyright: copyright(),
 		},
 		prism: {
 			theme: prismThemes.vsDark,
