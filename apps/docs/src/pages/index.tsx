@@ -2,7 +2,8 @@ import Link from '@docusaurus/Link'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import type { ReactElement } from 'react'
-import InstallTabs from '@site/src/components/InstallTabs'
+import InstallTabs from '@rtorcato/shared-docs/components/InstallTabs'
+import Siblings from '@rtorcato/shared-docs/components/Siblings'
 import styles from './index.module.css'
 
 /* ------------------------------------------------------------------ */
@@ -270,97 +271,6 @@ function Modules(): ReactElement {
 	)
 }
 
-type Sibling = {
-	name: string
-	tagline: string
-	href: string
-	dest: string
-	/** Each project's brand hue (brightened for the dark card), used to tint the card title. */
-	accent: string
-}
-
-const SIBLINGS: Sibling[] = [
-	{
-		name: '@rtorcato/api-common',
-		tagline:
-			'Framework-agnostic building blocks for Node.js APIs — errors, auth, rate limiting, OpenAPI, Express + Hono.',
-		href: 'https://rtorcato.github.io/api-common/',
-		dest: 'Docs',
-		accent: '#e879f9',
-	},
-	{
-		name: '@rtorcato/browser-common',
-		tagline:
-			'Tree-shakeable TypeScript wrappers around 40+ browser Web APIs — one subpath per spec.',
-		href: 'https://rtorcato.github.io/browser-common/',
-		dest: 'Docs',
-		accent: '#58a6ff',
-	},
-	{
-		name: '@rtorcato/js-common',
-		tagline: 'Tree-shakeable TypeScript utilities — tiny bundles, full type safety, CLI included.',
-		href: 'https://rtorcato.github.io/js-common/',
-		dest: 'Docs',
-		accent: '#f2cc60',
-	},
-	{
-		name: '@rtorcato/js-tooling',
-		tagline: 'Shared Biome, TypeScript and Vitest presets that power the @rtorcato/* family.',
-		href: 'https://rtorcato.github.io/js-tooling/',
-		dest: 'Docs',
-		accent: '#34d399',
-	},
-	{
-		name: '@rtorcato/db-common',
-		tagline: 'Shared, tree-shakeable TypeScript database utilities for Node projects.',
-		href: 'https://rtorcato.github.io/db-common/',
-		dest: 'Docs',
-		accent: '#a78bfa',
-	},
-	{
-		name: '@rtorcato/react-common',
-		tagline: 'Published React 19 component library — shared UI primitives.',
-		href: 'https://github.com/rtorcato/react-common',
-		dest: 'GitHub',
-		accent: '#818cf8',
-	},
-	{
-		name: '@rtorcato/swift-common',
-		tagline: 'SwiftUI package of reusable views and helpers to build apps faster.',
-		href: 'https://rtorcato.github.io/swift-common/',
-		dest: 'Docs',
-		accent: '#ff6f4d',
-	},
-]
-
-function Siblings(): ReactElement {
-	return (
-		<section className={styles.section}>
-			<div className={styles.sectionHead}>
-				<div>
-					<h2 className={styles.h2}>Sibling projects</h2>
-					<p className={styles.sub}>
-						More from <code>@rtorcato</code> — same conventions, same release pipeline.
-					</p>
-				</div>
-			</div>
-			<div className={styles.siblingGrid}>
-				{SIBLINGS.map((s) => (
-					<Link key={s.name} href={s.href} className={styles.card}>
-						<div className={styles.cardHead}>
-							<div className={styles.cardName} style={{ color: s.accent }}>
-								{s.name}
-							</div>
-							<div className={styles.cardCount}>{s.dest} ↗</div>
-						</div>
-						<p className={styles.cardDesc}>{s.tagline}</p>
-					</Link>
-				))}
-			</div>
-		</section>
-	)
-}
-
 export default function Home(): ReactElement {
 	return (
 		<Layout
@@ -371,7 +281,7 @@ export default function Home(): ReactElement {
 				<Hero />
 				<Pillars />
 				<Modules />
-				<Siblings />
+				<Siblings self="@rtorcato/cf-common" />
 			</main>
 		</Layout>
 	)
