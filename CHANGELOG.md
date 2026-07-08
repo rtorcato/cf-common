@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/rtorcato/cf-common/compare/v1.3.0...v1.4.0) (2026-07-08)
+
+
+### Features
+
+* http, turnstile, and cron modules ([#86](https://github.com/rtorcato/cf-common/issues/86)) ([4115c5a](https://github.com/rtorcato/cf-common/commit/4115c5a1e248822909a58e33381a2b68a35e9ed0)), closes [#33](https://github.com/rtorcato/cf-common/issues/33) [#24](https://github.com/rtorcato/cf-common/issues/24) [#28](https://github.com/rtorcato/cf-common/issues/28) [#33](https://github.com/rtorcato/cf-common/issues/33) [#24](https://github.com/rtorcato/cf-common/issues/24) [#28](https://github.com/rtorcato/cf-common/issues/28)
+
 # [1.3.0](https://github.com/rtorcato/cf-common/compare/v1.2.0...v1.3.0) (2026-07-07)
 
 
