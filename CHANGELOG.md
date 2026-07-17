@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/rtorcato/cf-common/compare/v1.4.0...v1.5.0) (2026-07-17)
+
+
+### Bug Fixes
+
+* **errors:** detect CloudflareError across bundle boundaries ([#101](https://github.com/rtorcato/cf-common/issues/101)) ([315a6ce](https://github.com/rtorcato/cf-common/commit/315a6cea9584b9210082596bdcb4902d292961ea)), closes [#67](https://github.com/rtorcato/cf-common/issues/67)
+
+
+### Features
+
+* **request:** typed request.cf + JSON body/auth parsing ([#99](https://github.com/rtorcato/cf-common/issues/99)) ([eab049b](https://github.com/rtorcato/cf-common/commit/eab049b8a7d4c88ec4860f92efff22a836bf1c92)), closes [#34](https://github.com/rtorcato/cf-common/issues/34)
+
 # [1.4.0](https://github.com/rtorcato/cf-common/compare/v1.3.0...v1.4.0) (2026-07-08)
 
 
