@@ -69,6 +69,10 @@
       "import": "./dist/http/index.js",
       "types": "./dist/http/index.d.ts"
     },
+    "./request": {
+      "import": "./dist/request/index.js",
+      "types": "./dist/request/index.d.ts"
+    },
     "./turnstile": {
       "import": "./dist/turnstile/index.js",
       "types": "./dist/turnstile/index.d.ts"

@@ -13,7 +13,7 @@ const PROJECT_FAMILY = projectFamilyItems()
 // directly (no build needed) and writes docs/api/<mod>/index.md, which
 // sidebars.ts links to by doc id. Add a module here when it ships — that's the
 // only edit needed; the API docs regenerate from source JSDoc on every build.
-const MODULES = ['errors', 'env', 'kv', 'r2', 'd1'] as const
+const MODULES = ['errors', 'env', 'kv', 'r2', 'd1', 'request'] as const
 
 const typedocPlugins = MODULES.map((mod) => [
 	'docusaurus-plugin-typedoc',
