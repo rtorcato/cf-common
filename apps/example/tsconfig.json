@@ -1,7 +1,7 @@
 {
 	"extends": "@rtorcato/js-tooling/typescript/base",
 	"compilerOptions": {
-		"ignoreDeprecations": "6.0",
+		"ignoreDeprecations": "5.0",
 		"baseUrl": ".",
 		"rootDir": "src",
 		"types": [
