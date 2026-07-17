@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/cf-common",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Typed TypeScript wrappers and helpers for working with Cloudflare bindings and APIs.",
   "type": "module",
   "scripts": {
@@ -10,6 +10,7 @@
     "check": "biome check .",
     "check:fix": "biome check --fix .",
     "test": "vitest",
+    "test:workers": "vitest run --config vitest.workers.config.ts",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",
+    "@cloudflare/vitest-pool-workers": "0.18.4",
     "@cloudflare/workers-types": "^4.20260626.1",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^21.2.0",
@@ -35,7 +37,8 @@
     "semantic-release": "^25.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.0"
+    "vitest": "^4.0.0",
+    "wrangler": "4.110.0"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
