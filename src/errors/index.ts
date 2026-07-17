@@ -29,9 +29,22 @@ export class CloudflareError extends Error {
 	}
 }
 
-/** Type guard for {@link CloudflareError}. */
+/**
+ * Type guard for {@link CloudflareError}. Structural, not just `instanceof`:
+ * tsup bundles each subpath entry separately, so a `CloudflareError` thrown by
+ * one module (e.g. `kv`) is a *different class object* from the one `http`'s
+ * `defineFetch` sees — `instanceof` across that boundary is `false`. Matching on
+ * `name` + `status` keeps the guard (and `defineFetch`'s status mapping) correct
+ * regardless of which bundle created the error.
+ */
 export function isCloudflareError(error: unknown): error is CloudflareError {
-	return error instanceof CloudflareError
+	if (error instanceof CloudflareError) return true
+	return (
+		error instanceof Error &&
+		error.name === 'CloudflareError' &&
+		typeof (error as CloudflareError).status === 'number' &&
+		typeof (error as CloudflareError).expose === 'boolean'
+	)
 }
 
 /**
