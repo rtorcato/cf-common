@@ -21,6 +21,7 @@ const sidebars: SidebarsConfig = {
 				{ type: 'doc', id: 'api/kv/index', label: 'kv' },
 				{ type: 'doc', id: 'api/r2/index', label: 'r2' },
 				{ type: 'doc', id: 'api/d1/index', label: 'd1' },
+				{ type: 'doc', id: 'api/request/index', label: 'request' },
 			],
 		},
 	],
