@@ -33,3 +33,29 @@ describe('toCloudflareError', () => {
 		expect(toCloudflareError(original)).toBe(original)
 	})
 })
+
+describe('isCloudflareError across bundle boundaries', () => {
+	// tsup bundles each subpath separately, so a CloudflareError thrown by one
+	// module is a different class object than another module's. Simulate that
+	// with a look-alike from a distinct class: `instanceof` fails, but the guard
+	// must still recognise it (else defineFetch mis-maps its status to 500).
+	class ForeignCloudflareError extends Error {
+		override name = 'CloudflareError'
+		status = 400
+		expose = true
+		code = 'INVALID_BODY'
+	}
+
+	it('recognises a structurally-identical error from another bundle', () => {
+		const foreign = new ForeignCloudflareError('bad body')
+		expect(foreign instanceof CloudflareError).toBe(false)
+		expect(isCloudflareError(foreign)).toBe(true)
+		expect(toCloudflareError(foreign).status).toBe(400)
+	})
+
+	it('does not match unrelated errors', () => {
+		expect(isCloudflareError(new Error('plain'))).toBe(false)
+		expect(isCloudflareError(new TypeError('nope'))).toBe(false)
+		expect(isCloudflareError({ name: 'CloudflareError', status: 400 })).toBe(false)
+	})
+})
