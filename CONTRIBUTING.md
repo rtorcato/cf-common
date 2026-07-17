@@ -19,7 +19,9 @@ automatic — `tsup` already globs `src/*/index.ts`):
 
 1. **Code** — `src/<mod>/index.ts` + `src/<mod>/index.test.ts`. Reuse
    `@rtorcato/js-common` for anything generic; only add the Cloudflare layer.
-   Throw `CloudflareError` (with a `code`) from `@/errors`.
+   Throw `CloudflareError` (with a `code`) from `@/errors`. If the module wraps
+   a real binding (KV/R2/D1/Queues/DO), add a `src/<mod>/index.workers.test.ts`
+   too — see **Testing** below.
 2. **Export** — add the `./<mod>` subpath to `exports` in `package.json`.
 3. **API docs** — add `'<mod>'` to `MODULES` in
    `apps/docs/docusaurus.config.ts` and a doc entry to the `API Reference`
@@ -30,9 +32,24 @@ automatic — `tsup` already globs `src/*/index.ts`):
    [milestone](https://github.com/rtorcato/cf-common/milestones).
 6. **Commit** — `feat(<mod>): …`. The release and docs deploy run on merge.
 
+## Testing
+
+Two runners, split by what a test needs:
+
+- **Node runner** (`pnpm test`, `vitest.config.ts`) — the default for pure logic:
+  JSON (de)serialization, header parsing, error mapping. Fast; mock `fetch` or
+  build a synthetic `Request`. Files: `*.test.ts`.
+- **Workers pool** (`pnpm test:workers`, `vitest.workers.config.ts`) — for code
+  that touches a real binding. It runs on workerd + Miniflare, so KV/R2/D1
+  behave for real (TTL, list pagination, SQL). Files: `*.workers.test.ts`; get
+  the binding from `import { env } from 'cloudflare:test'` (declared in
+  `src/cloudflare-test.d.ts`, add bindings there). `src/kv/index.workers.test.ts`
+  is the reference to copy.
+
 ## Local checks
 
 ```sh
-pnpm verify   # typecheck + biome + tests — run before pushing
-pnpm build    # tsup → dist/ (ESM, per-module subpaths)
+pnpm verify         # typecheck + biome + node tests — run before pushing
+pnpm test:workers   # binding tests on workerd + Miniflare
+pnpm build          # tsup → dist/ (ESM, per-module subpaths)
 ```
