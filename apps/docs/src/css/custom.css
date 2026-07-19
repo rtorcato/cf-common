@@ -217,6 +217,7 @@ body,
 /* ---------- Footer ---------- */
 .footer,
 .footer--dark {
+	margin-top: 4rem;
 	--ifm-footer-background-color: var(--jc-bg2);
 	--ifm-footer-color: var(--jc-text);
 	--ifm-footer-link-color: var(--jc-text);
