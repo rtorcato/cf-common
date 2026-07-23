@@ -36,7 +36,7 @@
     "lint-staged": "^17.0.8",
     "semantic-release": "^25.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.0.0",
     "wrangler": "4.110.0"
   },
