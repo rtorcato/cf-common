@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/rtorcato/cf-common/compare/v1.5.0...v1.5.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **release:** upgrade npm for OIDC trusted publishing ([#108](https://github.com/rtorcato/cf-common/issues/108)) ([9e3080f](https://github.com/rtorcato/cf-common/commit/9e3080f062a86178d10865c02ea85a3ddc1308a7))
+
 # [1.5.0](https://github.com/rtorcato/cf-common/compare/v1.4.0...v1.5.0) (2026-07-17)
 
 
