@@ -1,1 +1,1 @@
-export { default } from '@rtorcato/js-tooling/semantic-release/github'
+export { default } from '@rtorcato/repo-tooling/semantic-release/github'
