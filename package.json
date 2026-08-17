@@ -23,7 +23,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.2",
     "@cloudflare/vitest-pool-workers": "0.18.4",
-    "@cloudflare/workers-types": "^4.20260626.1",
+    "@cloudflare/workers-types": "^5.20260723.1",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^21.2.0",
     "@rtorcato/js-tooling": "latest",
