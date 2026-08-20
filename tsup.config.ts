@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsup'
 
-// ponytail: inlined instead of extending @rtorcato/js-tooling/tsup. js-tooling now
+// ponytail: inlined instead of extending @rtorcato/repo-tooling/tsup. It now
 // ships compiled .mjs (the old type-stripping blocker is gone), but its base sets
 // bundle:false + format ['cjs','esm'] + splitting, which diverge from this package's
 // ESM-only, multi-entry subpath build. Re-extend only after diffing dist output.

@@ -1,5 +1,5 @@
 {
-  "extends": "@rtorcato/js-tooling/typescript/base",
+  "extends": "@rtorcato/repo-tooling/typescript/base",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

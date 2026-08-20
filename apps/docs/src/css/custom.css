@@ -5,8 +5,8 @@
  * prefix shared across the family — they hold orange values here.
  *
  * Consumes the shared @rtorcato base tokens (Geist font + navy surfaces) from
- * js-tooling via _jt-tokens.css (refresh with
- * `js-tooling copy docusaurus-theme-tokens`); the Cloudflare-orange accent
+ * repo-tooling via _jt-tokens.css (refresh with
+ * `repo-tooling copy docusaurus-theme-tokens`); the Cloudflare-orange accent
  * overrides below win.
  *
  * ponytail: the local --jc-* surface tokens still mirror the shared --jt-*

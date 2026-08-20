@@ -1,1 +1,1 @@
-export { default } from '@rtorcato/js-tooling/commitlint/config'
+export { default } from '@rtorcato/repo-tooling/commitlint/config'
