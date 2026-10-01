@@ -9,7 +9,7 @@ export type Env = Record<string, unknown>
 /**
  * Read a binding (KV, R2, D1, queue, service, Durable Object, …) from `env` by
  * name. Throws a non-exposed 500 when it's missing — a missing binding is a
- * deploy-time misconfiguration (a forgotten `wrangler.toml` entry), never a
+ * deploy-time misconfiguration (a forgotten binding in `wrangler.jsonc` / `cloudflare.config.ts`), never a
  * client error.
  *
  * @example
