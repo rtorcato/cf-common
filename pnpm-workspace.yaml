@@ -6,3 +6,6 @@ allowBuilds:
   esbuild: true
   workerd: true
   sharp: false
+
+minimumReleaseAgeExclude:
+  - '@rtorcato/repo-tooling@5.1.4'
