@@ -47,3 +47,4 @@ coverage/
 
 # Wrangler / Miniflare local state
 .wrangler/
+.claude/ai-loop-status
