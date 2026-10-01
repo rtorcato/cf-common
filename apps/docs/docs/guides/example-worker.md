@@ -90,6 +90,42 @@ export default defineFetch<Env>(async (req, env) => {
 See the [full source](https://github.com/rtorcato/cf-common/tree/main/apps/example/src/index.ts)
 for the `/r2` and `/d1` routes and the friendly missing-binding guards.
 
+## Generated `Env` types
+
+The example hand-writes its `Env` interface. You can generate it from your
+config instead.
+
+**wrangler**: `wrangler types` writes `worker-configuration.d.ts`.
+
+**`cf` (beta)**: the new [`cf` CLI](https://www.npmjs.com/package/cf) writes the
+same kind of global `Env` interface to `.cloudflare/types/index.d.ts`:
+
+```bash
+cf workers types
+```
+
+Make sure your `tsconfig.json` `include` picks up that file. `cf` is still in
+beta, so the example keeps `wrangler.jsonc` for now.
+
+Either way, a generated `Env` is an interface with no index signature, so add
+one before you pass it to the cf-common helpers. With that in place, use the
+generated types as the generic for `getBinding`:
+
+```ts
+import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
+import { defineFetch } from '@rtorcato/cf-common/http'
+
+// `Env` is the generated global type, so there is nothing to import.
+type WorkerEnv = Env & Record<string, unknown>
+
+export default defineFetch<WorkerEnv>(async (_req, env) => {
+  const kv = getBinding<Env['KV']>(env, 'KV') // typed as KVNamespace
+  const greeting = requireEnv(env, 'GREETING') // string, or a 500 if unset
+  await kv.put('greeting', greeting)
+  return Response.json({ greeting })
+})
+```
+
 ## Connecting to a real account
 
 You only need Cloudflare credentials to run against real resources or deploy:
