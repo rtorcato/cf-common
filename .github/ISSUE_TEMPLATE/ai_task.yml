@@ -1,0 +1,27 @@
+name: AI task
+description: A scoped task for the ai-loop pipeline (a maintainer adds the ai-ready label)
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What should change, and why?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: A checklist the PR must satisfy to be considered done.
+      placeholder: |
+        - [ ] ...
+        - [ ] Tests cover the new behavior
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Out of scope
+      description: Anything the agent should not touch.
+    validations:
+      required: false
