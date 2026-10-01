@@ -1,6 +1,6 @@
 {
   "name": "@rtorcato/cf-common",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Typed TypeScript wrappers and helpers for working with Cloudflare bindings and APIs.",
   "type": "module",
   "scripts": {
@@ -26,7 +26,7 @@
     "@cloudflare/workers-types": "^4.20260626.1",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^21.2.0",
-    "@rtorcato/js-tooling": "latest",
+    "@rtorcato/repo-tooling": "^3.7.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
