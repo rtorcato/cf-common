@@ -1,29 +1,38 @@
 {
-  "$schema": "https://rtorcato.github.io/repo-tooling/schemas/lockfile.json",
-  "version": 1,
-  "config": {
-    "linting": {
-      "tool": "biome"
+  "$schema": "https://docs.torcato.dev/repo-tooling/schemas/lockfile.json",
+  "version": 4,
+  "record": {
+    "config": {
+      "language": "js",
+      "linting": {
+        "tool": "biome"
+      },
+      "formatting": {
+        "tool": "biome"
+      },
+      "testing": {
+        "framework": "vitest",
+        "environment": "node"
+      },
+      "gitHooks": true,
+      "commitLint": true,
+      "semanticRelease": true,
+      "securityAutomation": true,
+      "projectName": "cf-common",
+      "projectType": "library",
+      "typescript": {
+        "enabled": true,
+        "config": "base"
+      },
+      "bundler": "tsup"
     },
-    "formatting": {
-      "tool": "biome"
-    },
-    "testing": {
-      "framework": "vitest",
-      "environment": "node"
-    },
-    "gitHooks": true,
-    "commitLint": true,
-    "semanticRelease": true,
-    "securityAutomation": true,
-    "projectName": "cf-common",
-    "projectType": "library",
-    "typescript": {
-      "enabled": true,
-      "config": "base"
-    },
-    "bundler": "tsup"
+    "writtenBy": "@rtorcato/repo-tooling@5.1.4",
+    "writtenAt": "2026-10-01T14:16:32.865Z"
   },
-  "writtenBy": "@rtorcato/js-tooling@2.19.0",
-  "writtenAt": "2026-06-27T15:26:16.703Z"
+  "rules": {
+    "mcp": {
+      "recommended": []
+    },
+    "exceptions": {}
+  }
 }
