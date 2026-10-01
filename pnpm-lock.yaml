@@ -110,8 +110,8 @@ importers:
         specifier: ^1.60.0
         version: 1.61.1
       '@rtorcato/shared-docs':
-        specifier: ^1.4.2
-        version: 1.5.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: ^1.7.0
+        version: 1.11.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.17
@@ -3091,12 +3091,18 @@ packages:
       vitest:
         optional: true
 
-  '@rtorcato/shared-docs@1.5.0':
-    resolution: {integrity: sha512-rQIeG+JMT3C39fQtvYJVAUoUr9w4prDAgtO8x4nSM2pqoHt/ut1v3fAa24TK16C0+/d0QpWVMsaF+z1XoqNxCA==}
+  '@rtorcato/shared-docs@1.11.0':
+    resolution: {integrity: sha512-+2pvB623rEGVSGemammFAQ+/VwZwlgHZmxtgV4jo1RcuEVsl0tOMeoQw9oC5hGtMveNC8jjJ8dcIQarQwxdxTQ==}
     engines: {node: '>=22'}
+    hasBin: true
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -12241,8 +12247,8 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/shared-docs@1.5.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
-    dependencies:
+  '@rtorcato/shared-docs@1.11.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+    optionalDependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
