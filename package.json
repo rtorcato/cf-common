@@ -36,7 +36,7 @@
     "@cloudflare/workers-types": "^4.20260626.1",
     "@commitlint/cli": "^20.0.0",
     "@commitlint/config-conventional": "^21.2.0",
-    "@rtorcato/repo-ai": "^3.1.2",
+    "@rtorcato/repo-ai": "^3.2.0",
     "@rtorcato/repo-tooling": "^5.1.4",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
