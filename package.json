@@ -2,6 +2,16 @@
   "name": "@rtorcato/cf-common",
   "version": "1.5.1",
   "description": "Typed TypeScript wrappers and helpers for working with Cloudflare bindings and APIs.",
+  "license": "MIT",
+  "author": "Richard Torcato",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtorcato/cf-common.git"
+  },
+  "homepage": "https://github.com/rtorcato/cf-common#readme",
+  "bugs": {
+    "url": "https://github.com/rtorcato/cf-common/issues"
+  },
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
