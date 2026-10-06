@@ -1,3 +1,10 @@
+<!-- brand-kit:banner:start -->
+<picture>
+  <source media="(max-width: 640px)" srcset="./brand/banner-mobile.png">
+  <img src="./brand/banner.png" alt="cf-common banner" width="1600">
+</picture>
+<!-- brand-kit:banner:end -->
+
 # cf-common
 
 [![npm](https://img.shields.io/npm/v/@rtorcato/cf-common.svg)](https://www.npmjs.com/package/@rtorcato/cf-common)
@@ -71,6 +78,16 @@ More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers
 AI, …). See the [milestones](https://github.com/rtorcato/cf-common/milestones)
 for the roadmap, or the
 [Beta milestone](https://github.com/rtorcato/cf-common/milestone/1) for what's next.
+
+## Agent skill
+
+This repo ships an agent skill (`skills/cf-common/SKILL.md`) that teaches coding
+agents the subpath imports, the `CloudflareError` / `defineFetch` error contract,
+and each module's API. Install it in one command, straight from GitHub:
+
+```sh
+npx skills add https://github.com/rtorcato/cf-common --skill cf-common
+```
 
 ## Documentation
 

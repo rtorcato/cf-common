@@ -73,6 +73,16 @@ const config: Config = {
 				crossorigin: 'anonymous',
 			},
 		},
+		{
+			// iOS home-screen icon — Docusaurus only emits the `favicon` link.
+			// headTags hrefs are raw, so the baseUrl prefix is hardcoded.
+			tagName: 'link',
+			attributes: {
+				rel: 'apple-touch-icon',
+				sizes: '512x512',
+				href: '/cf-common/img/favicon-512.png',
+			},
+		},
 	],
 
 	presets: [
@@ -109,12 +119,17 @@ const config: Config = {
 	] as Config['plugins'],
 
 	themeConfig: {
+		// og:image / twitter:card for every page. Relative to static/; Docusaurus
+		// makes it absolute against `url` + `baseUrl`, which scrapers need.
+		image: 'img/social-card.png',
 		colorMode: {
 			defaultMode: 'dark',
 			respectPrefersColorScheme: true,
 		},
 		navbar: {
 			title: 'cf-common',
+			// Same mark as the favicon and the README banner.
+			logo: { alt: 'cf-common', src: 'img/favicon.svg' },
 			items: [
 				{ to: '/docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/guides/getting-started', position: 'left', label: 'Getting started' },
@@ -123,6 +138,11 @@ const config: Config = {
 					label: 'Projects',
 					position: 'left',
 					items: [{ label: 'All on GitHub →', href: GITHUB_PROFILE }, ...PROJECT_FAMILY],
+				},
+				{
+					href: 'https://www.npmjs.com/package/@rtorcato/cf-common',
+					label: 'npm',
+					position: 'right',
 				},
 				{
 					href: 'https://github.com/rtorcato/cf-common',
@@ -170,8 +190,9 @@ const config: Config = {
 			],
 			copyright: copyright(),
 		},
+		// `theme` is the LIGHT-mode Prism theme, `darkTheme` the dark one (#113).
 		prism: {
-			theme: prismThemes.vsDark,
+			theme: prismThemes.vsLight,
 			darkTheme: prismThemes.vsDark,
 			additionalLanguages: ['bash', 'json', 'typescript'],
 		},
