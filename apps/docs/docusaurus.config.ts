@@ -140,6 +140,11 @@ const config: Config = {
 					items: [{ label: 'All on GitHub →', href: GITHUB_PROFILE }, ...PROJECT_FAMILY],
 				},
 				{
+					href: 'https://www.npmjs.com/package/@rtorcato/cf-common',
+					label: 'npm',
+					position: 'right',
+				},
+				{
 					href: 'https://github.com/rtorcato/cf-common',
 					label: 'GitHub',
 					position: 'right',
