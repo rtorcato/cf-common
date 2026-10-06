@@ -17,26 +17,20 @@ updates:
       prefix: chore
       include: scope
     groups:
-      # Runtime minor/patch. Grouped so react/react-dom move together, but NOT
-      # auto-merged — these ship to consumers of a published package, so they
-      # get a human (see the dependabot-automerge workflow).
+      # Runtime minor/patch. These ship to consumers of the published package.
       production-minor:
         dependency-type: production
         update-types:
           - minor
           - patch
-      # The tier that can auto-merge on green. "development" is Dependabot's
-      # classification, not a safety property: a package listed in both
-      # devDependencies and peerDependencies lands here, and peer deps are part
-      # of a published package's contract (#458). The auto-merge workflow
-      # re-checks every name against the manifests rather than trusting this.
+      # Dev-only minor/patch. "development" is Dependabot's classification: a
+      # package listed in both devDependencies and peerDependencies lands here too.
       dev-minor:
         dependency-type: development
         update-types:
           - minor
           - patch
-      # Majors batch into one PR per ecosystem — breaking by definition, so
-      # never auto-merged; triaged on the monthly cadence.
+      # Majors batch into one PR per ecosystem, triaged on the monthly cadence.
       major-updates:
         update-types:
           - major
