@@ -72,6 +72,16 @@ AI, …). See the [milestones](https://github.com/rtorcato/cf-common/milestones)
 for the roadmap, or the
 [Beta milestone](https://github.com/rtorcato/cf-common/milestone/1) for what's next.
 
+## Agent skill
+
+This repo ships an agent skill (`skills/cf-common/SKILL.md`) that teaches coding
+agents the subpath imports, the `CloudflareError` / `defineFetch` error contract,
+and each module's API. Install it in one command, straight from GitHub:
+
+```sh
+npx skills add https://github.com/rtorcato/cf-common --skill cf-common
+```
+
 ## Documentation
 
 Full docs and the per-module API reference live at
