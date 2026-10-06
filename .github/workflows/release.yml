@@ -1,0 +1,58 @@
+name: 🚀 Release
+
+# On demand only, never per merge (#740): a dispatch (hotfix, ad hoc) or a
+# closed milestone ("ship this batch").
+on:
+  workflow_dispatch:
+  milestone:
+    types: [closed]
+
+# A newer request supersedes an older one still waiting for approval (#753).
+concurrency:
+  group: release
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # npm's trusted publisher is pinned to this workflow *and* this environment;
+    # without it the OIDC exchange 404s (rtorcato/browser-common#194).
+    environment: release
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref || github.event.repository.default_branch }}
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔧 Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # OIDC trusted publishing needs npm CLI >= 11.5.1; the runner ships 10.x.
+      - name: 📦 Upgrade npm for OIDC trusted publishing
+        run: npm install -g npm@latest
+
+      - name: 🚀 Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
