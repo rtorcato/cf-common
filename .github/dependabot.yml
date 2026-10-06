@@ -21,6 +21,3 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore(ci)"
-    auto-merge:
-      enabled: true
-      ignore-incompatible-updates: true

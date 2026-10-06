@@ -38,7 +38,6 @@
     "@commitlint/config-conventional": "^21.2.3",
     "@rtorcato/repo-ai": "^3.5.1",
     "@rtorcato/repo-tooling": "^5.5.1",
-    "@rtorcato/shared-docs": "^1.13.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
@@ -50,7 +49,7 @@
     "tsup": "^8.0.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.0",
-    "wrangler": "4.144.0"
+    "wrangler": "4.110.0"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
