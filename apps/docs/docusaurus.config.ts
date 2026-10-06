@@ -73,6 +73,16 @@ const config: Config = {
 				crossorigin: 'anonymous',
 			},
 		},
+		{
+			// iOS home-screen icon — Docusaurus only emits the `favicon` link.
+			// headTags hrefs are raw, so the baseUrl prefix is hardcoded.
+			tagName: 'link',
+			attributes: {
+				rel: 'apple-touch-icon',
+				sizes: '512x512',
+				href: '/cf-common/img/favicon-512.png',
+			},
+		},
 	],
 
 	presets: [
@@ -109,12 +119,17 @@ const config: Config = {
 	] as Config['plugins'],
 
 	themeConfig: {
+		// og:image / twitter:card for every page. Relative to static/; Docusaurus
+		// makes it absolute against `url` + `baseUrl`, which scrapers need.
+		image: 'img/social-card.png',
 		colorMode: {
 			defaultMode: 'dark',
 			respectPrefersColorScheme: true,
 		},
 		navbar: {
 			title: 'cf-common',
+			// Same mark as the favicon and the README banner.
+			logo: { alt: 'cf-common', src: 'img/favicon.svg' },
 			items: [
 				{ to: '/docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/guides/getting-started', position: 'left', label: 'Getting started' },
