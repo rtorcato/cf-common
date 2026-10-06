@@ -190,8 +190,9 @@ const config: Config = {
 			],
 			copyright: copyright(),
 		},
+		// `theme` is the LIGHT-mode Prism theme, `darkTheme` the dark one (#113).
 		prism: {
-			theme: prismThemes.vsDark,
+			theme: prismThemes.vsLight,
 			darkTheme: prismThemes.vsDark,
 			additionalLanguages: ['bash', 'json', 'typescript'],
 		},
