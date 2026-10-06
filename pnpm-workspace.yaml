@@ -8,4 +8,4 @@ allowBuilds:
   sharp: false
 
 minimumReleaseAgeExclude:
-  - '@rtorcato/repo-tooling@5.1.4'
+  - '@rtorcato/repo-tooling@5.1.4 || 5.5.3'
