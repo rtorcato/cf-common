@@ -47,7 +47,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `env` | `getBinding<T>`, `requireEnv`, `getEnv`, type `Env` | Missing binding or var → non-exposed 500 |
 | `kv` | `createKvStore<T>(ns)` → `get`/`put`/`delete`/`list` | Values are JSON. `get` returns `null` when missing. `put(key, value, { ttl?, expiration?, metadata? })`. Invalid JSON throws `KV_PARSE_FAILED` |
 | `r2` | `createR2Store<T>(bucket)` → `get`/`getJSON`/`put`/`putJSON`/`head`/`delete`/`list`. `multipartUpload(bucket, key, parts, options?)` | `putJSON` sets `application/json`. `getJSON` on invalid JSON throws `R2_PARSE_FAILED`. Multipart aborts on failure (`R2_MULTIPART_FAILED`), and every part except the last must be ≥ 5 MiB |
-| `d1` | `query<T>`, `queryFirst<T>`, `execute`, `batch`, `runMigrations` | Parameters are variadic: `query(db, sql, ...params)`. `batch(db, [{ sql, params }])` is atomic |
+| `d1` | `query<T>`, `queryFirst<T>`, `execute`, `batch`, `runMigrations` | Parameters are variadic: `query(db, sql, ...params)`. `batch(db, [{ sql, params }])` is atomic. A failing migration throws `D1_MIGRATION_FAILED` |
 | `http` | `defineFetch`, `errorResponse`, `error`, `corsHeaders`, `withCors`, `preflight` | CORS defaults are permissive (`*`), so set `origin` in production |
 | `request` | `cf`, `parseJson`, `bearerToken`, `clientIp` | `cf(request)` is `undefined` in local dev without `--remote` and in tests. `bearerToken` returns `null` if the header is missing or malformed |
 | `turnstile` | `verifyTurnstile`, `assertTurnstile` | `verify…` returns the result, so check `.success`. `assert…` throws a 403 whose `code` is Turnstile's first error code. A failed HTTP call throws 502 `TURNSTILE_HTTP_ERROR` |
