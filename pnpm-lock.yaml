@@ -31,8 +31,8 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1(@types/node@24.13.2)
       '@rtorcato/repo-tooling':
-        specifier: ^5.5.1
-        version: 5.5.2(af5c83235a37679aafdf91008a2c6efb)
+        specifier: ^5.5.3
+        version: 5.5.3(af5c83235a37679aafdf91008a2c6efb)
       '@semantic-release/changelog':
         specifier: ^6.0.3
         version: 6.0.3(semantic-release@25.0.9(supports-color@10.2.2)(typescript@5.9.3))
@@ -2994,8 +2994,8 @@ packages:
     engines: {node: '>=22'}
     hasBin: true
 
-  '@rtorcato/repo-tooling@5.5.2':
-    resolution: {integrity: sha512-Ci1/5hkUhiJr44hIZF0humqRmfREW3HYcFOC5D6dERk9HxVeUywdzLixBfpM+U2nvItv7OILAc/Lc974IrSZIQ==}
+  '@rtorcato/repo-tooling@5.5.3':
+    resolution: {integrity: sha512-qgdFQgl/UgJHbv/TTkQM3bTODsRTYVPkEDQNSS3mbe0QywtcySuN328zE/FW6fAwAoNkqhYjciFUlF6TMa33vA==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -3014,13 +3014,13 @@ packages:
       '@semantic-release/github': ^12.0.10
       '@semantic-release/npm': ^13.0.0
       '@semantic-release/release-notes-generator': ^14.0.0
-      '@size-limit/preset-small-lib': ^12.0.0
+      '@size-limit/preset-small-lib': ^12.0.0 || ^13.0.0 || ^14.0.0
       '@total-typescript/ts-reset': ^0.6.0
       '@typescript-eslint/eslint-plugin': ^8.0.0
       '@typescript-eslint/parser': ^8.0.0
       conventional-changelog-conventionalcommits: ^9.0.0
       esbuild: ^0.25.0 || ^0.27.0 || ^0.28.0
-      esbuild-node-externals: ^1.0.0
+      esbuild-node-externals: ^1.0.0 || ^2.0.0
       eslint: '>=9.0.0'
       eslint-plugin-import: ^2.0.0
       eslint-plugin-jest: ^29.0.0
@@ -3028,7 +3028,7 @@ packages:
       prettier: ^3.0.0
       rollup: ^4.0.0
       semantic-release: ^25.0.0
-      size-limit: ^12.0.0
+      size-limit: ^12.0.0 || ^13.0.0 || ^14.0.0
       ts-jest: ^29.0.0
       tslib: ^2.0.0
       tsup: ^8.0.0
@@ -12418,7 +12418,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/repo-tooling@5.5.2(af5c83235a37679aafdf91008a2c6efb)':
+  '@rtorcato/repo-tooling@5.5.3(af5c83235a37679aafdf91008a2c6efb)':
     dependencies:
       chalk: 6.0.1
       commander: 15.0.0
@@ -18338,7 +18338,7 @@ snapshots:
   vite@8.1.0(@types/node@24.13.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.51.2)(yaml@2.9.1):
     dependencies:
       lightningcss: 1.32.0
-      picomatch: 4.0.5
+      picomatch: 4.0.7
       postcss: 8.5.16
       rolldown: 1.1.4
       tinyglobby: 0.2.17

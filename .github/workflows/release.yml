@@ -7,17 +7,44 @@ on:
   milestone:
     types: [closed]
 
-# A newer request supersedes an older one still waiting for approval (#753).
-concurrency:
-  group: release
-  cancel-in-progress: true
-
 jobs:
-  release:
+  # Is an approved release already publishing? Then this request must queue
+  # behind it, not cancel it mid-publish (#790). One still waiting for approval
+  # has published nothing, so superseding that one is safe (#753).
+  in-flight:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    outputs:
+      publishing: ${{ steps.check.outputs.publishing }}
+    steps:
+      - name: 🔎 Check for a release already publishing
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          publishing=false
+          # A run waiting for approval is `waiting`, not `in_progress`.
+          for run in $(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/release.yml/runs?status=in_progress" --jq ".workflow_runs[] | select(.id != $GITHUB_RUN_ID) | .id"); do
+            if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run/jobs" --jq '.jobs[] | select(.status == "in_progress" and .name != "in-flight") | .name' | grep -q .; then
+              publishing=true
+            fi
+          done
+          echo "publishing=$publishing" >> "$GITHUB_OUTPUT"
+          if [ "$publishing" = true ]; then
+            echo "::notice::A release is already publishing; this one runs after it."
+          fi
+
+  release:
+    needs: in-flight
+    # Supersede a run still waiting for approval, never one publishing (#753, #790).
+    concurrency:
+      group: release
+      cancel-in-progress: ${{ needs.in-flight.outputs.publishing != 'true' }}
     # npm's trusted publisher is pinned to this workflow *and* this environment;
     # without it the OIDC exchange 404s (rtorcato/browser-common#194).
     environment: release
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       issues: write
@@ -27,14 +54,22 @@ jobs:
       - name: 📦 Checkout repository
         uses: actions/checkout@v7
         with:
+          # The tip, not the event's SHA: the job starts after approval, and
+          # semantic-release refuses a checkout the branch has moved past. A
+          # dispatch releases the branch it ran from — dispatch from a prerelease
+          # branch (e.g. beta) to cut a prerelease; a closed milestone releases
+          # the default branch.
           ref: ${{ github.event_name == 'workflow_dispatch' && github.ref || github.event.repository.default_branch }}
           fetch-depth: 0
+          # RELEASE_TOKEN (admin PAT) lets semantic-release push the version
+          # commit + tag to a protected main; GITHUB_TOKEN can't bypass branch
+          # protection. Falls back to GITHUB_TOKEN when no PAT is set.
           token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
           registry-url: 'https://registry.npmjs.org'
 
       - name: 📦 Setup pnpm
@@ -43,16 +78,40 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: 🏗️ Build project
+        run: pnpm build
+
+      - name: 🧪 Run tests
+        run: pnpm test
+
       - name: 🔧 Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # OIDC trusted publishing needs npm CLI >= 11.5.1; the runner ships 10.x.
+      # OIDC trusted publishing needs npm >= 11.5.1; Node 22 bundles npm 10, whose
+      # `npm publish` fails with ENEEDAUTH. Pinned to a range, not `latest`, so a
+      # future npm major can't change publishing unannounced.
       - name: 📦 Upgrade npm for OIDC trusted publishing
-        run: npm install -g npm@latest
+        run: npm install -g npm@^11.5.1
 
       - name: 🚀 Run semantic-release
+        # Publishes to npm via OIDC trusted publishing — no NPM_TOKEN. Requires
+        # the `id-token: write` permission above + a trusted publisher configured
+        # for the package on npmjs.com (Settings → Trusted Publisher, workflow
+        # release.yml).
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: |
+          set -o pipefail
+          npx semantic-release 2>&1 | tee release.log
+          # semantic-release exits 0 when main moved on since this run started,
+          # publishing nothing (#690). Say so instead of going quietly green.
+          # "No relevant changes" is a clean no-op, not this case.
+          if grep -q "is behind the remote one" release.log; then
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              echo "::warning::main moved on during this run; nothing was published. Run the workflow again."
+            else
+              echo "::warning::main moved on; nothing was published. Re-run via workflow_dispatch."
+            fi
+          fi
