@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.5.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
   "extends": ["@rtorcato/repo-tooling/biome"],
   // Respect .gitignore so generated, ignored output (dist, build,
   // apps/docs/docs/api typedoc files) isn't linted from a single source of truth.
