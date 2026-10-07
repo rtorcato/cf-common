@@ -1,7 +1,6 @@
 {
   "extends": "@rtorcato/repo-tooling/typescript/base",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"

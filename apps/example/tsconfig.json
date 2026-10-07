@@ -2,7 +2,6 @@
 	"extends": "@rtorcato/repo-tooling/typescript/base",
 	"compilerOptions": {
 		"ignoreDeprecations": "5.0",
-		"baseUrl": ".",
 		"rootDir": "src",
 		"types": [
 			"@cloudflare/workers-types"
