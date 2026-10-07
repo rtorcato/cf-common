@@ -8,7 +8,8 @@ export default defineConfig({
 	// One entry per module → one subpath export. The runtime is workerd, so ESM only.
 	entry: ['src/index.ts', 'src/*/index.ts'],
 	format: ['esm'],
-	dts: true,
+	// tsup injects the TS 6-deprecated `baseUrl` into its dts build (via the pnpmfile's TS 6 copy).
+	dts: { compilerOptions: { ignoreDeprecations: '6.0' } },
 	clean: true,
 	splitting: false,
 	sourcemap: true,

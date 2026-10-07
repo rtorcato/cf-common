@@ -34,7 +34,7 @@
     "@biomejs/biome": "^2.5.14",
     "@cloudflare/vitest-pool-workers": "0.18.4",
     "@cloudflare/workers-types": "^5.20261003.1",
-    "@commitlint/cli": "^20.0.0",
+    "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@rtorcato/repo-ai": "^3.5.1",
     "@rtorcato/repo-tooling": "^5.5.3",
@@ -47,9 +47,9 @@
     "lint-staged": "^17.6.0",
     "semantic-release": "^25.0.9",
     "tsup": "^8.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.0.0",
-    "wrangler": "4.110.0"
+    "wrangler": "4.147.0"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
