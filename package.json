@@ -49,7 +49,7 @@
     "tsup": "^8.0.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.0",
-    "wrangler": "4.110.0"
+    "wrangler": "4.147.0"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
