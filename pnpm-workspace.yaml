@@ -7,5 +7,7 @@ allowBuilds:
   workerd: true
   sharp: false
 
+verifyDepsBeforeRun: false
+
 minimumReleaseAgeExclude:
-  - '@rtorcato/repo-tooling@5.1.4 || 5.5.3'
+  - '@rtorcato/*'
