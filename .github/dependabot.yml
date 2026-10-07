@@ -1,18 +1,44 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    versioning-strategy: "increase"
+      interval: monthly
+      time: "06:00"
+      timezone: Etc/UTC
+    # Let brand-new releases settle before opening a PR — keeps grouped bumps
+    # from tripping pnpm's minimumReleaseAge supply-chain check (a same-day
+    # release fails the frozen-lockfile install in CI).
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
     commit-message:
-      prefix: "chore(deps)"
-      include: "scope"
+      prefix: chore
+      include: scope
+    groups:
+      # Runtime minor/patch. These ship to consumers of the published package.
+      production-minor:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      # Dev-only minor/patch. "development" is Dependabot's classification: a
+      # package listed in both devDependencies and peerDependencies lands here too.
+      dev-minor:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      # Majors batch into one PR per ecosystem, triaged on the monthly cadence.
+      major-updates:
+        update-types:
+          - major
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
+      interval: monthly
     commit-message:
-      prefix: "chore(ci)"
+      prefix: ci
+      include: scope
