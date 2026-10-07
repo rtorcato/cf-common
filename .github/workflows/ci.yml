@@ -181,6 +181,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    # Gates every publish on the `release` environment's required reviewers.
+    environment: release
     needs: [dependencies, lint, typecheck, test, build, check-skip]
     if: needs.check-skip.outputs.should-skip != 'true' && github.ref == 'refs/heads/main'
     permissions:
