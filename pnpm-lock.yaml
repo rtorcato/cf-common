@@ -132,6 +132,9 @@ importers:
       typedoc:
         specifier: ^0.28.20
         version: 0.28.20
+      typedoc-plugin-frontmatter:
+        specifier: ^1.3.1
+        version: 1.3.2(typedoc-plugin-markdown@4.12.0(typedoc@0.28.20))(typedoc@0.28.20)
       typedoc-plugin-markdown:
         specifier: ^4.12.0
         version: 4.12.0(typedoc@0.28.20)
@@ -913,6 +916,7 @@ packages:
 
   '@cloudflare/vitest-pool-workers@0.18.4':
     resolution: {integrity: sha512-jOXvyLoR2b8jFvo3tX+mWxXXwcZ+PbId3d7vGFtZsuKakmDjKSeIq4o/sQjkqNv6q3XacIKSCAvfM8TfkPyrEw==}
+    deprecated: '@cloudflare/vitest-pool-workers has been renamed to @cloudflare/vitest-plugin. This package will not receive future updates.'
     peerDependencies:
       '@vitest/runner': ^4.1.0
       '@vitest/snapshot': ^4.1.0
@@ -8473,6 +8477,13 @@ packages:
     resolution: {integrity: sha512-i9YYDcScLD0WUiX8I+LXHX3ZVvRDlJsmRo9l/uWrFT37cHlMz4Ay0GOnWzHUBnnwAo1uzYOw9RjUXznbWozBEA==}
     peerDependencies:
       typedoc-plugin-markdown: '>=4.8.0'
+
+  typedoc-plugin-frontmatter@1.3.2:
+    resolution: {integrity: sha512-9fZmQ3KQkk8d9By9Tp/WBLiKQM4H2OD9qq5BL6kSZRtu7qP6+dpAG50oMmW8lCJs/chW2yd2tKs7W4Bp2+dJqA==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      typedoc: 0.28.x
+      typedoc-plugin-markdown: '>=4.11.0'
 
   typedoc-plugin-markdown@4.12.0:
     resolution: {integrity: sha512-eJDEMAfxCmede22c/Jw7d0FA13ggAQv+KkwQYKYCdqI02cin6Rc9QRwbG/7XvvHWinuFejySnZVUWDtvGk3Vbg==}
@@ -19222,6 +19233,12 @@ snapshots:
   typedoc-docusaurus-theme@1.4.2(typedoc-plugin-markdown@4.12.0(typedoc@0.28.20)):
     dependencies:
       typedoc-plugin-markdown: 4.12.0(typedoc@0.28.20)
+
+  typedoc-plugin-frontmatter@1.3.2(typedoc-plugin-markdown@4.12.0(typedoc@0.28.20))(typedoc@0.28.20):
+    dependencies:
+      typedoc: 0.28.20
+      typedoc-plugin-markdown: 4.12.0(typedoc@0.28.20)
+      yaml: 2.9.1
 
   typedoc-plugin-markdown@4.12.0(typedoc@0.28.20):
     dependencies:
