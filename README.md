@@ -72,6 +72,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/env`](https://docs.torcato.dev/cf-common/docs/api/env) | `getBinding`, `requireEnv`, `getEnv` — typed access to Worker bindings and vars | ✅ Shipped |
 | [`@rtorcato/cf-common/kv`](https://docs.torcato.dev/cf-common/docs/api/kv) | `createKvStore` — typed JSON get/put/delete/list with TTL + metadata | ✅ Shipped |
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
+| [`@rtorcato/cf-common/cache`](https://docs.torcato.dev/cf-common/docs/api/cache) | `createCache` + `buildCacheKey` — Cache API `match`/`put`/`delete` with key-builder and TTL | ✅ Shipped |
 | [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
 
 More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers
