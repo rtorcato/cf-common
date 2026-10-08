@@ -151,11 +151,16 @@
 }
 .codePre {
 	margin: 0;
-	padding: 16px;
-	font: 500 12.5px / 1.8 var(--ifm-font-family-monospace);
-	color: var(--jc-text);
-	overflow: auto;
 	background: transparent;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.codePre :global(pre) {
+	margin: 0;
+	padding: 16px;
+	background: transparent;
+	font: 500 12.5px / 1.8 var(--ifm-font-family-monospace);
 }
 
 /* Sections */
