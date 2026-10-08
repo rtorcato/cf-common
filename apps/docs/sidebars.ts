@@ -29,6 +29,7 @@ const sidebars: SidebarsConfig = {
 				{ type: 'doc', id: 'api/cache/index', label: 'cache' },
 				{ type: 'doc', id: 'api/d1/index', label: 'd1' },
 				{ type: 'doc', id: 'api/request/index', label: 'request' },
+				{ type: 'doc', id: 'api/ratelimit/index', label: 'ratelimit' },
 			],
 		},
 	],
