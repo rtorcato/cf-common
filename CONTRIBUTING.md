@@ -3,8 +3,10 @@
 ## Commits & releases
 
 Commits follow [Conventional Commits](https://conventionalcommits.org/). Merging
-to `main` triggers semantic-release, which versions, tags, publishes to npm, and
-(via the docs workflow) redeploys the site. Use `feat:` for a new module/API,
+to `main` does not publish. A release runs only when the `release.yml` workflow is
+dispatched (`gh workflow run release.yml`) or a milestone closes. semantic-release
+then versions, tags, publishes to npm, and (via the docs workflow) redeploys the
+site. Use `feat:` for a new module/API,
 `fix:` for a bug fix, `docs:`/`chore:` otherwise.
 
 The docs site's API reference is generated from source JSDoc on every build, and
