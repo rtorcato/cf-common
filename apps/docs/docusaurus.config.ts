@@ -31,6 +31,8 @@ const typedocPlugins = MODULES.map((mod) => [
 		excludeInternal: true,
 		excludeExternals: true,
 		sort: ['source-order'],
+		// Default is just typedoc-plugin-markdown; add the local Example-first reorder.
+		plugin: ['typedoc-plugin-markdown', `${__dirname}/typedoc-plugin-reorder-example.mjs`],
 		outputFileStrategy: 'modules',
 	},
 ])
