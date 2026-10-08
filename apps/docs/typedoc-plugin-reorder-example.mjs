@@ -21,7 +21,10 @@ export function load(app) {
 
 /** Split the page before each h3 (one per exported function) and reorder each. */
 function reorderExamples(contents) {
-	return contents.split(/\n(?=### )/).map(moveExampleAboveParameters).join('\n')
+	return contents
+		.split(/\n(?=### )/)
+		.map(moveExampleAboveParameters)
+		.join('\n')
 }
 
 function moveExampleAboveParameters(block) {
