@@ -121,7 +121,7 @@ importers:
         specifier: ^1.60.0
         version: 1.61.1
       '@rtorcato/shared-docs':
-        specifier: ^1.7.0
+        specifier: ^1.11.0
         version: 1.11.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@types/react':
         specifier: ^19.0.0
