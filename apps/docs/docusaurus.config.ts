@@ -40,7 +40,7 @@ const config: Config = {
 	tagline: 'Typed TypeScript wrappers and helpers for Cloudflare bindings and APIs.',
 	favicon: 'img/favicon.svg',
 
-	url: 'https://rtorcato.github.io',
+	url: 'https://docs.torcato.dev',
 	baseUrl: '/cf-common/',
 
 	organizationName: 'rtorcato',

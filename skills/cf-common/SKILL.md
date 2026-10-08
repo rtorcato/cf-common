@@ -123,4 +123,4 @@ await assertTurnstile(token, requireEnv(env, 'TURNSTILE_SECRET'), {
 
 Test pure logic in Node with a synthetic `Request` and mocked `fetch`. Test code that touches real KV, R2 or D1 with `@cloudflare/vitest-pool-workers` (workerd + Miniflare), using `env` from `cloudflare:test`.
 
-For the full API, see the [docs site](https://rtorcato.github.io/cf-common/) or the JSDoc in `src/<module>/index.ts`.
+For the full API, see the [docs site](https://docs.torcato.dev/cf-common/) or the JSDoc in `src/<module>/index.ts`.

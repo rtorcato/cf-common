@@ -8,12 +8,12 @@
 # cf-common
 
 [![npm](https://img.shields.io/npm/v/@rtorcato/cf-common.svg)](https://www.npmjs.com/package/@rtorcato/cf-common)
-[![docs](https://img.shields.io/badge/docs-rtorcato.github.io-f38020)](https://rtorcato.github.io/cf-common/)
+[![docs](https://img.shields.io/badge/docs-docs.torcato.dev-f38020)](https://docs.torcato.dev/cf-common/)
 [![license](https://img.shields.io/npm/l/@rtorcato/cf-common.svg)](./LICENSE)
 
 Typed TypeScript wrappers and helpers for working with Cloudflare bindings and
-APIs — in the spirit of [`js-common`](https://rtorcato.github.io/js-common/) and
-[`browser-common`](https://rtorcato.github.io/browser-common/).
+APIs — in the spirit of [`js-common`](https://docs.torcato.dev/js-common/) and
+[`browser-common`](https://docs.torcato.dev/browser-common/).
 
 Each module is a **thin, well-typed convenience layer** over a Cloudflare
 service — not a framework. Tree-shakeable subpath exports, zero required runtime
@@ -68,11 +68,11 @@ Each module is a separate subpath import, so you ship only what you use.
 
 | Subpath | Description | Status |
 | --- | --- | --- |
-| [`@rtorcato/cf-common/errors`](https://rtorcato.github.io/cf-common/docs/api/errors) | `CloudflareError` (HTTP `status` + `expose` + `code`), `isCloudflareError`, `toCloudflareError` | ✅ Shipped |
-| [`@rtorcato/cf-common/env`](https://rtorcato.github.io/cf-common/docs/api/env) | `getBinding`, `requireEnv`, `getEnv` — typed access to Worker bindings and vars | ✅ Shipped |
-| [`@rtorcato/cf-common/kv`](https://rtorcato.github.io/cf-common/docs/api/kv) | `createKvStore` — typed JSON get/put/delete/list with TTL + metadata | ✅ Shipped |
-| [`@rtorcato/cf-common/r2`](https://rtorcato.github.io/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
-| [`@rtorcato/cf-common/d1`](https://rtorcato.github.io/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
+| [`@rtorcato/cf-common/errors`](https://docs.torcato.dev/cf-common/docs/api/errors) | `CloudflareError` (HTTP `status` + `expose` + `code`), `isCloudflareError`, `toCloudflareError` | ✅ Shipped |
+| [`@rtorcato/cf-common/env`](https://docs.torcato.dev/cf-common/docs/api/env) | `getBinding`, `requireEnv`, `getEnv` — typed access to Worker bindings and vars | ✅ Shipped |
+| [`@rtorcato/cf-common/kv`](https://docs.torcato.dev/cf-common/docs/api/kv) | `createKvStore` — typed JSON get/put/delete/list with TTL + metadata | ✅ Shipped |
+| [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
+| [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
 
 More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers
 AI, …). See the [milestones](https://github.com/rtorcato/cf-common/milestones)
@@ -92,7 +92,7 @@ npx skills add https://github.com/rtorcato/cf-common --skill cf-common
 ## Documentation
 
 Full docs and the per-module API reference live at
-**[rtorcato.github.io/cf-common](https://rtorcato.github.io/cf-common/)**.
+**[docs.torcato.dev/cf-common](https://docs.torcato.dev/cf-common/)**.
 
 ## Development
 
