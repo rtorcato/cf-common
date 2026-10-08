@@ -11,3 +11,13 @@ verifyDepsBeforeRun: false
 
 minimumReleaseAgeExclude:
   - '@rtorcato/*'
+
+# Security overrides (#165): force patched transitive versions, dev-tooling only.
+overrides:
+  fast-uri@3: ^3.1.7
+  undici@7: ^7.29.1
+  undici@6: ^6.28.1
+  sharp@0.34: ^0.35.5
+  source-map-js@1: ^1.2.2
+  handlebars@4: ^4.7.10
+  tinypool@1: ^2.1.2
