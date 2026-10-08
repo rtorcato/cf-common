@@ -91,6 +91,10 @@
       "import": "./dist/turnstile/index.js",
       "types": "./dist/turnstile/index.d.ts"
     },
+    "./ratelimit": {
+      "import": "./dist/ratelimit/index.js",
+      "types": "./dist/ratelimit/index.d.ts"
+    },
     "./cron": {
       "import": "./dist/cron/index.js",
       "types": "./dist/cron/index.d.ts"
