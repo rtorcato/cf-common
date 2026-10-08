@@ -13,9 +13,19 @@ const PROJECT_FAMILY = projectFamilyItems()
 // directly (no build needed) and writes docs/api/<mod>/index.md, which
 // sidebars.ts links to by doc id. Add a module here when it ships — that's the
 // only edit needed; the API docs regenerate from source JSDoc on every build.
-const MODULES = ['errors', 'env', 'kv', 'r2', 'd1', 'request', 'ratelimit'] as const
+// The description is stamped into the page frontmatter so the API index cards
+// describe each module instead of TypeDoc's generic "Functions" fallback.
+const MODULES: Record<string, string> = {
+	errors: 'Typed CloudflareError model + result helpers.',
+	env: 'Typed env access and getBinding helpers.',
+	kv: 'Typed get/put/list with JSON + TTL helpers.',
+	r2: 'Typed R2 object get/put/list with JSON helpers.',
+	d1: 'Typed query helpers and batch over D1.',
+	request: 'Typed request.cf metadata, JSON body, bearer token and client IP.',
+	ratelimit: 'Typed rate limiting by IP or arbitrary key.',
+}
 
-const typedocPlugins = MODULES.map((mod) => [
+const typedocPlugins = Object.entries(MODULES).map(([mod, description]) => [
 	'docusaurus-plugin-typedoc',
 	{
 		id: mod,
@@ -31,8 +41,13 @@ const typedocPlugins = MODULES.map((mod) => [
 		excludeInternal: true,
 		excludeExternals: true,
 		sort: ['source-order'],
-		// Default is just typedoc-plugin-markdown; add the local Example-first reorder.
-		plugin: ['typedoc-plugin-markdown', `${__dirname}/typedoc-plugin-reorder-example.mjs`],
+		// Default is just typedoc-plugin-markdown; add frontmatter + the local Example-first reorder.
+		plugin: [
+			'typedoc-plugin-markdown',
+			'typedoc-plugin-frontmatter',
+			`${__dirname}/typedoc-plugin-reorder-example.mjs`,
+		],
+		frontmatterGlobals: { description },
 		outputFileStrategy: 'modules',
 	},
 ])
