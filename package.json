@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/rtorcato/cf-common.git"
   },
-  "homepage": "https://github.com/rtorcato/cf-common#readme",
+  "homepage": "https://docs.torcato.dev/cf-common/",
   "bugs": {
     "url": "https://github.com/rtorcato/cf-common/issues"
   },

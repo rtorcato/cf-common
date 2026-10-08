@@ -1,8 +1,8 @@
 # @rtorcato/cf-common-docs
 
 Documentation site for [`@rtorcato/cf-common`](../../), built with
-[Docusaurus](https://docusaurus.io/) and deployed to GitHub Pages at
-<https://rtorcato.github.io/cf-common/>.
+[Docusaurus](https://docusaurus.io/) and deployed to Cloudflare at
+<https://docs.torcato.dev/cf-common/>.
 
 ## Develop
 
