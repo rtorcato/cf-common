@@ -24,15 +24,15 @@
 		"react-dom": "^19.0.0"
 	},
 	"devDependencies": {
-		"@docusaurus/module-type-aliases": "^3.8.1",
+		"@docusaurus/module-type-aliases": "^3.10.2",
 		"@docusaurus/tsconfig": "^3.10.2",
 		"@docusaurus/types": "^3.10.2",
-		"@playwright/test": "^1.60.0",
-		"@rtorcato/shared-docs": "^1.7.0",
+		"@playwright/test": "^1.63.0",
+		"@rtorcato/shared-docs": "^1.13.1",
 		"@types/react": "^19.0.0",
-		"docusaurus-plugin-typedoc": "^1.4.2",
+		"docusaurus-plugin-typedoc": "^1.4.3",
 		"typedoc": "^0.28.20",
-		"typedoc-plugin-markdown": "^4.12.0",
+		"typedoc-plugin-markdown": "^4.13.1",
 		"typescript": "~7.0.2"
 	},
 	"browserslist": {
