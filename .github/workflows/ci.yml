@@ -115,7 +115,8 @@ jobs:
       - name: 🔍 Type check
         run: pnpm typecheck
 
-  test:
+  test-matrix:
+    name: test (${{ matrix.node-version }})
     runs-on: ubuntu-latest
     needs: [dependencies, check-skip]
     if: needs.check-skip.outputs.should-skip != 'true'
@@ -145,6 +146,15 @@ jobs:
 
       - name: 🧪 Run tests
         run: pnpm test
+
+  # Stable `test` check for branch protection; aggregates the matrix.
+  test:
+    runs-on: ubuntu-latest
+    needs: [test-matrix, check-skip]
+    if: always() && needs.check-skip.outputs.should-skip != 'true'
+    steps:
+      - name: ✅ Matrix result
+        run: test "${{ needs.test-matrix.result }}" = success
 
   build:
     runs-on: ubuntu-latest
