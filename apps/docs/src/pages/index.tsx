@@ -1,6 +1,8 @@
 import Link from '@docusaurus/Link'
 import CodeBlock from '@theme/CodeBlock'
 import Layout from '@theme/Layout'
+import TabItem from '@theme/TabItem'
+import Tabs from '@theme/Tabs'
 import clsx from 'clsx'
 import type { ReactElement } from 'react'
 import InstallTabs from '@rtorcato/shared-docs/components/InstallTabs'
@@ -157,16 +159,70 @@ const MODULES: Mod[] = [
 	},
 ]
 
-const HERO_CODE = `import { getBinding } from '@rtorcato/cf-common/env'
-import { kv } from '@rtorcato/cf-common/kv'
+type Example = { label: string; file: string; code: string }
+
+const EXAMPLES: Example[] = [
+	{
+		label: 'KV',
+		file: 'worker.ts',
+		code: `import { getBinding } from '@rtorcato/cf-common/env'
+import { createKvStore } from '@rtorcato/cf-common/kv'
 
 export default {
   async fetch(req, env) {
-    const store = kv(getBinding(env, 'CACHE'))
-    const hit = await store.getJSON<User>('u:42')
+    const users = createKvStore<User>(getBinding(env, 'USERS'))
+    const hit = await users.get('u:42') // User | null
+    if (!hit) await users.put('u:42', { id: 42 }, { ttl: 3600 })
     return Response.json(hit ?? { id: 42 })
   },
-}`
+}`,
+	},
+	{
+		label: 'R2',
+		file: 'worker.ts',
+		code: `import { getBinding } from '@rtorcato/cf-common/env'
+import { createR2Store } from '@rtorcato/cf-common/r2'
+
+export default {
+  async fetch(req, env) {
+    const docs = createR2Store<Doc>(getBinding(env, 'DOCS'))
+    await docs.putJSON('a.json', { title: 'Hello' }) // sets content-type
+    const doc = await docs.getJSON('a.json') // Doc | null
+    return Response.json(doc)
+  },
+}`,
+	},
+	{
+		label: 'D1',
+		file: 'worker.ts',
+		code: `import { getBinding } from '@rtorcato/cf-common/env'
+import { execute, queryFirst } from '@rtorcato/cf-common/d1'
+
+export default {
+  async fetch(req, env) {
+    const db = getBinding<D1Database>(env, 'DB')
+    await execute(db, 'INSERT INTO users (id, name) VALUES (?, ?)', 42, 'Ada')
+    const user = await queryFirst<User>(db, 'SELECT * FROM users WHERE id = ?', 42)
+    return Response.json(user) // User | null
+  },
+}`,
+	},
+	{
+		label: 'Env',
+		file: 'worker.ts',
+		code: `import { getBinding, getEnv, requireEnv } from '@rtorcato/cf-common/env'
+
+export default {
+  async fetch(req, env) {
+    const apiKey = requireEnv(env, 'API_KEY') // throws a non-exposed 500 if unset
+    const region = getEnv(env, 'REGION', 'auto')
+    const cache = getBinding<KVNamespace>(env, 'CACHE') // typed binding or 500
+    await cache.put('last-region', region)
+    return Response.json({ region, hasKey: apiKey.length > 0 })
+  },
+}`,
+	},
+]
 
 /* ------------------------------------------------------------------ */
 /* Sections                                                            */
@@ -213,15 +269,16 @@ function Hero(): ReactElement {
 function CodeWindow(): ReactElement {
 	return (
 		<div className={styles.codeWindow}>
-			<div className={styles.codeBar}>
-				<span className={styles.dot} style={{ background: '#ff5f57' }} />
-				<span className={styles.dot} style={{ background: '#febc2e' }} />
-				<span className={styles.dot} style={{ background: '#28c840' }} />
-				<span className={styles.codeFile}>worker.ts</span>
-			</div>
-			<CodeBlock language="tsx" className={styles.codePre}>
-				{HERO_CODE}
-			</CodeBlock>
+			<Tabs className={styles.codeTabs} groupId="hero-example">
+				{EXAMPLES.map((ex) => (
+					<TabItem key={ex.label} value={ex.label} label={ex.label}>
+						<div className={styles.codeFile}>{ex.file}</div>
+						<CodeBlock language="tsx" className={styles.codePre}>
+							{ex.code}
+						</CodeBlock>
+					</TabItem>
+				))}
+			</Tabs>
 		</div>
 	)
 }
