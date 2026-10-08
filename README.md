@@ -105,7 +105,8 @@ pnpm test:watch    # vitest in watch mode
 ```
 
 Commits follow [Conventional Commits](https://conventionalcommits.org/);
-releases are cut automatically by semantic-release.
+releases are cut by semantic-release when the `release.yml` workflow is
+dispatched.
 
 ## License
 
