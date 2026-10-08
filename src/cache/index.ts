@@ -8,7 +8,7 @@
  */
 export function buildCacheKey(
 	url: string | URL,
-	params: Record<string, string | number | boolean> = {},
+	params: Record<string, string | number | boolean> = {}
 ): Request {
 	const u = new URL(url)
 	for (const k of Object.keys(params).sort()) u.searchParams.set(k, String(params[k]))
