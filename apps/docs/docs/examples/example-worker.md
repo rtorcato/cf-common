@@ -1,7 +1,7 @@
 ---
 title: Example Worker
 description: A runnable Worker that exercises every cf-common module locally, with no Cloudflare account.
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Example Worker
