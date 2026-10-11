@@ -121,8 +121,8 @@ importers:
         specifier: ^1.60.0
         version: 1.61.1
       '@rtorcato/shared-docs':
-        specifier: ^1.7.0
-        version: 1.11.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: ^1.15.1
+        version: 1.15.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.17
@@ -913,6 +913,7 @@ packages:
 
   '@cloudflare/vitest-pool-workers@0.18.4':
     resolution: {integrity: sha512-jOXvyLoR2b8jFvo3tX+mWxXXwcZ+PbId3d7vGFtZsuKakmDjKSeIq4o/sQjkqNv6q3XacIKSCAvfM8TfkPyrEw==}
+    deprecated: '@cloudflare/vitest-pool-workers has been renamed to @cloudflare/vitest-plugin. This package will not receive future updates.'
     peerDependencies:
       '@vitest/runner': ^4.1.0
       '@vitest/snapshot': ^4.1.0
@@ -3381,8 +3382,8 @@ packages:
       vitest:
         optional: true
 
-  '@rtorcato/shared-docs@1.11.0':
-    resolution: {integrity: sha512-+2pvB623rEGVSGemammFAQ+/VwZwlgHZmxtgV4jo1RcuEVsl0tOMeoQw9oC5hGtMveNC8jjJ8dcIQarQwxdxTQ==}
+  '@rtorcato/shared-docs@1.15.1':
+    resolution: {integrity: sha512-WKCswyEKtvBtsksmdCEf53kEEI9oo9H2NwYp8TXVwvEaueIVVYvjSy0D/eyDUFcQsh3SnULssfVHpWZP201Emw==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -13394,7 +13395,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/shared-docs@1.11.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@rtorcato/shared-docs@1.15.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
     optionalDependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
