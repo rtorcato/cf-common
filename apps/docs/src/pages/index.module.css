@@ -132,22 +132,37 @@
 	box-shadow: var(--jc-shadow);
 	text-align: left;
 }
-.codeBar {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 11px 14px;
-	border-bottom: 1px solid var(--jc-border);
-}
-.dot {
-	width: 11px;
-	height: 11px;
-	border-radius: 50%;
-}
 .codeFile {
-	margin-left: 6px;
+	padding: 10px 16px 0;
 	font: 500 12px var(--ifm-font-family-monospace);
 	color: var(--jc-faint);
+}
+/* Tab bar sits where the window title bar was */
+.codeTabs:global(.tabs) {
+	gap: 6px;
+	padding: 10px 12px;
+	border-bottom: 1px solid var(--jc-border);
+}
+.codeTabs :global(.tabs__item) {
+	padding: 5px 12px;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.2;
+	color: var(--jc-muted);
+	border: 1px solid transparent;
+	border-radius: 8px;
+}
+.codeTabs :global(.tabs__item:hover) {
+	background: var(--jc-surface2);
+	color: var(--jc-heading);
+}
+.codeTabs :global(.tabs__item--active) {
+	background: var(--jc-gold-soft);
+	border-color: var(--jc-gold-border);
+	color: var(--jc-gold);
+}
+.codeWindow :global(.margin-top--md) {
+	margin-top: 0 !important;
 }
 .codePre {
 	margin: 0;
