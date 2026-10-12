@@ -40,6 +40,9 @@ export default defineFetch<Env>(async (req, env) => {
   const manifests = createR2Store<Manifest>(bucket)
 
   if (req.method === 'PUT') {
+    if (!env.UPLOAD_TOKEN) {
+      throw new CloudflareError('UPLOAD_TOKEN is not set', { status: 500 })
+    }
     if (bearerToken(req) !== env.UPLOAD_TOKEN) {
       throw new CloudflareError('Unauthorized', { status: 401 })
     }
