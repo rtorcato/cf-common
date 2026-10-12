@@ -42,8 +42,8 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1(@types/node@26.6.4)
       '@rtorcato/repo-tooling':
-        specifier: ^5.5.3
-        version: 5.5.3(40c9955058c94ff3c623dc0fed674357)
+        specifier: ^6.0.0
+        version: 6.0.0(609134c418518a0c4a5c95838b56b61d)
       '@semantic-release/changelog':
         specifier: ^7.0.0
         version: 7.0.0(semantic-release@25.0.9(supports-color@10.2.2)(typescript@7.0.2))
@@ -3075,8 +3075,8 @@ packages:
     engines: {node: '>=22'}
     hasBin: true
 
-  '@rtorcato/repo-tooling@5.5.3':
-    resolution: {integrity: sha512-qgdFQgl/UgJHbv/TTkQM3bTODsRTYVPkEDQNSS3mbe0QywtcySuN328zE/FW6fAwAoNkqhYjciFUlF6TMa33vA==}
+  '@rtorcato/repo-tooling@6.0.0':
+    resolution: {integrity: sha512-zReKrcSvdVof8yMvLv6kZH2pwm07zeiTLLZxlOXC0DOhTaPuU5jthOMtb3k3YZtONrCN2w2Y8gt34qURl9x83Q==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -3099,7 +3099,7 @@ packages:
       '@total-typescript/ts-reset': ^0.6.0
       '@typescript-eslint/eslint-plugin': ^8.0.0
       '@typescript-eslint/parser': ^8.0.0
-      conventional-changelog-conventionalcommits: ^9.0.0
+      conventional-changelog-conventionalcommits: ^9.0.0 || ^10.0.0
       esbuild: ^0.25.0 || ^0.27.0 || ^0.28.0
       esbuild-node-externals: ^1.0.0 || ^2.0.0
       eslint: '>=9.0.0'
@@ -4344,10 +4344,6 @@ packages:
   conventional-changelog-conventionalcommits@10.2.1:
     resolution: {integrity: sha512-n4Kr1HFMTf3iMbES0TMxKIcYtUUv4rKqyQQp2JwfOEfFCOfGT3Tq4mCyJ8S9/YPyWhydjfKrrvnyl+gCjA+mJQ==}
     engines: {node: '>=22'}
-
-  conventional-changelog-conventionalcommits@9.3.1:
-    resolution: {integrity: sha512-dTYtpIacRpcZgrvBYvBfArMmK2xvIpv2TaxM0/ZI5CBtNUzvF2x0t15HsbRABWprS6UPmvj+PzHVjSx4qAVKyw==}
-    engines: {node: '>=18'}
 
   conventional-changelog-writer@8.4.0:
     resolution: {integrity: sha512-HHBFkk1EECxxmCi4CTu091iuDpQv5/OavuCUAuZmrkWpmYfyD816nom1CvtfXJ/uYfAAjavgHvXHX291tSLK8g==}
@@ -12465,7 +12461,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@rtorcato/repo-tooling@5.5.3(40c9955058c94ff3c623dc0fed674357)':
+  '@rtorcato/repo-tooling@6.0.0(609134c418518a0c4a5c95838b56b61d)':
     dependencies:
       chalk: 6.0.1
       commander: 15.0.0
@@ -12484,7 +12480,7 @@ snapshots:
       '@semantic-release/github': 12.0.10(semantic-release@25.0.9(supports-color@10.2.2)(typescript@7.0.2))(supports-color@10.2.2)
       '@semantic-release/npm': 13.2.0(semantic-release@25.0.9(supports-color@10.2.2)(typescript@7.0.2))
       '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.9(supports-color@10.2.2)(typescript@7.0.2))(supports-color@10.2.2)
-      conventional-changelog-conventionalcommits: 9.3.1
+      conventional-changelog-conventionalcommits: 10.2.1
       esbuild: 0.27.7
       rollup: 4.62.2
       semantic-release: 25.0.9(supports-color@10.2.2)(typescript@7.0.2)
@@ -13752,11 +13748,6 @@ snapshots:
   conventional-changelog-conventionalcommits@10.2.1:
     dependencies:
       '@conventional-changelog/template': 1.4.0
-
-  conventional-changelog-conventionalcommits@9.3.1:
-    dependencies:
-      compare-func: 2.0.0
-    optional: true
 
   conventional-changelog-writer@8.4.0:
     dependencies:
