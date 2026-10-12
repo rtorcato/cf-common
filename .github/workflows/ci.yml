@@ -19,8 +19,11 @@ jobs:
     steps:
       - name: Check for skip CI
         id: skip-check
+        # Pass the message through env: interpolating it into the script breaks on backticks and lets a commit message run shell.
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
-          if [[ "${{ github.event.head_commit.message }}" =~ \[(ci skip|skip ci)\] ]]; then
+          if [[ "$COMMIT_MESSAGE" =~ \[(ci skip|skip ci)\] ]]; then
             echo "should-skip=true" >> $GITHUB_OUTPUT
           else
             echo "should-skip=false" >> $GITHUB_OUTPUT
@@ -115,10 +118,15 @@ jobs:
       - name: 🔍 Type check
         run: pnpm typecheck
 
-  test:
+  test-matrix:
+    name: test (${{ matrix.node-version }})
     runs-on: ubuntu-latest
     needs: [dependencies, check-skip]
     if: needs.check-skip.outputs.should-skip != 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['22', '24']
     steps:
       - name: 📦 Checkout repository
         uses: actions/checkout@v7
@@ -126,7 +134,7 @@ jobs:
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: ${{ matrix.node-version }}
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v6
@@ -141,6 +149,15 @@ jobs:
 
       - name: 🧪 Run tests
         run: pnpm test
+
+  # Stable `test` check for branch protection; aggregates the matrix.
+  test:
+    runs-on: ubuntu-latest
+    needs: [test-matrix, check-skip]
+    if: always() && needs.check-skip.outputs.should-skip != 'true'
+    steps:
+      - name: ✅ Matrix result
+        run: test "${{ needs.test-matrix.result }}" = success
 
   build:
     runs-on: ubuntu-latest
