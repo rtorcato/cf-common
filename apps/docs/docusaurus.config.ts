@@ -20,6 +20,7 @@ const MODULES: Record<string, string> = {
 	env: 'Typed env access and getBinding helpers.',
 	kv: 'Typed get/put/list with JSON + TTL helpers.',
 	r2: 'Typed R2 object get/put/list with JSON helpers.',
+	cache: 'Cache API match/put/delete with key builder and TTL.',
 	d1: 'Typed query helpers and batch over D1.',
 	request: 'Typed request.cf metadata, JSON body, bearer token and client IP.',
 	ratelimit: 'Typed rate limiting by IP or arbitrary key.',
