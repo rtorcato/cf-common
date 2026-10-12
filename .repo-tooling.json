@@ -33,6 +33,10 @@
     "mcp": {
       "recommended": []
     },
-    "exceptions": {}
+    "exceptions": {},
+    "dependabot": {
+      "onPr": "label",
+      "label": "ai-review"
+    }
   }
 }
