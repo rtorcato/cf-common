@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="cf-common">
+  <title>cf-common</title>
+  <!-- lucide cloud, ISC -->
+  <rect x=".5" y=".5" width="31" height="31" rx="8" fill="#faad3f" fill-opacity=".13" stroke="#faad3f" stroke-opacity=".38"/>
+  <svg x="6.72" y="6.72" width="18.56" height="18.56" viewBox="0 0 24 24" fill="none" stroke="#faad3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+  </svg>
+</svg>

@@ -146,11 +146,16 @@ const config: Config = {
 		},
 		navbar: {
 			title: 'cf-common',
-			// Same mark as the favicon and the README banner.
-			logo: { alt: 'cf-common', src: 'img/favicon.svg' },
+			logo: {
+				alt: 'cf-common',
+				src: 'img/logo.svg',
+				srcDark: 'img/logo-dark.svg',
+				width: 26,
+				height: 26,
+			},
 			items: [
 				{ to: '/docs', position: 'left', label: 'Docs' },
-				{ to: '/docs/guides/getting-started', position: 'left', label: 'Getting started' },
+				{ to: '/docs/guides/getting-started', position: 'left', label: 'Guides' },
 				{
 					type: 'dropdown',
 					label: 'Projects',
@@ -158,13 +163,13 @@ const config: Config = {
 					items: [{ label: 'All on GitHub →', href: GITHUB_PROFILE }, ...PROJECT_FAMILY],
 				},
 				{
-					href: 'https://www.npmjs.com/package/@rtorcato/cf-common',
-					label: 'npm',
+					href: 'https://github.com/rtorcato/cf-common',
+					label: 'GitHub',
 					position: 'right',
 				},
 				{
-					href: 'https://github.com/rtorcato/cf-common',
-					label: 'GitHub',
+					href: 'https://www.npmjs.com/package/@rtorcato/cf-common',
+					label: 'npm',
 					position: 'right',
 				},
 			],
