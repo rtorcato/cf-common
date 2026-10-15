@@ -74,8 +74,10 @@ try {
 ```
 
 `toCloudflareError(e, status?)` turns any thrown value into a `CloudflareError`.
-It passes an existing one through and wraps anything else as a non-exposed 500
-(or the status you pass).
+It passes an existing one through and wraps anything else with the wrapped
+error's message and `status` (500 by default). `expose` follows the status, so
+the default 500 keeps the message private. Pass a 4xx, and the raw message goes
+to the client, so only do that when you know the message is safe to show.
 
 ## Codes the modules throw
 
@@ -85,6 +87,9 @@ It passes an existing one through and wraps anything else as a non-exposed 500
 | `R2_PARSE_FAILED` | [`r2`](./r2.md) | `getJSON` read an object that isn't valid JSON. |
 | `R2_MULTIPART_FAILED` | [`r2`](./r2.md) | A part failed, and the upload was aborted. |
 | `D1_MIGRATION_FAILED` | [`d1`](./d1.md) | A migration's SQL threw. |
+| `INVALID_BODY` | `request` | `parseJson` got a body that isn't JSON or fails the schema (400). |
+| `CRON_NO_MATCH` | `cron` | `defineScheduled` has no job for the firing cron (500). |
+| `TURNSTILE_HTTP_ERROR` | `turnstile` | Turnstile's siteverify returned a non-2xx (502). |
 
 A missing binding or env var from [`env`](./env.md) throws a non-exposed 500
 with no code.
