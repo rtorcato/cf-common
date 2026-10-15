@@ -94,6 +94,8 @@ type Mod = {
 	subpath: string
 	desc: string
 	status: 'Foundations' | 'Storage' | 'Messaging' | 'AI & Data' | 'REST'
+	// Shipped modules with a per-module guide. Explicit, not inferred from the sidebar.
+	guide?: boolean
 }
 
 const MODULES: Mod[] = [
@@ -102,30 +104,35 @@ const MODULES: Mod[] = [
 		subpath: 'errors',
 		desc: 'Typed CloudflareError model + result helpers.',
 		status: 'Foundations',
+		guide: true,
 	},
 	{
 		name: 'Env & bindings',
 		subpath: 'env',
 		desc: 'Typed env access and getBinding helpers.',
 		status: 'Foundations',
+		guide: true,
 	},
 	{
 		name: 'KV',
 		subpath: 'kv',
 		desc: 'Typed get/put/list with JSON + TTL helpers.',
 		status: 'Storage',
+		guide: true,
 	},
 	{
 		name: 'R2',
 		subpath: 'r2',
 		desc: 'Object get/put/list, presigned URLs, multipart.',
 		status: 'Storage',
+		guide: true,
 	},
 	{
 		name: 'D1',
 		subpath: 'd1',
 		desc: 'Typed query helper, batch, migration runner.',
 		status: 'Storage',
+		guide: true,
 	},
 	{
 		name: 'Queues',
@@ -314,24 +321,40 @@ function Modules(): ReactElement {
 				<div>
 					<h2 className={styles.h2}>One module per Cloudflare service</h2>
 					<p className={styles.sub}>
-						Each lands as a typed, tree-shakeable subpath. See the{' '}
-						<Link to="https://github.com/rtorcato/cf-common/milestones">roadmap</Link> for status.
+						Shipped modules open their guide. The rest are on the{' '}
+						<Link to="https://github.com/rtorcato/cf-common/milestones">roadmap</Link>.
 					</p>
 				</div>
 			</div>
 			<div className={styles.catGrid}>
-				{MODULES.map((m) => (
-					<Link key={m.subpath} to="/docs" className={styles.card}>
-						<div className={styles.cardHead}>
-							<div className={styles.cardName}>{m.name}</div>
-							<div className={styles.cardCount}>{m.status}</div>
+				{MODULES.map((m) => {
+					const body = (
+						<>
+							<div className={styles.cardHead}>
+								<div className={styles.cardName}>{m.name}</div>
+								<div className={styles.cardCount}>{m.status}</div>
+							</div>
+							<p className={styles.cardDesc}>{m.desc}</p>
+							<div className={styles.cardFoot}>
+								<span className={styles.chip}>@rtorcato/cf-common/{m.subpath}</span>
+								{m.guide ? (
+									<span className={styles.cardGuide}>Guide →</span>
+								) : (
+									<span className={styles.planned}>Planned</span>
+								)}
+							</div>
+						</>
+					)
+					return m.guide ? (
+						<Link key={m.subpath} to={`/docs/guides/${m.subpath}`} className={styles.card}>
+							{body}
+						</Link>
+					) : (
+						<div key={m.subpath} className={styles.cardPlanned}>
+							{body}
 						</div>
-						<p className={styles.cardDesc}>{m.desc}</p>
-						<div className={styles.chips}>
-							<span className={styles.chip}>@rtorcato/cf-common/{m.subpath}</span>
-						</div>
-					</Link>
-				))}
+					)
+				})}
 			</div>
 		</section>
 	)

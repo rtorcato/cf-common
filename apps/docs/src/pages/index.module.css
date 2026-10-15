@@ -310,6 +310,18 @@
 	border-color: var(--jc-gold-border);
 	transform: translateY(-3px);
 }
+.card:focus-visible {
+	outline: 2px solid var(--jc-gold);
+	outline-offset: 2px;
+}
+/* Planned modules: a plain div, never dimmed with opacity so the text stays AA. */
+.cardPlanned {
+	display: block;
+	padding: 22px;
+	background: transparent;
+	border: 1px dashed var(--jc-border2);
+	border-radius: 16px;
+}
 .cardHead {
 	display: flex;
 	align-items: baseline;
@@ -331,10 +343,29 @@
 	line-height: 1.5;
 	color: var(--jc-muted);
 }
-.chips {
+.cardFoot {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 6px;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px 12px;
+}
+/* Light uses the darkest primary (4.8:1 on white); --jc-gold is only 3.5:1 there. */
+.cardGuide {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ifm-color-primary-darkest);
+}
+[data-theme="dark"] .cardGuide {
+	color: var(--jc-gold);
+}
+.planned {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--jc-muted);
+	padding: 2px 10px;
+	border: 1px solid var(--jc-border2);
+	border-radius: 999px;
 }
 .chip {
 	font: 500 12px var(--ifm-font-family-monospace);
