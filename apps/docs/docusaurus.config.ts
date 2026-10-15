@@ -142,7 +142,7 @@ const config: Config = {
 			},
 			items: [
 				{ to: '/docs', position: 'left', label: 'Docs' },
-				{ to: '/docs/guides/getting-started', position: 'left', label: 'Guides' },
+				{ to: '/docs/api', position: 'left', label: 'API' },
 				{
 					type: 'dropdown',
 					label: 'Projects',

@@ -32,6 +32,12 @@ const sidebars: SidebarsConfig = {
 			type: 'category',
 			label: 'API Reference',
 			collapsed: false,
+			link: {
+				type: 'generated-index',
+				title: 'API Reference',
+				slug: '/api',
+				description: 'TypeDoc reference for every cf-common module. Pick a module below.',
+			},
 			items: Object.keys(MODULES).map((mod) => ({
 				type: 'doc' as const,
 				id: `api/${mod}/index`,
