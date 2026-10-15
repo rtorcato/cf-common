@@ -1,4 +1,5 @@
 import type { SidebarsConfig } from '@docusaurus/plugin-content-docs'
+import { MODULES } from './modules'
 
 const sidebars: SidebarsConfig = {
 	docs: [
@@ -21,21 +22,15 @@ const sidebars: SidebarsConfig = {
 		},
 		{
 			// One typedoc instance per module generates docs/api/<mod>/index.md.
-			// Add the doc id here when a module ships (see MODULES in
-			// docusaurus.config.ts).
+			// Both lists come from modules.ts.
 			type: 'category',
 			label: 'API Reference',
 			collapsed: false,
-			items: [
-				{ type: 'doc', id: 'api/errors/index', label: 'errors' },
-				{ type: 'doc', id: 'api/env/index', label: 'env' },
-				{ type: 'doc', id: 'api/kv/index', label: 'kv' },
-				{ type: 'doc', id: 'api/r2/index', label: 'r2' },
-				{ type: 'doc', id: 'api/cache/index', label: 'cache' },
-				{ type: 'doc', id: 'api/d1/index', label: 'd1' },
-				{ type: 'doc', id: 'api/request/index', label: 'request' },
-				{ type: 'doc', id: 'api/ratelimit/index', label: 'ratelimit' },
-			],
+			items: Object.keys(MODULES).map((mod) => ({
+				type: 'doc' as const,
+				id: `api/${mod}/index`,
+				label: mod,
+			})),
 		},
 	],
 }

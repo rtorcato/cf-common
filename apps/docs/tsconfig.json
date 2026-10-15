@@ -3,6 +3,6 @@
 	"compilerOptions": {
 		"baseUrl": null
 	},
-	"include": ["src/", "docusaurus.config.ts", "sidebars.ts"],
+	"include": ["src/", "docusaurus.config.ts", "sidebars.ts", "modules.ts"],
 	"exclude": [".docusaurus", "build", "node_modules"]
 }
