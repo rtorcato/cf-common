@@ -7,7 +7,10 @@
 
 # cf-common
 
+[![CI](https://github.com/rtorcato/cf-common/actions/workflows/ci.yml/badge.svg)](https://github.com/rtorcato/cf-common/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@rtorcato/cf-common.svg)](https://www.npmjs.com/package/@rtorcato/cf-common)
+[![npm downloads](https://img.shields.io/npm/dm/@rtorcato/cf-common.svg)](https://www.npmjs.com/package/@rtorcato/cf-common)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/@rtorcato/cf-common)](https://bundlephobia.com/package/@rtorcato/cf-common)
 [![docs](https://img.shields.io/badge/docs-docs.torcato.dev-f38020)](https://docs.torcato.dev/cf-common/)
 [![license](https://img.shields.io/npm/l/@rtorcato/cf-common.svg)](./LICENSE)
 
