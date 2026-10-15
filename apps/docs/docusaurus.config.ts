@@ -143,6 +143,7 @@ const config: Config = {
 			items: [
 				{ to: '/docs', position: 'left', label: 'Docs' },
 				{ to: '/docs/api', position: 'left', label: 'API' },
+				{ to: '/docs/examples', position: 'left', label: 'Examples' },
 				{
 					type: 'dropdown',
 					label: 'Projects',
