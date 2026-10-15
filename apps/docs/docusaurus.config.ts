@@ -2,6 +2,7 @@ import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
 import { copyright, GITHUB_PROFILE, projectFamilyItems } from '@rtorcato/shared-docs'
+import { MODULES } from './modules'
 
 // The @rtorcato open-source family. Surfaced as a navbar "Projects" dropdown
 // (Docusaurus renders navbar items in the mobile menu too) and in the footer,
@@ -9,23 +10,9 @@ import { copyright, GITHUB_PROFILE, projectFamilyItems } from '@rtorcato/shared-
 // @rtorcato/shared-docs package — the single place to edit the family.
 const PROJECT_FAMILY = projectFamilyItems()
 
-// One typedoc plugin instance per subpath module. Each reads `../../src/<mod>`
-// directly (no build needed) and writes docs/api/<mod>/index.md, which
-// sidebars.ts links to by doc id. Add a module here when it ships — that's the
-// only edit needed; the API docs regenerate from source JSDoc on every build.
-// The description is stamped into the page frontmatter so the API index cards
-// describe each module instead of TypeDoc's generic "Functions" fallback.
-const MODULES: Record<string, string> = {
-	errors: 'Typed CloudflareError model + result helpers.',
-	env: 'Typed env access and getBinding helpers.',
-	kv: 'Typed get/put/list with JSON + TTL helpers.',
-	r2: 'Typed R2 object get/put/list with JSON helpers.',
-	cache: 'Cache API match/put/delete with key builder and TTL.',
-	d1: 'Typed query helpers and batch over D1.',
-	request: 'Typed request.cf metadata, JSON body, bearer token and client IP.',
-	ratelimit: 'Typed rate limiting by IP or arbitrary key.',
-}
-
+// One typedoc plugin instance per module in modules.ts. Each reads
+// `../../src/<mod>` directly (no build needed) and writes docs/api/<mod>/index.md,
+// which sidebars.ts links to by doc id.
 const typedocPlugins = Object.entries(MODULES).map(([mod, description]) => [
 	'docusaurus-plugin-typedoc',
 	{
