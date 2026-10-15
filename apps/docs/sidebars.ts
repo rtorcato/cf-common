@@ -11,6 +11,12 @@ const sidebars: SidebarsConfig = {
 		},
 		{
 			type: 'category',
+			label: 'Modules',
+			collapsed: false,
+			items: ['guides/errors', 'guides/env', 'guides/kv', 'guides/r2', 'guides/d1'],
+		},
+		{
+			type: 'category',
 			label: 'Examples',
 			collapsed: false,
 			link: {
