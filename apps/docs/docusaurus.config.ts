@@ -175,6 +175,7 @@ const config: Config = {
 					title: 'Resources',
 					items: [
 						{ label: 'GitHub', href: 'https://github.com/rtorcato/cf-common' },
+						{ label: 'Changelog', to: '/docs/changelog' },
 						{ label: 'npm', href: 'https://www.npmjs.com/package/@rtorcato/cf-common' },
 						{
 							label: 'Roadmap',
