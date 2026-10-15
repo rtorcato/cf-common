@@ -38,6 +38,11 @@ const sidebars: SidebarsConfig = {
 				label: mod,
 			})),
 		},
+		{
+			type: 'category',
+			label: 'Releases',
+			items: ['changelog'],
+		},
 	],
 }
 
