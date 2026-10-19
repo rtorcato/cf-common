@@ -24,6 +24,16 @@ interface Env {
   UPLOAD_TOKEN: string
 }
 
+// Content types that are safe to serve from this Worker's origin.
+const SAFE_TYPES = new Set([
+  'image/png',
+  'image/jpeg',
+  'image/webp',
+  'image/gif',
+  'video/mp4',
+  'application/pdf',
+])
+
 interface Manifest {
   key: string
   size: number
@@ -43,7 +53,11 @@ export default defineFetch<Env>(async (req, env) => {
     if (!env.UPLOAD_TOKEN) {
       throw new CloudflareError('UPLOAD_TOKEN is not set', { status: 500 })
     }
-    if (bearerToken(req) !== env.UPLOAD_TOKEN) {
+    // Compare in constant time, so response timing doesn't leak the token.
+    const enc = new TextEncoder()
+    const given = enc.encode(bearerToken(req) ?? '')
+    const expected = enc.encode(env.UPLOAD_TOKEN)
+    if (given.byteLength !== expected.byteLength || !crypto.subtle.timingSafeEqual(given, expected)) {
       throw new CloudflareError('Unauthorized', { status: 401 })
     }
     const contentType = req.headers.get('content-type') ?? 'application/octet-stream'
@@ -64,15 +78,28 @@ export default defineFetch<Env>(async (req, env) => {
   if (req.method === 'GET') {
     const object = await files.get(key)
     if (!object) throw new CloudflareError('Not found', { status: 404 })
-    const headers = new Headers()
-    object.writeHttpMetadata(headers) // content-type etc. from the upload
-    headers.set('etag', object.httpEtag)
-    return new Response(object.body, { headers })
+    const stored = object.httpMetadata?.contentType ?? ''
+    return new Response(object.body, {
+      headers: {
+        // Don't replay the uploader's type as-is; see the note below.
+        'content-type': SAFE_TYPES.has(stored) ? stored : 'application/octet-stream',
+        'x-content-type-options': 'nosniff',
+        etag: object.httpEtag,
+      },
+    })
   }
 
   throw new CloudflareError('Method not allowed', { status: 405 })
 })
 ```
+
+The `content-type` on a `PUT` comes from whoever uploaded the file. If `GET`
+sent it back as-is, an uploader could store `text/html` or `image/svg+xml` and
+run script on your Worker's origin (stored XSS). So `GET` serves only the types
+in `SAFE_TYPES`, falls back to `application/octet-stream` for everything else,
+and sends `x-content-type-options: nosniff` so the browser doesn't guess. If
+you need to serve other files, send `content-disposition: attachment` so they
+download instead of rendering.
 
 Try it under `wrangler dev`:
 
