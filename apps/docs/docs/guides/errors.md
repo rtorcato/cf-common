@@ -90,6 +90,12 @@ to the client, so only do that when you know the message is safe to show.
 | `INVALID_BODY` | `request` | `parseJson` got a body that isn't JSON or fails the schema (400). |
 | `CRON_NO_MATCH` | `cron` | `defineScheduled` has no job for the firing cron (500). |
 | `TURNSTILE_HTTP_ERROR` | `turnstile` | Turnstile's siteverify returned a non-2xx (502). |
+| `TURNSTILE_FAILED` | `turnstile` | `assertTurnstile` got a failed challenge (403). |
+
+When a challenge fails, `assertTurnstile` uses Turnstile's first `error-codes`
+entry as the code, such as `invalid-input-response` or `timeout-or-duplicate`.
+`TURNSTILE_FAILED` is the fallback when Turnstile sends none, so branch on the
+403 status rather than on that one code.
 
 A missing binding or env var from [`env`](./env.md) throws a non-exposed 500
 with no code.
