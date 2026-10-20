@@ -9,6 +9,7 @@ import clsx from 'clsx'
 import type { ReactElement } from 'react'
 import InstallTabs from '@rtorcato/shared-docs/components/InstallTabs'
 import Siblings from '@rtorcato/shared-docs/components/Siblings'
+import UseWithAI from '@rtorcato/shared-docs/components/UseWithAI'
 import styles from './index.module.css'
 
 /* ------------------------------------------------------------------ */
@@ -368,6 +369,12 @@ export default function Home(): ReactElement {
 		>
 			<main>
 				<Hero />
+				<UseWithAI
+					repo="rtorcato/cf-common"
+					plugin="cf-common"
+					skill="cf-common"
+					pkg="@rtorcato/cf-common"
+				/>
 				<Pillars />
 				<Modules />
 				<Siblings self="@rtorcato/cf-common" />

@@ -84,15 +84,30 @@ AI, …). See the [milestones](https://github.com/rtorcato/cf-common/milestones)
 for the roadmap, or the
 [Beta milestone](https://github.com/rtorcato/cf-common/milestone/1) for what's next.
 
-## Agent skill
+## Use with AI
 
-This repo ships an agent skill (`skills/cf-common/SKILL.md`) that teaches coding
-agents the subpath imports, the `CloudflareError` / `defineFetch` error contract,
-and each module's API. Install it in one command, straight from GitHub:
+A skill ships with the package so AI coding tools use cf-common the way it's
+meant to be used: subpath imports, the `CloudflareError` / `defineFetch` error
+contract, and each module's API.
+
+**Any agent with the [`skills`](https://www.npmjs.com/package/skills) CLI**: install it
+straight from GitHub, no clone, no package install:
 
 ```sh
 npx skills add https://github.com/rtorcato/cf-common --skill cf-common
 ```
+
+**[Claude Code](https://claude.com/claude-code)**: register the marketplace once, then
+install the plugin:
+
+```sh
+/plugin marketplace add rtorcato/cf-common
+/plugin install cf-common@cf-common
+```
+
+**Other tools (Cursor, Copilot, Codex)**: the package ships an [`AGENTS.md`](AGENTS.md)
+with the same rules. Agents that read `AGENTS.md` pick it up from `node_modules`, or
+copy the rules into your project's agent config.
 
 ## Documentation
 

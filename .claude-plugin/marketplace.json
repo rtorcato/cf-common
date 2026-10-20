@@ -1,0 +1,15 @@
+{
+  "name": "cf-common",
+  "owner": {
+    "name": "Richard Torcato",
+    "email": "rtorcato@me.com"
+  },
+  "description": "Claude Code skill for @rtorcato/cf-common — typed helpers for Cloudflare Workers bindings and APIs.",
+  "plugins": [
+    {
+      "name": "cf-common",
+      "source": "./",
+      "description": "Guidance for using @rtorcato/cf-common: subpath imports, the CloudflareError / defineFetch error contract, and typed env, KV, R2 and D1 access."
+    }
+  ]
+}
