@@ -28,7 +28,9 @@
     "build:watch": "tsup --watch",
     "prepare": "husky",
     "release": "semantic-release",
-    "verify": "pnpm typecheck && pnpm check && pnpm exec vitest run",
+    "sync:agents": "node scripts/sync-agents.mjs",
+    "check:agents": "node scripts/sync-agents.mjs --check",
+    "verify": "pnpm check:agents && pnpm typecheck && pnpm check && pnpm exec vitest run",
     "size-limit": "size-limit"
   },
   "devDependencies": {
@@ -108,6 +110,7 @@
     }
   },
   "files": [
+    "AGENTS.md",
     "dist"
   ],
   "publishConfig": {

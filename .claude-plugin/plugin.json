@@ -1,0 +1,13 @@
+{
+  "name": "cf-common",
+  "description": "Guidance for using @rtorcato/cf-common: subpath imports, the CloudflareError / defineFetch error contract, and typed env, KV, R2 and D1 access.",
+  "author": {
+    "name": "Richard Torcato",
+    "email": "rtorcato@me.com",
+    "url": "https://github.com/rtorcato"
+  },
+  "homepage": "https://docs.torcato.dev/cf-common/",
+  "repository": "https://github.com/rtorcato/cf-common",
+  "license": "MIT",
+  "keywords": ["cloudflare", "workers", "kv", "r2", "d1", "typescript"]
+}
