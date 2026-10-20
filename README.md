@@ -13,6 +13,7 @@
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/@rtorcato/cf-common)](https://bundlephobia.com/package/@rtorcato/cf-common)
 [![docs](https://img.shields.io/badge/docs-docs.torcato.dev-f38020)](https://docs.torcato.dev/cf-common/)
 [![license](https://img.shields.io/npm/l/@rtorcato/cf-common.svg)](./LICENSE)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/rtorcato)
 
 Typed TypeScript wrappers and helpers for working with Cloudflare bindings and
 APIs — in the spirit of [`js-common`](https://docs.torcato.dev/js-common/) and
