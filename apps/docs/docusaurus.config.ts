@@ -1,7 +1,7 @@
 import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
 import { themes as prismThemes } from 'prism-react-renderer'
-import { copyright, GITHUB_PROFILE, projectFamilyItems } from '@rtorcato/shared-docs'
+import { footerCopyright, GITHUB_PROFILE, projectFamilyItems } from '@rtorcato/shared-docs'
 import { MODULES } from './modules'
 
 // The @rtorcato open-source family. Surfaced as a navbar "Projects" dropdown
@@ -121,6 +121,7 @@ const config: Config = {
 				searchBarShortcutHint: false,
 			},
 		],
+		'@rtorcato/shared-docs/docusaurus',
 	] as Config['plugins'],
 
 	themeConfig: {
@@ -200,7 +201,7 @@ const config: Config = {
 					],
 				},
 			],
-			copyright: copyright(),
+			copyright: footerCopyright(),
 		},
 		// `theme` is the LIGHT-mode Prism theme, `darkTheme` the dark one (#113).
 		prism: {
