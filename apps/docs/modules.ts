@@ -13,4 +13,7 @@ export const MODULES: Record<string, string> = {
 	d1: 'Typed query helpers and batch over D1.',
 	request: 'Typed request.cf metadata, JSON body, bearer token and client IP.',
 	ratelimit: 'Typed rate limiting by IP or arbitrary key.',
+	http: 'defineFetch error mapping, error responses and CORS helpers.',
+	turnstile: 'Verify or assert a Turnstile token server-side.',
+	cron: 'Dispatch scheduled events to jobs by cron expression.',
 }
