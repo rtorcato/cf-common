@@ -99,11 +99,12 @@ small text. The old `#d96b0f` was 3.5:1 on white and about 2.8:1 on the tint.
   the link, not a second link.
 - Planned cards are plain content, so they aren't in the tab order.
 
-### Known issues, out of scope here
+### Faint text
 
-- `--jc-faint` is below AA for small text in both themes (3.0:1 on white, 3.6:1 on
-  `#111824`). It's still used for table headers, footer text and the code file
-  name. `.cardCount` now uses `--jc-muted`.
+`--jc-faint` colours small text (table headers, footer, code file name, `.wmDash`,
+the mobile-menu `↗`). Light `#657080` is 5.0:1 on white and 4.6:1 on
+`--jc-surface2`. Dark `#78859a` is 4.8:1 on `--jc-surface` `#111824`. It stays one
+step below `--jc-muted`.
 
 ## Brand
 
