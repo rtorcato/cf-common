@@ -26,19 +26,21 @@ Always import from a service subpath — never from the package root:
 
 ```ts
 // ✅ pulls in only the KV helper
-import { kv } from '@rtorcato/cf-common/kv'
+import { createKvStore } from '@rtorcato/cf-common/kv'
 
 // ❌ the root entry is intentionally empty
-import { kv } from '@rtorcato/cf-common'
+import { createKvStore } from '@rtorcato/cf-common'
 ```
 
 ## Type your environment
 
 Cloudflare passes bindings on the `env` argument. Declare them once so every
-helper is typed against your real bindings:
+helper is typed against your real bindings. The index signature lets your `Env`
+fit the `Record<string, unknown>` that the helpers take:
 
 ```ts
 interface Env {
+  [key: string]: unknown
   CACHE: KVNamespace
   BUCKET: R2Bucket
   DB: D1Database
@@ -49,12 +51,12 @@ interface Env {
 
 ```ts
 import { getBinding } from '@rtorcato/cf-common/env'
-import { kv } from '@rtorcato/cf-common/kv'
+import { createKvStore } from '@rtorcato/cf-common/kv'
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
-    const store = kv(getBinding(env, 'CACHE'))
-    const user = await store.getJSON<{ id: number }>('u:42')
+    const store = createKvStore<{ id: number }>(getBinding<KVNamespace>(env, 'CACHE'))
+    const user = await store.get('u:42') // { id: number } | null
     return Response.json(user ?? { id: 42 })
   },
 }
