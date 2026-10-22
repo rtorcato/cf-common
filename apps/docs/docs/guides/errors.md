@@ -87,6 +87,7 @@ to the client, so only do that when you know the message is safe to show.
 | `R2_PARSE_FAILED` | [`r2`](./r2.md) | `getJSON` read an object that isn't valid JSON. |
 | `R2_MULTIPART_FAILED` | [`r2`](./r2.md) | A part failed, and the upload was aborted. |
 | `D1_MIGRATION_FAILED` | [`d1`](./d1.md) | A migration's SQL threw. |
+| `D1_FREE_TIER_LIMIT` | [`d1`](./d1.md) | The free-tier daily row read or write limit is hit (429). Retry after midnight UTC. |
 | `INVALID_BODY` | `request` | `parseJson` got a body that isn't JSON or fails the schema (400). |
 | `CRON_NO_MATCH` | `cron` | `defineScheduled` has no job for the firing cron (500). |
 | `TURNSTILE_HTTP_ERROR` | `turnstile` | Turnstile's siteverify returned a non-2xx (502). |

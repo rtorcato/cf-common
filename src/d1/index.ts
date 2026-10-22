@@ -1,3 +1,4 @@
+import { getErrorMessage } from '@rtorcato/js-common/errors'
 import { CloudflareError } from '../errors/index.js'
 
 /** A SQL statement plus its bound parameters, for `batch`. */
@@ -6,17 +7,38 @@ export interface D1Statement {
 	params?: unknown[]
 }
 
+// D1 reports the free-tier daily cap as a plain error whose text names the limit.
+const FREE_TIER_LIMIT = /free tier daily row (read|write) limit/i
+
+/** The `CloudflareError` for a free-tier daily limit, or `null` for any other error. */
+function limitError(cause: unknown): CloudflareError | null {
+	const message = getErrorMessage(cause)
+	if (!FREE_TIER_LIMIT.test(message)) return null
+	// 429: the cap resets at midnight UTC, so callers should wait rather than retry at once.
+	return new CloudflareError(message, { status: 429, code: 'D1_FREE_TIER_LIMIT', cause })
+}
+
+async function guard<T>(work: () => Promise<T>): Promise<T> {
+	try {
+		return await work()
+	} catch (cause) {
+		throw limitError(cause) ?? cause
+	}
+}
+
 /** Run a query and return all rows, typed as `T`. */
 export async function query<T = Record<string, unknown>>(
 	db: D1Database,
 	sql: string,
 	...params: unknown[]
 ): Promise<T[]> {
-	const { results } = await db
-		.prepare(sql)
-		.bind(...params)
-		.all<T>()
-	return results
+	return guard(async () => {
+		const { results } = await db
+			.prepare(sql)
+			.bind(...params)
+			.all<T>()
+		return results
+	})
 }
 
 /** Run a query and return the first row, or `null` if there are none. */
@@ -25,18 +47,22 @@ export function queryFirst<T = Record<string, unknown>>(
 	sql: string,
 	...params: unknown[]
 ): Promise<T | null> {
-	return db
-		.prepare(sql)
-		.bind(...params)
-		.first<T>()
+	return guard(() =>
+		db
+			.prepare(sql)
+			.bind(...params)
+			.first<T>()
+	)
 }
 
 /** Run a write (INSERT/UPDATE/DELETE) and return D1's result/metadata. */
 export function execute(db: D1Database, sql: string, ...params: unknown[]): Promise<D1Result> {
-	return db
-		.prepare(sql)
-		.bind(...params)
-		.run()
+	return guard(() =>
+		db
+			.prepare(sql)
+			.bind(...params)
+			.run()
+	)
 }
 
 /** Execute many statements atomically in one D1 batch. */
@@ -44,7 +70,9 @@ export function batch<T = unknown>(
 	db: D1Database,
 	statements: D1Statement[]
 ): Promise<D1Result<T>[]> {
-	return db.batch<T>(statements.map((s) => db.prepare(s.sql).bind(...(s.params ?? []))))
+	return guard(() =>
+		db.batch<T>(statements.map((s) => db.prepare(s.sql).bind(...(s.params ?? []))))
+	)
 }
 
 /** A named, forward-only migration. `sql` may contain multiple statements. */
@@ -63,11 +91,10 @@ export interface Migration {
  * in it are not rolled back — keep each migration small, or wrap DDL yourself.
  */
 export async function runMigrations(db: D1Database, migrations: Migration[]): Promise<string[]> {
-	await db
-		.prepare(
-			"CREATE TABLE IF NOT EXISTS _cf_migrations (name TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT (datetime('now')))"
-		)
-		.run()
+	await execute(
+		db,
+		"CREATE TABLE IF NOT EXISTS _cf_migrations (name TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT (datetime('now')))"
+	)
 
 	const applied = new Set(
 		(await query<{ name: string }>(db, 'SELECT name FROM _cf_migrations')).map((r) => r.name)
@@ -81,10 +108,13 @@ export async function runMigrations(db: D1Database, migrations: Migration[]): Pr
 			await execute(db, 'INSERT INTO _cf_migrations (name) VALUES (?)', migration.name)
 			ran.push(migration.name)
 		} catch (cause) {
-			throw new CloudflareError(`Migration "${migration.name}" failed`, {
-				code: 'D1_MIGRATION_FAILED',
-				cause,
-			})
+			throw (
+				limitError(cause) ??
+				new CloudflareError(`Migration "${migration.name}" failed`, {
+					code: 'D1_MIGRATION_FAILED',
+					cause,
+				})
+			)
 		}
 	}
 	return ran

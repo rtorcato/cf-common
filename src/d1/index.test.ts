@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { batch, query, queryFirst, runMigrations } from './index'
+import { batch, execute, query, queryFirst, runMigrations } from './index'
 
 // Minimal in-memory D1Database fake — real binding tests land with #22.
 // `allRows` is what every `.all()` returns (the migrations runner has a single SELECT).
@@ -29,7 +29,37 @@ function fakeD1(opts: { allRows?: unknown[]; firstRow?: unknown } = {}) {
 	return { db, run, exec, bound, batchFn }
 }
 
+// Every call on this fake rejects with `error`.
+function failingD1(error: Error) {
+	const fail = async () => {
+		throw error
+	}
+	return {
+		prepare: () => ({ bind: () => ({ all: fail, first: fail, run: fail }) }),
+		batch: fail,
+	} as unknown as D1Database
+}
+
 describe('d1 module', () => {
+	it('maps the free-tier daily limit to a 429 CloudflareError', async () => {
+		const db = failingD1(
+			new Error("Your account has exceeded D1's free tier daily row write limit.")
+		)
+		await expect(execute(db, 'INSERT INTO t VALUES (1)')).rejects.toMatchObject({
+			status: 429,
+			code: 'D1_FREE_TIER_LIMIT',
+		})
+		await expect(batch(db, [{ sql: 'DELETE FROM t' }])).rejects.toMatchObject({
+			status: 429,
+			code: 'D1_FREE_TIER_LIMIT',
+		})
+	})
+
+	it('passes other D1 errors through unchanged', async () => {
+		const error = new Error('no such table: t')
+		await expect(query(failingD1(error), 'SELECT * FROM t')).rejects.toBe(error)
+	})
+
 	it('query binds params and returns rows', async () => {
 		const { db, bound } = fakeD1({ allRows: [{ id: 1 }] })
 		expect(await query(db, 'SELECT * FROM t WHERE id = ?', 1)).toEqual([{ id: 1 }])
