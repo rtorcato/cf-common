@@ -83,13 +83,14 @@ Map onto the existing variables. Don't add new ones.
 
 | Use | Light | Dark |
 |---|---|---|
-| "Guide →" text | `--ifm-color-primary-darkest` `#b3580c` (4.8:1 on white) | `--jc-gold` `#faad3f` (9.4:1 on `#111824`) |
+| "Guide →" text | `--jc-gold` `#a04e08` (5.9:1 on white) | `--jc-gold` `#faad3f` (9.4:1 on `#111824`) |
 | Focus ring | `--jc-gold` | `--jc-gold` |
 | Planned pill text | `--jc-muted` `#5b6675` (5.8:1) | `--jc-muted` `#94a1b4` (6.8:1) |
 | Planned card border | `--jc-border2` | `--jc-border2` |
 
-Light `--jc-gold` (`#d96b0f`) is only 3.5:1 on white, so it can't carry small
-text. That's why "Guide →" uses the darker primary in light mode.
+Light `--jc-gold` and `--ifm-link-color` are `#a04e08`: 5.9:1 on white, 5.4:1 on
+`--jc-surface2` and 4.7:1 on `--jc-gold-soft` over `--jc-surface2`, so they carry
+small text. The old `#d96b0f` was 3.5:1 on white and about 2.8:1 on the tint.
 
 ## Accessibility
 
@@ -100,10 +101,9 @@ text. That's why "Guide →" uses the darker primary in light mode.
 
 ### Known issues, out of scope here
 
-- `.cardCount` uses `--jc-faint`, which is 3.6:1 in dark mode, below AA for 12px
-  text. Switch it to `--jc-muted`.
-- Light `--ifm-link-color` / `--jc-gold` (`#d96b0f`) is 3.5:1 on white, so body
-  links fall below AA in light mode.
+- `--jc-faint` is below AA for small text in both themes (3.0:1 on white, 3.6:1 on
+  `#111824`). It's still used for table headers, footer text and the code file
+  name. `.cardCount` now uses `--jc-muted`.
 
 ## Brand
 

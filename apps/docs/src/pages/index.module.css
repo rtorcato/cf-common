@@ -335,7 +335,7 @@
 }
 .cardCount {
 	font-size: 12px;
-	color: var(--jc-faint);
+	color: var(--jc-muted);
 }
 .cardDesc {
 	margin: 0 0 14px;
@@ -350,13 +350,9 @@
 	justify-content: space-between;
 	gap: 6px 12px;
 }
-/* Light uses the darkest primary (4.8:1 on white); --jc-gold is only 3.5:1 there. */
 .cardGuide {
 	font-size: 14px;
 	font-weight: 600;
-	color: var(--ifm-color-primary-darkest);
-}
-[data-theme="dark"] .cardGuide {
 	color: var(--jc-gold);
 }
 .planned {
