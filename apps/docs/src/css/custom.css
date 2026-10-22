@@ -36,13 +36,14 @@
 	--ifm-navbar-background-color: rgba(255, 255, 255, 0.8);
 	--ifm-heading-color: #0a0e16;
 	--ifm-font-color-base: #374253;
-	--ifm-link-color: #d96b0f;
+	--ifm-link-color: #a04e08; /* 5.9:1 on white; #d96b0f was 3.5:1 */
 	--ifm-toc-border-color: rgba(12, 18, 28, 0.1);
 	--ifm-code-background: #f3f6f9;
 	--docusaurus-highlighted-code-line-bg: rgba(243, 128, 32, 0.14);
 
 	/* cf-common custom tokens (Cloudflare orange) */
-	--jc-gold: #d96b0f;
+	/* Text-safe on white (5.9:1), --jc-surface2 (5.4:1) and --jc-gold-soft (4.7:1 worst case) */
+	--jc-gold: #a04e08;
 	--jc-gold-fill: #f38020;
 	--jc-on-gold: #ffffff;
 	--jc-bg: #ffffff;
