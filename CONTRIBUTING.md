@@ -2,12 +2,20 @@
 
 ## Commits & releases
 
-Commits follow [Conventional Commits](https://conventionalcommits.org/). Merging
-to `main` does not publish. A release runs only when the `release.yml` workflow is
-dispatched (`gh workflow run release.yml`) or a milestone closes. semantic-release
-then versions, tags, publishes to npm, and (via the docs workflow) redeploys the
-site. Use `feat:` for a new module/API,
-`fix:` for a bug fix, `docs:`/`chore:` otherwise.
+Commits follow [Conventional Commits](https://conventionalcommits.org/). Use
+`feat:` for a new module/API, `fix:` for a bug fix, `docs:`/`chore:` otherwise.
+
+Releases use [Changesets](https://github.com/changesets/changesets). Do not edit
+`version` in `package.json` by hand.
+
+1. Add a changeset for any user-facing change: `pnpm changeset`. Pick the bump
+   (patch/minor/major) and commit the file under `.changeset/` with your PR.
+2. Merging to `main` does not publish. Each push opens or updates a "Version
+   Packages" PR that consumes the pending changesets and bumps the version.
+3. Merging the Version Packages PR is the release. Its `publish` job waits for one
+   approval in the `release` environment, then publishes to npm and creates the
+   GitHub Release, which redeploys the docs site.
+4. A manual dispatch (`gh workflow run release.yml`) retries a failed publish.
 
 The docs site's API reference is generated from source JSDoc on every build, and
 the README's version badge reflects npm automatically — neither needs a manual
