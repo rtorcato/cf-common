@@ -1,3 +1,9 @@
+# @rtorcato/cf-common
+
+## 1.7.0
+
+Released by semantic-release. Earlier entries below are in the semantic-release format; GitHub Releases hold the full history.
+
 ## [1.5.1](https://github.com/rtorcato/cf-common/compare/v1.5.0...v1.5.1) (2026-07-23)
 
 

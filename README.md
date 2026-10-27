@@ -125,9 +125,11 @@ pnpm build         # tsup → dist/ (ESM, per-module subpaths)
 pnpm test:watch    # vitest in watch mode
 ```
 
-Commits follow [Conventional Commits](https://conventionalcommits.org/);
-releases are cut by semantic-release when the `release.yml` workflow is
-dispatched.
+Commits follow [Conventional Commits](https://conventionalcommits.org/).
+Releases use [Changesets](https://github.com/changesets/changesets): add one with
+`pnpm changeset` for any user-facing change. Merging to `main` opens a "Version
+Packages" PR, and merging that PR publishes after one approval in the `release`
+environment.
 
 ## License
 
