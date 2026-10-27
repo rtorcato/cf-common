@@ -14,10 +14,8 @@ on:
             - 'README.md'
             - '.github/workflows/docs.yml'
             - 'pnpm-workspace.yaml'
-    # The release workflow publishes a GitHub Release; rebuild then too, so the
-    # site always tracks the latest release.
-    release:
-        types: [published]
+    # release.yml dispatches this after a publish, so the changelog page (built
+    # from the GitHub releases) picks up the new ones.
     workflow_dispatch:
 
 permissions:

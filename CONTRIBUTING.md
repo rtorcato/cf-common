@@ -14,7 +14,7 @@ Releases use [Changesets](https://github.com/changesets/changesets). Do not edit
    Packages" PR that consumes the pending changesets and bumps the version.
 3. Merging the Version Packages PR is the release. Its `publish` job waits for one
    approval in the `release` environment, then publishes to npm and creates the
-   GitHub Release, which redeploys the docs site.
+   GitHub Release, then dispatches the docs workflow to rebuild the site.
 4. A manual dispatch (`gh workflow run release.yml`) retries a failed publish.
 
 The docs site's API reference is generated from source JSDoc on every build, and
