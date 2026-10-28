@@ -78,6 +78,10 @@
       "import": "./dist/r2/index.js",
       "types": "./dist/r2/index.d.ts"
     },
+    "./r2-presign": {
+      "import": "./dist/r2-presign/index.js",
+      "types": "./dist/r2-presign/index.d.ts"
+    },
     "./cache": {
       "import": "./dist/cache/index.js",
       "types": "./dist/cache/index.d.ts"

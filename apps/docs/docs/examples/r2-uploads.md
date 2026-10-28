@@ -134,5 +134,6 @@ A failure throws a `CloudflareError` with code `R2_MULTIPART_FAILED`.
 "vars": { "UPLOAD_TOKEN": "dev-token" } // use `wrangler secret put` in production
 ```
 
-Presigned URLs need the S3-compatible API and account credentials, so they are
-not part of this module. See the [`r2` API reference](/docs/api/r2).
+To let clients upload straight to R2 instead of through the Worker, see
+[R2 presigned URLs](/docs/examples/r2-presigned-urls). See the
+[`r2` API reference](/docs/api/r2) for every option.

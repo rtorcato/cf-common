@@ -79,6 +79,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | `@rtorcato/cf-common/ratelimit` | `rateLimit` — typed Rate Limiting binding wrapper with IP / identifier keys | ✅ Shipped |
 | [`@rtorcato/cf-common/ai`](https://docs.torcato.dev/cf-common/docs/api/ai) | `runAi` — typed Workers AI `run()`, input and output types picked by model name | ✅ Shipped |
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
+| [`@rtorcato/cf-common/r2-presign`](https://docs.torcato.dev/cf-common/docs/api/r2-presign) | `presignR2Url` — presigned `GET`/`PUT` URLs over R2's S3 API (SigV4, Web Crypto) | ✅ Shipped |
 | [`@rtorcato/cf-common/cache`](https://docs.torcato.dev/cf-common/docs/api/cache) | `createCache` + `buildCacheKey` — Cache API `match`/`put`/`delete` with key-builder and TTL | ✅ Shipped |
 | [`@rtorcato/cf-common/queues`](https://docs.torcato.dev/cf-common/docs/api/queues) | `createProducer` + `defineQueue` — typed Queue producer with 100-message chunking, and a consumer that acks or retries each message | ✅ Shipped |
 | [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
