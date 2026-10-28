@@ -13,6 +13,7 @@ import { getEnv, requireEnv } from '@rtorcato/cf-common/env'
 import { defineFetch, preflight, withCors } from '@rtorcato/cf-common/http'
 import { createKvStore } from '@rtorcato/cf-common/kv'
 import { createR2Store } from '@rtorcato/cf-common/r2'
+import { presignR2Url } from '@rtorcato/cf-common/r2-presign'
 import { bearerToken, cf, clientIp, parseJson } from '@rtorcato/cf-common/request'
 
 interface Env {
@@ -23,9 +24,13 @@ interface Env {
 	KV?: KVNamespace
 	R2?: R2Bucket
 	D1?: D1Database
+	// Only for /presign: an R2 API token, set with `wrangler secret put`.
+	R2_ACCOUNT_ID?: string
+	R2_ACCESS_KEY_ID?: string
+	R2_SECRET_ACCESS_KEY?: string
 }
 
-const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/d1'] as const
+const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/presign', '/d1'] as const
 
 // parseJson only needs a `.parse`, so any validator works. In a real Worker
 // swap this for a Zod schema: `z.object({ name: z.string() })`.
@@ -91,6 +96,33 @@ export default defineFetch<Env>(async (req, env) => {
 			const docs = createR2Store<{ at: string }>(env.R2)
 			await docs.putJSON('demo.json', { at: new Date().toISOString() })
 			return Response.json({ demo: await docs.getJSON('demo.json') })
+		}
+
+		case '/presign': {
+			// Signing is local (no network call), so this works under `wrangler dev`.
+			// The URLs only work against a real bucket with a real R2 API token.
+			const { R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY } = env
+			if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY) {
+				return Response.json(
+					{
+						error:
+							'Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY (wrangler secret put).',
+					},
+					{ status: 500 }
+				)
+			}
+			const target = {
+				accountId: R2_ACCOUNT_ID,
+				accessKeyId: R2_ACCESS_KEY_ID,
+				secretAccessKey: R2_SECRET_ACCESS_KEY,
+				bucket: 'cf-common-example',
+				key: 'demo.txt',
+				expiresIn: 300,
+			}
+			return Response.json({
+				get: await presignR2Url(target),
+				put: await presignR2Url({ ...target, method: 'PUT' }),
+			})
 		}
 
 		case '/d1': {

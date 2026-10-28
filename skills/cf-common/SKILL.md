@@ -19,7 +19,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `d1`, `http`, `request`, `turnstile`, `cron`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `d1`, `http`, `request`, `turnstile`, `cron`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -35,7 +35,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 
 3. **Get bindings through `env`, not by trusting `env.X`.** `getBinding<T>(env, 'NAME')` throws a non-exposed 500 when the binding is missing, since that is a deploy misconfiguration and not a client error. `requireEnv(env, 'NAME')` does the same for a required string var or secret. `getEnv(env, 'NAME', fallback?)` is for optional vars.
 
-4. **Use the native APIs where they already work.** There is no `json()` helper: use `Response.json(data, init)`. There is no router: bring your own (or a `switch` on `URL.pathname`). There are no R2 presigned URLs: those need the S3 API with SigV4 and are out of scope.
+4. **Use the native APIs where they already work.** There is no `json()` helper: use `Response.json(data, init)`. There is no router: bring your own (or a `switch` on `URL.pathname`). The R2 binding can't presign URLs, so `r2-presign` signs them over the S3 API with an R2 API token.
 
 5. **Validation is bring-your-own-schema.** `parseJson(request, schema)` accepts anything with a `parse(input): T` method (a Zod schema works as is). Malformed JSON and failed validation both throw an exposed `400` with code `INVALID_BODY`.
 
@@ -47,6 +47,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `env` | `getBinding<T>`, `requireEnv`, `getEnv`, type `Env` | Missing binding or var → non-exposed 500 |
 | `kv` | `createKvStore<T>(ns)` → `get`/`put`/`delete`/`list` | Values are JSON. `get` returns `null` when missing. `put(key, value, { ttl?, expiration?, metadata? })`. Invalid JSON throws `KV_PARSE_FAILED` |
 | `r2` | `createR2Store<T>(bucket)` → `get`/`getJSON`/`put`/`putJSON`/`head`/`delete`/`list`. `multipartUpload(bucket, key, parts, options?)` | `putJSON` sets `application/json`. `getJSON` on invalid JSON throws `R2_PARSE_FAILED`. Multipart aborts on failure (`R2_MULTIPART_FAILED`), and every part except the last must be ≥ 5 MiB |
+| `r2-presign` | `presignR2Url({ accountId, accessKeyId, secretAccessKey, bucket, key, method?, expiresIn? })` | `GET` (default) or `PUT`, `expiresIn` 1 to 604800 s (default 3600). Only `host` is signed. Bad `accountId`/`expiresIn` throws a 500 `R2_PRESIGN_INVALID`; an empty key or a `.`/`..` segment throws an exposed 400 `R2_PRESIGN_INVALID_KEY`. Keep the secret in `wrangler secret put` |
 | `d1` | `query<T>`, `queryFirst<T>`, `execute`, `batch`, `runMigrations` | Parameters are variadic: `query(db, sql, ...params)`. `batch(db, [{ sql, params }])` is atomic. A failing migration throws `D1_MIGRATION_FAILED` |
 | `http` | `defineFetch`, `errorResponse`, `error`, `corsHeaders`, `withCors`, `preflight` | CORS defaults are permissive (`*`), so set `origin` in production |
 | `request` | `cf`, `parseJson`, `bearerToken`, `clientIp` | `cf(request)` is `undefined` in local dev without `--remote` and in tests. `bearerToken` returns `null` if the header is missing or malformed |

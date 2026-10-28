@@ -7,8 +7,8 @@ export type R2PutValue = ReadableStream | ArrayBuffer | ArrayBufferView | string
  * A typed view over a single `R2Bucket` binding. Raw object methods pass
  * straight through; the `*JSON` helpers (de)serialize and set the content type.
  *
- * Note: presigned URLs are intentionally not here — they require the S3-compatible
- * API with account credentials and SigV4 signing, which is a separate concern.
+ * Presigned URLs live in `@rtorcato/cf-common/r2-presign`: they need the
+ * S3-compatible API with an R2 API token and SigV4 signing, not the binding.
  */
 export interface R2Store<T> {
 	get(key: string): Promise<R2ObjectBody | null>
