@@ -11,7 +11,7 @@ pnpm --filter @rtorcato/cf-common-example dev
 ```
 
 Then hit the routes (default `http://localhost:8787`) — `/`, `/env`, `/whoami`,
-and `/echo` work with **no Cloudflare account**; `/kv`, `/r2`, and `/d1` need
+and `/echo` work with **no Cloudflare account**; `/kv`, `/r2`, `/d1`, and `/queue` need
 their binding uncommented in `wrangler.jsonc`; `/presign` needs `R2_ACCOUNT_ID`,
 `R2_ACCESS_KEY_ID` and `R2_SECRET_ACCESS_KEY` (in `.dev.vars` locally). `wrangler dev` runs in local mode:
 Miniflare simulates KV, R2, and D1 on disk using the placeholder ids there.
@@ -26,6 +26,7 @@ Miniflare simulates KV, R2, and D1 on disk using the placeholder ids there.
 | `/r2`     | GET    | `createR2Store` `putJSON` / `getJSON`                        |
 | `/presign` | GET   | `presignR2Url` signing 5-minute `GET` and `PUT` URLs (needs the `R2_*` secrets) |
 | `/d1`     | GET    | `queryFirst` against local D1                                |
+| `/queue`  | GET    | `createProducer` enqueues; `defineQueue` consumes it in the same Worker |
 
 ```sh
 # /echo validates the body and reads the bearer token:

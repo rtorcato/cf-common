@@ -16,7 +16,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `d1`, `http`, `request`, `turnstile`, `cron`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `d1`, `http`, `request`, `turnstile`, `cron`, `queues`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -50,6 +50,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `request` | `cf`, `parseJson`, `bearerToken`, `clientIp` | `cf(request)` is `undefined` in local dev without `--remote` and in tests. `bearerToken` returns `null` if the header is missing or malformed |
 | `turnstile` | `verifyTurnstile`, `assertTurnstile` | `verify…` returns the result, so check `.success`. `assert…` throws a 403 whose `code` is Turnstile's first error code. A failed HTTP call throws 502 `TURNSTILE_HTTP_ERROR` |
 | `cron` | `defineScheduled({ '<cron>': job })` | Keys must match the `crons` in your wrangler config. An unmatched trigger throws `CRON_NO_MATCH` |
+| `queues` | `createProducer<T>(queue)` → `send`/`sendBatch`. `defineQueue(handler, { retryDelay? })` | `sendBatch` splits into chunks of 100 and throws `QUEUE_SEND_FAILED` (502). `defineQueue` runs `handler(body, message, env, ctx)` per message: returns → `ack()`, throws → `retry()` for that message only. `retryDelay` is seconds or `(attempts) => seconds` |
 
 ## Recipes
 
@@ -102,6 +103,19 @@ export default {
   scheduled: defineScheduled<Env>({
     '0 * * * *': async (_controller, env) => rollupHourly(env),
     '0 0 * * *': async (_controller, env) => rollupDaily(env),
+  }),
+}
+```
+
+**Queue producer and consumer:**
+```ts
+import { createProducer, defineQueue } from '@rtorcato/cf-common/queues'
+
+await createProducer<EmailJob>(env.EMAILS).send({ to })
+
+export default {
+  queue: defineQueue<EmailJob, Env>(async (job, _message, env) => sendEmail(env, job), {
+    retryDelay: (attempts) => 2 ** attempts * 10,
   }),
 }
 ```

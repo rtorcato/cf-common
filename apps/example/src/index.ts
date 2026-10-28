@@ -5,13 +5,14 @@
  *
  * Run it with `pnpm --filter @rtorcato/cf-common-example dev`, then hit the
  * routes listed at `/`. `/`, `/env`, `/whoami`, and `/echo` work out of the
- * box; `/kv`, `/r2`, and `/d1` need their binding uncommented in
+ * box; `/kv`, `/r2`, `/d1`, and `/queue` need their binding uncommented in
  * `wrangler.jsonc`.
  */
 import { queryFirst } from '@rtorcato/cf-common/d1'
 import { getEnv, requireEnv } from '@rtorcato/cf-common/env'
 import { defineFetch, preflight, withCors } from '@rtorcato/cf-common/http'
 import { createKvStore } from '@rtorcato/cf-common/kv'
+import { createProducer, defineQueue } from '@rtorcato/cf-common/queues'
 import { createR2Store } from '@rtorcato/cf-common/r2'
 import { presignR2Url } from '@rtorcato/cf-common/r2-presign'
 import { bearerToken, cf, clientIp, parseJson } from '@rtorcato/cf-common/request'
@@ -28,9 +29,10 @@ interface Env {
 	R2_ACCOUNT_ID?: string
 	R2_ACCESS_KEY_ID?: string
 	R2_SECRET_ACCESS_KEY?: string
+	QUEUE?: Queue<{ at: string }>
 }
 
-const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/presign', '/d1'] as const
+const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/presign', '/d1', '/queue'] as const
 
 // parseJson only needs a `.parse`, so any validator works. In a real Worker
 // swap this for a Zod schema: `z.object({ name: z.string() })`.
@@ -47,7 +49,7 @@ const echoSchema = {
 // defineFetch wraps the handler: anything that throws a CloudflareError — a
 // missing var via requireEnv, a bad body via parseJson — becomes a clean JSON
 // Response with the right status. No try/catch to repeat.
-export default defineFetch<Env>(async (req, env) => {
+const api = defineFetch<Env>(async (req, env) => {
 	const { pathname } = new URL(req.url)
 
 	// CORS preflight in one line (permissive defaults; tighten `origin` in prod).
@@ -131,10 +133,28 @@ export default defineFetch<Env>(async (req, env) => {
 			return Response.json(row)
 		}
 
+		case '/queue': {
+			if (!env.QUEUE) return missingBinding('QUEUE', 'queues')
+			await createProducer(env.QUEUE).send({ at: new Date().toISOString() })
+			return Response.json({ queued: true }, { status: 202 })
+		}
+
 		default:
 			return Response.json({ error: 'Not found', routes: ROUTES }, { status: 404 })
 	}
 })
+
+// Same Worker consumes the queue it produces to: the handler logs each job, and a
+// throw would retry just that message (here after 10s).
+export default {
+	...api,
+	queue: defineQueue<{ at: string }, Env>(
+		(job) => {
+			console.log('queue job', job.at)
+		},
+		{ retryDelay: 10 }
+	),
+}
 
 /** A 500 explaining which `wrangler.jsonc` binding a route needs. */
 function missingBinding(binding: string, configKey: string): Response {

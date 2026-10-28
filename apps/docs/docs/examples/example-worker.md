@@ -32,6 +32,7 @@ binding uncommented in `wrangler.jsonc`. Hit them at `http://localhost:8787`:
 | `/kv`     | GET    | `createKvStore` round-tripping a counter (TTL)              |
 | `/r2`     | GET    | `createR2Store` `putJSON` / `getJSON`                       |
 | `/d1`     | GET    | `queryFirst` against local D1                               |
+| `/queue`  | GET    | `createProducer` enqueues; `defineQueue` consumes it        |
 
 ## The handler
 
