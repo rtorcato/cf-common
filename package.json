@@ -106,6 +106,10 @@
       "import": "./dist/cron/index.js",
       "types": "./dist/cron/index.d.ts"
     },
+    "./ai": {
+      "import": "./dist/ai/index.js",
+      "types": "./dist/ai/index.d.ts"
+    },
     "./queues": {
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"

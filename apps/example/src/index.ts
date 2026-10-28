@@ -5,9 +5,10 @@
  *
  * Run it with `pnpm --filter @rtorcato/cf-common-example dev`, then hit the
  * routes listed at `/`. `/`, `/env`, `/whoami`, and `/echo` work out of the
- * box; `/kv`, `/r2`, `/d1`, and `/queue` need their binding uncommented in
+ * box; `/kv`, `/r2`, `/d1`, `/queue`, and `/ai` need their binding uncommented in
  * `wrangler.jsonc`.
  */
+import { runAi } from '@rtorcato/cf-common/ai'
 import { queryFirst } from '@rtorcato/cf-common/d1'
 import { getEnv, requireEnv } from '@rtorcato/cf-common/env'
 import { defineFetch, preflight, withCors } from '@rtorcato/cf-common/http'
@@ -25,9 +26,10 @@ interface Env {
 	R2?: R2Bucket
 	D1?: D1Database
 	QUEUE?: Queue<{ at: string }>
+	AI?: Ai
 }
 
-const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/d1', '/queue'] as const
+const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/d1', '/queue', '/ai'] as const
 
 // parseJson only needs a `.parse`, so any validator works. In a real Worker
 // swap this for a Zod schema: `z.object({ name: z.string() })`.
@@ -105,6 +107,14 @@ const api = defineFetch<Env>(async (req, env) => {
 			if (!env.QUEUE) return missingBinding('QUEUE', 'queues')
 			await createProducer(env.QUEUE).send({ at: new Date().toISOString() })
 			return Response.json({ queued: true }, { status: 202 })
+		}
+
+		case '/ai': {
+			if (!env.AI) return missingBinding('AI', 'ai')
+			const { response } = await runAi(env.AI, '@cf/meta/llama-3.2-3b-instruct', {
+				prompt: 'Say hello in five words.',
+			})
+			return Response.json({ response })
 		}
 
 		default:
