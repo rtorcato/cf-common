@@ -20,6 +20,7 @@ const sidebars: SidebarsConfig = {
 				'guides/r2',
 				'guides/d1',
 				'guides/queues',
+				'guides/ai',
 			],
 		},
 		{

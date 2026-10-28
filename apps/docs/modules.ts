@@ -17,5 +17,6 @@ export const MODULES: Record<string, string> = {
 	http: 'defineFetch error mapping, error responses and CORS helpers.',
 	turnstile: 'Verify or assert a Turnstile token server-side.',
 	cron: 'Dispatch scheduled events to jobs by cron expression.',
+	ai: 'Typed run() over the Workers AI binding, with error mapping.',
 	queues: 'Typed Queue producer and a consumer that acks or retries each message.',
 }
