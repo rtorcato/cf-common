@@ -5,9 +5,10 @@
  *
  * Run it with `pnpm --filter @rtorcato/cf-common-example dev`, then hit the
  * routes listed at `/`. `/`, `/env`, `/whoami`, and `/echo` work out of the
- * box; `/kv`, `/r2`, and `/d1` need their binding uncommented in
+ * box; `/kv`, `/r2`, `/d1`, and `/ai` need their binding uncommented in
  * `wrangler.jsonc`.
  */
+import { runAi } from '@rtorcato/cf-common/ai'
 import { queryFirst } from '@rtorcato/cf-common/d1'
 import { getEnv, requireEnv } from '@rtorcato/cf-common/env'
 import { defineFetch, preflight, withCors } from '@rtorcato/cf-common/http'
@@ -23,9 +24,10 @@ interface Env {
 	KV?: KVNamespace
 	R2?: R2Bucket
 	D1?: D1Database
+	AI?: Ai
 }
 
-const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/d1'] as const
+const ROUTES = ['/', '/env', '/whoami', '/echo', '/kv', '/r2', '/d1', '/ai'] as const
 
 // parseJson only needs a `.parse`, so any validator works. In a real Worker
 // swap this for a Zod schema: `z.object({ name: z.string() })`.
@@ -97,6 +99,14 @@ export default defineFetch<Env>(async (req, env) => {
 			if (!env.D1) return missingBinding('D1', 'd1_databases')
 			const row = await queryFirst<{ now: string }>(env.D1, "SELECT datetime('now') AS now")
 			return Response.json(row)
+		}
+
+		case '/ai': {
+			if (!env.AI) return missingBinding('AI', 'ai')
+			const { response } = await runAi(env.AI, '@cf/meta/llama-3.2-3b-instruct', {
+				prompt: 'Say hello in five words.',
+			})
+			return Response.json({ response })
 		}
 
 		default:

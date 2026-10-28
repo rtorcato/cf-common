@@ -21,4 +21,6 @@
       "database_id": "local-placeholder-d1"
     }
   ]
+  // Workers AI runs on Cloudflare, not locally, so /ai needs `wrangler dev --remote`.
+  // "ai": { "binding": "AI" }
 }
