@@ -145,6 +145,10 @@
     "./email": {
       "import": "./dist/email/index.js",
       "types": "./dist/email/index.d.ts"
+    },
+    "./analytics": {
+      "import": "./dist/analytics/index.js",
+      "types": "./dist/analytics/index.d.ts"
     }
   },
   "files": [
