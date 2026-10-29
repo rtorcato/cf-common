@@ -79,11 +79,13 @@ Each module is a separate subpath import, so you ship only what you use.
 | `@rtorcato/cf-common/ratelimit` | `rateLimit` — typed Rate Limiting binding wrapper with IP / identifier keys | ✅ Shipped |
 | [`@rtorcato/cf-common/access`](https://docs.torcato.dev/cf-common/docs/api/access) | `verifyAccessJwt` + `accessJwt` — verify the Cloudflare Access JWT assertion against the team JWKS | ✅ Shipped |
 | [`@rtorcato/cf-common/ai`](https://docs.torcato.dev/cf-common/docs/api/ai) | `runAi` — typed Workers AI `run()`, input and output types picked by model name | ✅ Shipped |
+| [`@rtorcato/cf-common/ai-gateway`](https://docs.torcato.dev/cf-common/docs/api/ai-gateway) | `createAiGateway` + `gatewayUrl` + `gatewayHeaders` — route provider calls through AI Gateway with typed `cf-aig-*` cache, metadata and retry options | ✅ Shipped |
 | [`@rtorcato/cf-common/vectorize`](https://docs.torcato.dev/cf-common/docs/api/vectorize) | `createVectorStore` — typed metadata, upserts chunked at 1000, and failures mapped to `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/hyperdrive`](https://docs.torcato.dev/cf-common/docs/api/hyperdrive) | `withHyperdrive` — per-request client over a Hyperdrive binding, always closed; driver-agnostic | ✅ Shipped |
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
 | [`@rtorcato/cf-common/r2-presign`](https://docs.torcato.dev/cf-common/docs/api/r2-presign) | `presignR2Url` — presigned `GET`/`PUT` URLs over R2's S3 API (SigV4, Web Crypto) | ✅ Shipped |
 | [`@rtorcato/cf-common/cache`](https://docs.torcato.dev/cf-common/docs/api/cache) | `createCache` + `buildCacheKey` — Cache API `match`/`put`/`delete` with key-builder and TTL | ✅ Shipped |
+| [`@rtorcato/cf-common/assets`](https://docs.torcato.dev/cf-common/docs/api/assets) | `serveAssets` + `fetchAsset` — serve from the Static Assets binding with a per-route SPA or 404-page fallback, or fetch an asset at another path | ✅ Shipped |
 | [`@rtorcato/cf-common/queues`](https://docs.torcato.dev/cf-common/docs/api/queues) | `createProducer` + `defineQueue` — typed Queue producer with 100-message chunking, and a consumer that acks or retries each message | ✅ Shipped |
 | [`@rtorcato/cf-common/do`](https://docs.torcato.dev/cf-common/docs/api/do) | `BaseDurableObject` + `typedStorage` — Durable Object base class with key-checked `get`/`put`/`delete` | ✅ Shipped |
 | [`@rtorcato/cf-common/api`](https://docs.torcato.dev/cf-common/docs/api/api) | `createCloudflareApi` — token-authenticated REST client for zones, DNS records and cache purge, plus raw `request`/`requestPage` | ✅ Shipped |
