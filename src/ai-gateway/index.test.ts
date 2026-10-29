@@ -113,10 +113,16 @@ describe('ai-gateway module', () => {
 		expect((call.init.headers as Headers).has('cf-aig-authorization')).toBe(false)
 	})
 
-	it('rejects a dot segment in the path before sending', async () => {
+	it('rejects a path that resolves outside the provider before sending', async () => {
 		const calls = stubFetch(() => new Response('ok'))
 		const gw = createAiGateway({ accountId: 'acct', gatewayId: 'prod' })
-		for (const path of ['/../../other/prod/openai', '/a/%2e%2E/b']) {
+		for (const path of [
+			'/../../other/prod/openai',
+			'/%2e%2E/%2e%2e/other/prod/openai',
+			'/..\\..\\other/prod/openai',
+			'/.\t./.\t./other/prod/openai',
+			'evil',
+		]) {
 			expect(await caught(gw.fetch('openai', path))).toMatchObject({ code: 'AI_GATEWAY_INVALID' })
 		}
 		expect(calls).toHaveLength(0)

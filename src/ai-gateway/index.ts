@@ -141,14 +141,23 @@ export function createAiGateway(config: AiGatewayConfig): AiGatewayClient {
 		})
 
 	const send: AiGatewayClient['fetch'] = async (provider, path, init = {}, options) => {
-		if (path.split(/[/?#]/).some((s) => DOT_SEGMENT.test(s))) throw invalid('path')
+		// Check the resolved URL, not the raw string: the URL parser also treats `\`
+		// as a separator and strips tabs, so `/..\..\other` escapes the provider.
+		const base = new URL(url(provider))
+		const target = new URL(`${base.href}${path}`)
+		if (
+			target.origin !== base.origin ||
+			(target.pathname !== base.pathname && !target.pathname.startsWith(`${base.pathname}/`))
+		) {
+			throw invalid('path')
+		}
 		const headers = new Headers(init.headers)
 		for (const [name, value] of Object.entries(gatewayHeaders(options, config.token))) {
 			headers.set(name, value)
 		}
 		let res: Response
 		try {
-			res = await fetch(`${url(provider)}${path}`, { ...init, headers })
+			res = await fetch(target.href, { ...init, headers })
 		} catch (err) {
 			throw fail(provider, 'network', err)
 		}
