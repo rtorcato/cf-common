@@ -117,6 +117,10 @@
     "./queues": {
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"
+    },
+    "./api": {
+      "import": "./dist/api/index.js",
+      "types": "./dist/api/index.d.ts"
     }
   },
   "files": [
