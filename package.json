@@ -86,6 +86,10 @@
       "import": "./dist/cache/index.js",
       "types": "./dist/cache/index.d.ts"
     },
+    "./assets": {
+      "import": "./dist/assets/index.js",
+      "types": "./dist/assets/index.d.ts"
+    },
     "./d1": {
       "import": "./dist/d1/index.js",
       "types": "./dist/d1/index.d.ts"

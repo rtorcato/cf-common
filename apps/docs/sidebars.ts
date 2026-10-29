@@ -21,6 +21,7 @@ const sidebars: SidebarsConfig = {
 				'guides/kv',
 				'guides/r2',
 				'guides/cache',
+				'guides/assets',
 				'guides/d1',
 				'guides/queues',
 				'guides/do',
