@@ -92,6 +92,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/rpc`](https://docs.torcato.dev/cf-common/docs/api/rpc) | `getService` + `callService` — typed Service Binding / `WorkerEntrypoint` accessor, and RPC failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/ws`](https://docs.torcato.dev/cf-common/docs/api/ws) | `acceptWebSocket` + `broadcast` + `parseMessage` — Hibernatable WebSockets on a Durable Object: upgrade, typed attachments, validated JSON messages | ✅ Shipped |
 | [`@rtorcato/cf-common/workflows`](https://docs.torcato.dev/cf-common/docs/api/workflows) | `createWorkflow` — typed client over a Workflow binding: `create` with typed params, `get`, and `status` with a typed `output` | ✅ Shipped |
+| [`@rtorcato/cf-common/secrets`](https://docs.torcato.dev/cf-common/docs/api/secrets) | `getSecret` — read a Secrets Store secret by binding name, failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/email`](https://docs.torcato.dev/cf-common/docs/api/email) | `sendEmail` — send over a `send_email` binding from fields or raw MIME, failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/analytics`](https://docs.torcato.dev/cf-common/docs/api/analytics) | `writeDataPoint` + `createDataset` — Analytics Engine writes with named columns instead of `blob1`/`double1` positions | ✅ Shipped |
 | [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
