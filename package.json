@@ -38,6 +38,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.14",
     "@changesets/cli": "^3.0.3",
+    "@cloudflare/puppeteer": "^1.4.0",
     "@cloudflare/vitest-plugin": "1.4.6",
     "@cloudflare/workers-types": "^5.20261005.1",
     "@commitlint/cli": "^21.2.3",
@@ -122,6 +123,10 @@
       "import": "./dist/ai-gateway/index.js",
       "types": "./dist/ai-gateway/index.d.ts"
     },
+    "./browser": {
+      "import": "./dist/browser/index.js",
+      "types": "./dist/browser/index.d.ts"
+    },
     "./queues": {
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"
@@ -180,5 +185,13 @@
   },
   "dependencies": {
     "@rtorcato/js-common": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@cloudflare/puppeteer": "^1.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@cloudflare/puppeteer": {
+      "optional": true
+    }
   }
 }

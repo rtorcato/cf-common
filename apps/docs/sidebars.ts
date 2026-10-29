@@ -34,6 +34,7 @@ const sidebars: SidebarsConfig = {
 				'guides/ai',
 				'guides/ai-gateway',
 				'guides/api',
+				'guides/browser',
 				'guides/vectorize',
 				'guides/hyperdrive',
 				'guides/email',
