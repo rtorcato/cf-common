@@ -145,10 +145,6 @@
     "./rpc": {
       "import": "./dist/rpc/index.js",
       "types": "./dist/rpc/index.d.ts"
-    },
-    "./workflows": {
-      "import": "./dist/workflows/index.js",
-      "types": "./dist/workflows/index.d.ts"
     }
   },
   "files": [
