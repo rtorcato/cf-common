@@ -122,6 +122,10 @@
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"
     },
+    "./ws": {
+      "import": "./dist/ws/index.js",
+      "types": "./dist/ws/index.d.ts"
+    },
     "./workflows": {
       "import": "./dist/workflows/index.js",
       "types": "./dist/workflows/index.d.ts"
