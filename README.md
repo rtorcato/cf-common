@@ -79,6 +79,8 @@ Each module is a separate subpath import, so you ship only what you use.
 | `@rtorcato/cf-common/ratelimit` | `rateLimit` — typed Rate Limiting binding wrapper with IP / identifier keys | ✅ Shipped |
 | [`@rtorcato/cf-common/access`](https://docs.torcato.dev/cf-common/docs/api/access) | `verifyAccessJwt` + `accessJwt` — verify the Cloudflare Access JWT assertion against the team JWKS | ✅ Shipped |
 | [`@rtorcato/cf-common/ai`](https://docs.torcato.dev/cf-common/docs/api/ai) | `runAi` — typed Workers AI `run()`, input and output types picked by model name | ✅ Shipped |
+| [`@rtorcato/cf-common/vectorize`](https://docs.torcato.dev/cf-common/docs/api/vectorize) | `createVectorStore` — typed metadata, upserts chunked at 1000, and failures mapped to `CloudflareError` | ✅ Shipped |
+| [`@rtorcato/cf-common/hyperdrive`](https://docs.torcato.dev/cf-common/docs/api/hyperdrive) | `withHyperdrive` — per-request client over a Hyperdrive binding, always closed; driver-agnostic | ✅ Shipped |
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
 | [`@rtorcato/cf-common/r2-presign`](https://docs.torcato.dev/cf-common/docs/api/r2-presign) | `presignR2Url` — presigned `GET`/`PUT` URLs over R2's S3 API (SigV4, Web Crypto) | ✅ Shipped |
 | [`@rtorcato/cf-common/cache`](https://docs.torcato.dev/cf-common/docs/api/cache) | `createCache` + `buildCacheKey` — Cache API `match`/`put`/`delete` with key-builder and TTL | ✅ Shipped |
