@@ -98,6 +98,10 @@
       "import": "./dist/request/index.js",
       "types": "./dist/request/index.d.ts"
     },
+    "./access": {
+      "import": "./dist/access/index.js",
+      "types": "./dist/access/index.d.ts"
+    },
     "./turnstile": {
       "import": "./dist/turnstile/index.js",
       "types": "./dist/turnstile/index.d.ts"
