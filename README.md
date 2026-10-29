@@ -77,6 +77,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/env`](https://docs.torcato.dev/cf-common/docs/api/env) | `getBinding`, `requireEnv`, `getEnv` — typed access to Worker bindings and vars | ✅ Shipped |
 | [`@rtorcato/cf-common/kv`](https://docs.torcato.dev/cf-common/docs/api/kv) | `createKvStore` — typed JSON get/put/delete/list with TTL + metadata | ✅ Shipped |
 | `@rtorcato/cf-common/ratelimit` | `rateLimit` — typed Rate Limiting binding wrapper with IP / identifier keys | ✅ Shipped |
+| [`@rtorcato/cf-common/access`](https://docs.torcato.dev/cf-common/docs/api/access) | `verifyAccessJwt` + `accessJwt` — verify the Cloudflare Access JWT assertion against the team JWKS | ✅ Shipped |
 | [`@rtorcato/cf-common/ai`](https://docs.torcato.dev/cf-common/docs/api/ai) | `runAi` — typed Workers AI `run()`, input and output types picked by model name | ✅ Shipped |
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
 | [`@rtorcato/cf-common/r2-presign`](https://docs.torcato.dev/cf-common/docs/api/r2-presign) | `presignR2Url` — presigned `GET`/`PUT` URLs over R2's S3 API (SigV4, Web Crypto) | ✅ Shipped |

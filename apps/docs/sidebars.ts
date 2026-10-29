@@ -27,6 +27,7 @@ const sidebars: SidebarsConfig = {
 				'guides/cron',
 				'guides/ratelimit',
 				'guides/turnstile',
+				'guides/access',
 				'guides/ai',
 				'guides/api',
 			],
