@@ -1,5 +1,17 @@
 # @rtorcato/cf-common
 
+## 1.8.0
+
+### Minor Changes
+
+- 597d6b9: Add `@rtorcato/cf-common/r2-presign`: `presignR2Url` signs presigned `GET`/`PUT` URLs for an R2 object over the S3-compatible API with an R2 API token (AWS SigV4 via Web Crypto, no dependency).
+- dc5f548: Add `@rtorcato/cf-common/queues`: `createProducer` wraps a `Queue` binding (typed `send`, `sendBatch` split into chunks of 100, failures as `QUEUE_SEND_FAILED`), and `defineQueue` builds a `queue` handler that acks or retries each message individually, with an optional `retryDelay` backoff.
+- 5feadcd: Add the `@rtorcato/cf-common/ai` module with `runAi`, a typed wrapper over the Workers AI binding's `run()`. The input and output types follow the model name, and a failed call throws a non-exposed `502` with code `AI_RUN_FAILED`.
+
+### Patch Changes
+
+- 51791ef: Add the `cache`, `ratelimit` and `ai` modules to the bundled `AGENTS.md` (the subpath list and module map left them out).
+
 ## 1.7.0
 
 Released by semantic-release. Earlier entries below are in the semantic-release format; GitHub Releases hold the full history.
