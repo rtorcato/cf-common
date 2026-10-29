@@ -25,6 +25,7 @@ const sidebars: SidebarsConfig = {
 				'guides/queues',
 				'guides/do',
 				'guides/rpc',
+				'guides/ws',
 				'guides/workflows',
 				'guides/cron',
 				'guides/ratelimit',
