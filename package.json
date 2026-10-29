@@ -126,6 +126,10 @@
       "import": "./dist/ai-gateway/index.js",
       "types": "./dist/ai-gateway/index.d.ts"
     },
+    "./pipelines": {
+      "import": "./dist/pipelines/index.js",
+      "types": "./dist/pipelines/index.d.ts"
+    },
     "./queues": {
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"

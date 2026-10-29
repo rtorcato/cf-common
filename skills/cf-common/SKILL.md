@@ -19,7 +19,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `assets`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ws`, `ai`, `ai-gateway`, `vectorize`, `access`, `hyperdrive`, `rpc`, `api`, `email`, `analytics`, `workflows`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `assets`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ws`, `ai`, `ai-gateway`, `vectorize`, `access`, `hyperdrive`, `rpc`, `api`, `email`, `analytics`, `pipelines`, `workflows`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -69,6 +69,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `hyperdrive` | `withHyperdrive(hd, { connect, close, ctx? }, work)` | Opens one client per call over the Hyperdrive binding and always closes it, also when `work` throws. `connect` and `close` are yours, so no driver is bundled. A failed connect throws a non-exposed 502 `HYPERDRIVE_CONNECT_FAILED`. Errors from `work` pass through unchanged |
 | `email` | `sendEmail(binding, message)` | Over the `send_email` binding. `message` is fields (`from`, `to`/`cc`/`bcc`, `subject`, `text`/`html`, `attachments`; the runtime builds the MIME) or an `EmailMessage` from `cloudflare:email` with raw MIME. Returns `{ messageId }`. A failed send throws a non-exposed 502 `EMAIL_SEND_FAILED` with the original as `cause`. Senders and recipients must be allowed by the binding config |
 | `analytics` | `writeDataPoint(dataset, point)`, `createDataset(dataset, { blobs?, doubles?, index? })` → `write(fields)`/`columns` | Over the Analytics Engine binding, fire-and-forget (returns `void`). `createDataset` names the slots in order (`blobs[0]` → `blob1`, `index` → `index1`); missing blobs are written as `null`, doubles and the index are required. `columns` maps each name to its SQL API column. Only append to a schema, since reordering moves data between columns. A point the runtime rejects throws a non-exposed 500 `ANALYTICS_WRITE_FAILED` with the original as `cause` |
+| `pipelines` | `createPipelineProducer<T>(pipeline)` → `send(record)`/`sendBatch(records, { chunkSize? })` | Typed producer over a Pipeline (R2-backed streaming ingestion) binding. Records are objects (`T extends Record<string, unknown>`), asserted not validated. `sendBatch` splits into `send` calls of `chunkSize` (default 100, a package default and not a Cloudflare limit) in order and stops at the first failure, so earlier chunks stay delivered. A rejected send throws a non-exposed 502 `PIPELINE_SEND_FAILED` with the original as `cause`; a `chunkSize` that isn't a positive integer throws a non-exposed 500 `PIPELINE_INVALID_CHUNK_SIZE` |
 
 ## Recipes
 
