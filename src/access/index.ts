@@ -71,7 +71,9 @@ export async function verifyAccessJwt(
 	token: string,
 	{ teamDomain, aud }: VerifyAccessJwtOptions
 ): Promise<AccessIdentity> {
-	const team = teamDomain.replace(/^https:\/\//, '').replace(/\/+$/, '')
+	let team = teamDomain.replace(/^https:\/\//, '')
+	// Linear trim; a /\/+$/ regex backtracks polynomially on long runs of slashes.
+	while (team.endsWith('/')) team = team.slice(0, -1)
 	const parts = token.split('.')
 	if (parts.length !== 3) throw invalid('Malformed token')
 	const [h, p, s] = parts as [string, string, string]
