@@ -16,7 +16,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ai`, `access`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ai`, `access`, `rpc`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -55,6 +55,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `cron` | `defineScheduled({ '<cron>': job })` | Keys must match the `crons` in your wrangler config. An unmatched trigger throws `CRON_NO_MATCH` |
 | `queues` | `createProducer<T>(queue)` → `send`/`sendBatch`. `defineQueue(handler, { retryDelay? })` | `sendBatch` splits into chunks of 100 and throws `QUEUE_SEND_FAILED` (502). `defineQueue` runs `handler(body, message, env, ctx)` per message: returns → `ack()`, throws → `retry()` for that message only. `retryDelay` is seconds or `(attempts) => seconds` |
 | `do` | `BaseDurableObject<Env, Schema>`, `typedStorage<Schema>(storage)` → `get`/`put`/`delete` | Extends `DurableObject` from `cloudflare:workers` (RPC, `fetch`, `alarm` still work) and adds a typed `this.storage`. `get(key, fallback?)` returns `undefined` (or `fallback`) for a key never written. Only loads under workerd. Use `this.ctx.storage` for `list`, transactions, alarms and SQL |
+| `rpc` | `getService<typeof Entrypoint>(env, 'NAME')`, `callService(label, () => svc.method())` | `getService` is `getBinding` typed as the callee's `Service<…>`, so its public methods are typed RPC calls. Import the callee class as a type only. `callService` maps any failure (callee threw, binding down) to a non-exposed 502 `RPC_CALL_FAILED` with the original as `cause`; a callee's own status doesn't cross RPC, so return a result for expected failures |
 | `ai` | `runAi(ai, model, inputs, options?)` | Typed `run()` over the Workers AI binding; input and output types follow the model name. A failed call throws a non-exposed 502 `AI_RUN_FAILED` with the original error as `cause`. Use the binding directly for streaming |
 
 ## Recipes

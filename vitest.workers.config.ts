@@ -18,6 +18,11 @@ export default defineConfig({
 				r2Buckets: ['TEST_R2'],
 				d1Databases: ['TEST_D1'],
 				durableObjects: { TEST_DO: 'TestCounter' },
+				// The symbol is miniflare's kCurrentWorker (binds to this worker's own
+				// entrypoint); miniflare isn't a direct dependency, so it's not imported.
+				serviceBindings: {
+					TEST_SVC: { name: Symbol.for('miniflare.kCurrentWorker'), entrypoint: 'TestService' },
+				},
 			},
 		}),
 	],

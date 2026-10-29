@@ -21,4 +21,5 @@ export const MODULES: Record<string, string> = {
 	ai: 'Typed run() over the Workers AI binding, with error mapping.',
 	queues: 'Typed Queue producer and a consumer that acks or retries each message.',
 	do: 'Durable Object base class with typed storage.',
+	rpc: 'Typed service binding accessor and RPC call error mapping.',
 }

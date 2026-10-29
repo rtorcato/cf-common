@@ -24,6 +24,7 @@ const sidebars: SidebarsConfig = {
 				'guides/d1',
 				'guides/queues',
 				'guides/do',
+				'guides/rpc',
 				'guides/cron',
 				'guides/ratelimit',
 				'guides/turnstile',
