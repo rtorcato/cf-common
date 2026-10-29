@@ -87,6 +87,10 @@
       "import": "./dist/cache/index.js",
       "types": "./dist/cache/index.d.ts"
     },
+    "./assets": {
+      "import": "./dist/assets/index.js",
+      "types": "./dist/assets/index.d.ts"
+    },
     "./d1": {
       "import": "./dist/d1/index.js",
       "types": "./dist/d1/index.d.ts"
@@ -139,6 +143,10 @@
       "import": "./dist/workflows/index.js",
       "types": "./dist/workflows/index.d.ts"
     },
+    "./secrets": {
+      "import": "./dist/secrets/index.js",
+      "types": "./dist/secrets/index.d.ts"
+    },
     "./api": {
       "import": "./dist/api/index.js",
       "types": "./dist/api/index.d.ts"
@@ -166,6 +174,10 @@
     "./analytics": {
       "import": "./dist/analytics/index.js",
       "types": "./dist/analytics/index.d.ts"
+    },
+    "./images": {
+      "import": "./dist/images/index.js",
+      "types": "./dist/images/index.d.ts"
     }
   },
   "files": [

@@ -21,6 +21,7 @@ const sidebars: SidebarsConfig = {
 				'guides/kv',
 				'guides/r2',
 				'guides/cache',
+				'guides/assets',
 				'guides/d1',
 				'guides/queues',
 				'guides/do',
@@ -31,6 +32,7 @@ const sidebars: SidebarsConfig = {
 				'guides/ratelimit',
 				'guides/turnstile',
 				'guides/access',
+				'guides/secrets',
 				'guides/ai',
 				'guides/ai-gateway',
 				'guides/api',
@@ -39,6 +41,7 @@ const sidebars: SidebarsConfig = {
 				'guides/hyperdrive',
 				'guides/email',
 				'guides/analytics',
+				'guides/images',
 			],
 		},
 		{
