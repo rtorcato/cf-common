@@ -168,7 +168,13 @@ const MODULES: Mod[] = [
 		desc: 'Upsert/query helpers with typed metadata.',
 		status: 'AI & Data',
 	},
-	{ name: 'Hyperdrive', subpath: 'hyperdrive', desc: 'Connection helper.', status: 'AI & Data' },
+	{
+		name: 'Hyperdrive',
+		subpath: 'hyperdrive',
+		desc: 'Connection helper.',
+		status: 'AI & Data',
+		guide: true,
+	},
 	{
 		name: 'REST client',
 		subpath: 'api',
