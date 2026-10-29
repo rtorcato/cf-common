@@ -29,4 +29,5 @@ export const MODULES: Record<string, string> = {
 	workflows: 'Typed client over a Workflow binding: create, get, status.',
 	email: 'Send email over a send_email binding, with error mapping.',
 	analytics: 'Analytics Engine writes with named columns.',
+	images: 'Cloudflare Images uploads, variant and transform URLs, signed URLs.',
 }
