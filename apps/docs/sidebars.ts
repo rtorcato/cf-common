@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
 				'guides/access',
 				'guides/ai',
 				'guides/vectorize',
+				'guides/hyperdrive',
 			],
 		},
 		{

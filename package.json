@@ -126,6 +126,10 @@
       "import": "./dist/vectorize/index.js",
       "types": "./dist/vectorize/index.d.ts"
     },
+    "./hyperdrive": {
+      "import": "./dist/hyperdrive/index.js",
+      "types": "./dist/hyperdrive/index.d.ts"
+    },
     "./do": {
       "import": "./dist/do/index.js",
       "types": "./dist/do/index.d.ts"

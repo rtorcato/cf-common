@@ -169,7 +169,13 @@ const MODULES: Mod[] = [
 		status: 'AI & Data',
 		guide: true,
 	},
-	{ name: 'Hyperdrive', subpath: 'hyperdrive', desc: 'Connection helper.', status: 'AI & Data' },
+	{
+		name: 'Hyperdrive',
+		subpath: 'hyperdrive',
+		desc: 'Connection helper.',
+		status: 'AI & Data',
+		guide: true,
+	},
 	{
 		name: 'REST client',
 		subpath: 'api',
