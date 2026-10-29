@@ -26,4 +26,5 @@ export const MODULES: Record<string, string> = {
 	do: 'Durable Object base class with typed storage.',
 	rpc: 'Typed service binding accessor and RPC call error mapping.',
 	workflows: 'Typed client over a Workflow binding: create, get, status.',
+	email: 'Send email over a send_email binding, with error mapping.',
 }

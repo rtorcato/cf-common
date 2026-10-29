@@ -34,6 +34,7 @@ const sidebars: SidebarsConfig = {
 				'guides/api',
 				'guides/vectorize',
 				'guides/hyperdrive',
+				'guides/email',
 			],
 		},
 		{
