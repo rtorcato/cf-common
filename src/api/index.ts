@@ -111,7 +111,8 @@ interface Envelope {
  * with an API token. Every failure (non-2xx, `success: false`, a non-JSON body,
  * a network error) throws a non-exposed 502 {@link CloudflareError} with code
  * `CF_API_ERROR`; the upstream status and `errors` are on `cause`. The token
- * never appears in the error.
+ * never appears in the error. The named helpers reject a zone or record id of
+ * `.` or `..` with an exposed 400 `CF_API_INVALID_ID` before sending anything.
  *
  * @example
  * const cf = createCloudflareApi({ token: requireEnv(env, 'CLOUDFLARE_API_TOKEN') })
@@ -176,25 +177,36 @@ export function createCloudflareApi(options: { token: string }): CloudflareApi {
 		}
 	}
 
-	const enc = encodeURIComponent
+	// encodeURIComponent leaves `.` alone and fetch resolves dot segments, so an
+	// id of `.` or `..` would send the token to a different v4 endpoint.
+	const enc = (id: string) => {
+		if (id === '.' || id === '..') {
+			throw new CloudflareError('Invalid Cloudflare API id', {
+				status: 400,
+				code: 'CF_API_INVALID_ID',
+			})
+		}
+		return encodeURIComponent(id)
+	}
 	const records = (zoneId: string) => `/zones/${enc(zoneId)}/dns_records`
 
+	// The helpers are async so a bad id rejects like every other failure.
 	return {
 		request,
 		requestPage,
 		zones: {
 			list: (query) => requestPage('/zones', query),
-			get: (zoneId) => request('GET', `/zones/${enc(zoneId)}`),
+			get: async (zoneId) => request('GET', `/zones/${enc(zoneId)}`),
 		},
 		dns: {
-			list: (zoneId, query) => requestPage(records(zoneId), query),
-			create: (zoneId, record) => request('POST', records(zoneId), { body: record }),
-			update: (zoneId, recordId, record) =>
+			list: async (zoneId, query) => requestPage(records(zoneId), query),
+			create: async (zoneId, record) => request('POST', records(zoneId), { body: record }),
+			update: async (zoneId, recordId, record) =>
 				request('PATCH', `${records(zoneId)}/${enc(recordId)}`, { body: record }),
-			delete: (zoneId, recordId) => request('DELETE', `${records(zoneId)}/${enc(recordId)}`),
+			delete: async (zoneId, recordId) => request('DELETE', `${records(zoneId)}/${enc(recordId)}`),
 		},
 		cache: {
-			purge: (zoneId, body) => request('POST', `/zones/${enc(zoneId)}/purge_cache`, { body }),
+			purge: async (zoneId, body) => request('POST', `/zones/${enc(zoneId)}/purge_cache`, { body }),
 		},
 	}
 }

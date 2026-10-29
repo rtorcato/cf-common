@@ -88,6 +88,27 @@ describe('api module', () => {
 		expect(calls[1]!.url).toBe(`${BASE}/zones/a%2Fb%3Fc/dns_records/..%2Fr`)
 	})
 
+	it.each([
+		['zones.get', (id: string) => cf.zones.get(id)],
+		['dns.list', (id: string) => cf.dns.list(id)],
+		['dns.create', (id: string) => cf.dns.create(id, { type: 'A', name: 'a', content: '1.2.3.4' })],
+		['dns.update zone', (id: string) => cf.dns.update(id, 'r1', { proxied: true })],
+		['dns.update record', (id: string) => cf.dns.update('z', id, { proxied: true })],
+		['dns.delete zone', (id: string) => cf.dns.delete(id, 'r1')],
+		['dns.delete record', (id: string) => cf.dns.delete('z', id)],
+		['cache.purge', (id: string) => cf.cache.purge(id, { purge_everything: true })],
+	])('%s rejects . and .. ids with an exposed 400 and no request', async (_, call) => {
+		const calls = stubFetch(() => ok({ id: 'x' }))
+		for (const id of ['.', '..']) {
+			await expect(call(id)).rejects.toMatchObject({
+				status: 400,
+				expose: true,
+				code: 'CF_API_INVALID_ID',
+			})
+		}
+		expect(calls).toHaveLength(0)
+	})
+
 	it('maps success: false to a non-exposed 502 with the upstream status on cause', async () => {
 		stubFetch(() =>
 			Response.json(
