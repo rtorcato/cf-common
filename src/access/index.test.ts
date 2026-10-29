@@ -107,6 +107,17 @@ describe('verifyAccessJwt', () => {
 		}
 	})
 
+	it('rejects a signature that is not valid base64url with a 401, not a raw decode error', async () => {
+		const team = newTeam()
+		stubCerts([k1.jwk])
+		const [h, p] = (await sign(k1.priv, goodClaims(team))).split('.')
+		for (const sig of ['!!!', 'A']) {
+			await expect(
+				verifyAccessJwt(`${h}.${p}.${sig}`, { teamDomain: team, aud })
+			).rejects.toMatchObject({ status: 401, code: 'ACCESS_JWT_INVALID' })
+		}
+	})
+
 	it('refetches the JWKS once when the kid is unknown and the cache is stale', async () => {
 		vi.useFakeTimers()
 		try {

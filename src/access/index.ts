@@ -88,7 +88,13 @@ export async function verifyAccessJwt(
 		['verify']
 	)
 	const data = new TextEncoder().encode(`${h}.${p}`)
-	if (!(await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, base64UrlDecode(s), data))) {
+	let signature: Uint8Array<ArrayBuffer>
+	try {
+		signature = base64UrlDecode(s)
+	} catch (cause) {
+		throw invalid('Malformed token', cause)
+	}
+	if (!(await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, signature, data))) {
 		throw invalid('Bad signature')
 	}
 
