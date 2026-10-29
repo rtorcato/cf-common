@@ -98,6 +98,19 @@ function encodePath(id: string): string {
 	return parts.map(encodeURIComponent).join('/')
 }
 
+// Linear trims; a /\/+$/ regex backtracks polynomially on long runs of slashes.
+function trimEnd(value: string): string {
+	let end = value.length
+	while (end > 0 && value[end - 1] === '/') end--
+	return value.slice(0, end)
+}
+
+function trimStart(value: string): string {
+	let start = 0
+	while (value[start] === '/') start++
+	return value.slice(start)
+}
+
 /** Serialize {@link ImageOptions} to `key=value,…`, skipping unset keys. */
 export function imageOptions(options: ImageOptions): string {
 	return Object.entries(options)
@@ -130,7 +143,7 @@ export function imageUrl(options: {
 	origin?: string
 }): string {
 	const { accountHash, imageId, variant, origin } = options
-	const base = origin ? `${origin.replace(/\/+$/, '')}/cdn-cgi/imagedelivery` : DELIVERY_URL
+	const base = origin ? `${trimEnd(origin)}/cdn-cgi/imagedelivery` : DELIVERY_URL
 	const tail = typeof variant === 'string' ? encodePath(variant) : imageOptions(variant)
 	return `${base}/${encodePath(accountHash)}/${encodePath(imageId)}/${tail}`
 }
@@ -146,7 +159,7 @@ export function imageUrl(options: {
  * // /cdn-cgi/image/width=800,quality=80,format=auto/uploads/cat.jpg
  */
 export function transformUrl(source: string, options: ImageOptions, origin = ''): string {
-	return `${origin.replace(/\/+$/, '')}/cdn-cgi/image/${imageOptions(options)}/${source.replace(/^\/+/, '')}`
+	return `${trimEnd(origin)}/cdn-cgi/image/${imageOptions(options)}/${trimStart(source)}`
 }
 
 /**

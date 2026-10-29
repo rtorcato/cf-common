@@ -76,6 +76,21 @@ describe('images module', () => {
 		)
 	})
 
+	it('trims long slash runs from origin and source', () => {
+		const slashes = '/'.repeat(100_000)
+		expect(transformUrl(`${slashes}a.png`, { width: 1 }, `https://example.com${slashes}`)).toBe(
+			'https://example.com/cdn-cgi/image/width=1/a.png'
+		)
+		expect(
+			imageUrl({
+				accountHash: 'h',
+				imageId: 'i',
+				variant: 'thumb',
+				origin: `https://example.com${slashes}`,
+			})
+		).toBe('https://example.com/cdn-cgi/imagedelivery/h/i/thumb')
+	})
+
 	it('signImageUrl adds exp and an HMAC-SHA256 sig of the path and query', async () => {
 		vi.useFakeTimers()
 		vi.setSystemTime(new Date('2026-01-01T00:00:00Z'))
