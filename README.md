@@ -88,6 +88,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/do`](https://docs.torcato.dev/cf-common/docs/api/do) | `BaseDurableObject` + `typedStorage` — Durable Object base class with key-checked `get`/`put`/`delete` | ✅ Shipped |
 | [`@rtorcato/cf-common/api`](https://docs.torcato.dev/cf-common/docs/api/api) | `createCloudflareApi` — token-authenticated REST client for zones, DNS records and cache purge, plus raw `request`/`requestPage` | ✅ Shipped |
 | [`@rtorcato/cf-common/rpc`](https://docs.torcato.dev/cf-common/docs/api/rpc) | `getService` + `callService` — typed Service Binding / `WorkerEntrypoint` accessor, and RPC failures mapped to a `CloudflareError` | ✅ Shipped |
+| [`@rtorcato/cf-common/workflows`](https://docs.torcato.dev/cf-common/docs/api/workflows) | `createWorkflow` — typed client over a Workflow binding: `create` with typed params, `get`, and `status` with a typed `output` | ✅ Shipped |
 | [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
 
 More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers

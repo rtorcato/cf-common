@@ -122,6 +122,10 @@
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"
     },
+    "./workflows": {
+      "import": "./dist/workflows/index.js",
+      "types": "./dist/workflows/index.d.ts"
+    },
     "./api": {
       "import": "./dist/api/index.js",
       "types": "./dist/api/index.d.ts"
@@ -141,6 +145,10 @@
     "./rpc": {
       "import": "./dist/rpc/index.js",
       "types": "./dist/rpc/index.d.ts"
+    },
+    "./workflows": {
+      "import": "./dist/workflows/index.js",
+      "types": "./dist/workflows/index.d.ts"
     }
   },
   "files": [

@@ -1,4 +1,9 @@
-import { WorkerEntrypoint } from 'cloudflare:workers'
+import {
+	WorkerEntrypoint,
+	WorkflowEntrypoint,
+	type WorkflowEvent,
+	type WorkflowStep,
+} from 'cloudflare:workers'
 import { BaseDurableObject } from './index'
 
 // The workers pool's `main` (vitest.workers.config.ts): Miniflare can only bind
@@ -28,6 +33,13 @@ export class TestService extends WorkerEntrypoint {
 
 	async fail(): Promise<never> {
 		throw new Error('callee failed')
+	}
+}
+
+// The workflows suite's Workflow, bound as TEST_WF.
+export class TestWorkflow extends WorkflowEntrypoint<unknown, { n: number }> {
+	override async run(event: Readonly<WorkflowEvent<{ n: number }>>, step: WorkflowStep) {
+		return step.do('double', async () => ({ doubled: event.payload.n * 2 }))
 	}
 }
 
