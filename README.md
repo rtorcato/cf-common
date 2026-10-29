@@ -84,6 +84,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
 | [`@rtorcato/cf-common/r2-presign`](https://docs.torcato.dev/cf-common/docs/api/r2-presign) | `presignR2Url` — presigned `GET`/`PUT` URLs over R2's S3 API (SigV4, Web Crypto) | ✅ Shipped |
 | [`@rtorcato/cf-common/cache`](https://docs.torcato.dev/cf-common/docs/api/cache) | `createCache` + `buildCacheKey` — Cache API `match`/`put`/`delete` with key-builder and TTL | ✅ Shipped |
+| [`@rtorcato/cf-common/assets`](https://docs.torcato.dev/cf-common/docs/api/assets) | `serveAssets` + `fetchAsset` — serve from the Static Assets binding with a per-route SPA or 404-page fallback, or fetch an asset at another path | ✅ Shipped |
 | [`@rtorcato/cf-common/queues`](https://docs.torcato.dev/cf-common/docs/api/queues) | `createProducer` + `defineQueue` — typed Queue producer with 100-message chunking, and a consumer that acks or retries each message | ✅ Shipped |
 | [`@rtorcato/cf-common/do`](https://docs.torcato.dev/cf-common/docs/api/do) | `BaseDurableObject` + `typedStorage` — Durable Object base class with key-checked `get`/`put`/`delete` | ✅ Shipped |
 | [`@rtorcato/cf-common/api`](https://docs.torcato.dev/cf-common/docs/api/api) | `createCloudflareApi` — token-authenticated REST client for zones, DNS records and cache purge, plus raw `request`/`requestPage` | ✅ Shipped |
