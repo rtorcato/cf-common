@@ -25,4 +25,5 @@ export const MODULES: Record<string, string> = {
 	hyperdrive: 'Per-request database client over a Hyperdrive binding, always closed.',
 	do: 'Durable Object base class with typed storage.',
 	rpc: 'Typed service binding accessor and RPC call error mapping.',
+	email: 'Send email over a send_email binding, with error mapping.',
 }
