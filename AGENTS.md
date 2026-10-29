@@ -16,7 +16,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `d1`, `http`, `request`, `turnstile`, `cron`, `queues`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `ai`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -45,12 +45,15 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `kv` | `createKvStore<T>(ns)` → `get`/`put`/`delete`/`list` | Values are JSON. `get` returns `null` when missing. `put(key, value, { ttl?, expiration?, metadata? })`. Invalid JSON throws `KV_PARSE_FAILED` |
 | `r2` | `createR2Store<T>(bucket)` → `get`/`getJSON`/`put`/`putJSON`/`head`/`delete`/`list`. `multipartUpload(bucket, key, parts, options?)` | `putJSON` sets `application/json`. `getJSON` on invalid JSON throws `R2_PARSE_FAILED`. Multipart aborts on failure (`R2_MULTIPART_FAILED`), and every part except the last must be ≥ 5 MiB |
 | `r2-presign` | `presignR2Url({ accountId, accessKeyId, secretAccessKey, bucket, key, method?, expiresIn? })` | `GET` (default) or `PUT`, `expiresIn` 1 to 604800 s (default 3600). Only `host` is signed. Bad `accountId`/`expiresIn` throws a 500 `R2_PRESIGN_INVALID`; an empty key or a `.`/`..` segment throws an exposed 400 `R2_PRESIGN_INVALID_KEY`. Keep the secret in `wrangler secret put` |
+| `cache` | `createCache(cache)` → `match`/`put`/`delete`, `buildCacheKey(url, params?)` | Wrap `caches.default` or a named cache. `put(key, res, { ttl? })` sets `Cache-Control: public, max-age=<ttl>`. `put` doesn't clone, so `.clone()` a response you also return. The cache is per data center |
 | `d1` | `query<T>`, `queryFirst<T>`, `execute`, `batch`, `runMigrations` | Parameters are variadic: `query(db, sql, ...params)`. `batch(db, [{ sql, params }])` is atomic. A failing migration throws `D1_MIGRATION_FAILED` |
 | `http` | `defineFetch`, `errorResponse`, `error`, `corsHeaders`, `withCors`, `preflight` | CORS defaults are permissive (`*`), so set `origin` in production |
 | `request` | `cf`, `parseJson`, `bearerToken`, `clientIp` | `cf(request)` is `undefined` in local dev without `--remote` and in tests. `bearerToken` returns `null` if the header is missing or malformed |
+| `ratelimit` | `rateLimit(binding)` → `limit({ key })`/`limitByIp(request)`/`limitBy(id, prefix?)` | Wraps the `ratelimits` binding (limit and 10 or 60 s period live in wrangler config). Each returns `{ success }`; `false` means over the limit. `limitByIp` keys on `CF-Connecting-IP`, falling back to one shared `'unknown'` key. Counts are per location and approximate |
 | `turnstile` | `verifyTurnstile`, `assertTurnstile` | `verify…` returns the result, so check `.success`. `assert…` throws a 403 whose `code` is Turnstile's first error code. A failed HTTP call throws 502 `TURNSTILE_HTTP_ERROR` |
 | `cron` | `defineScheduled({ '<cron>': job })` | Keys must match the `crons` in your wrangler config. An unmatched trigger throws `CRON_NO_MATCH` |
 | `queues` | `createProducer<T>(queue)` → `send`/`sendBatch`. `defineQueue(handler, { retryDelay? })` | `sendBatch` splits into chunks of 100 and throws `QUEUE_SEND_FAILED` (502). `defineQueue` runs `handler(body, message, env, ctx)` per message: returns → `ack()`, throws → `retry()` for that message only. `retryDelay` is seconds or `(attempts) => seconds` |
+| `ai` | `runAi(ai, model, inputs, options?)` | Typed `run()` over the Workers AI binding; input and output types follow the model name. A failed call throws a non-exposed 502 `AI_RUN_FAILED` with the original error as `cause`. Use the binding directly for streaming |
 
 ## Recipes
 

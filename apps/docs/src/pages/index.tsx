@@ -140,6 +140,7 @@ const MODULES: Mod[] = [
 		subpath: 'queues',
 		desc: 'Typed producer/consumer, batch ack helpers.',
 		status: 'Messaging',
+		guide: true,
 	},
 	{
 		name: 'Durable Objects',
@@ -152,8 +153,15 @@ const MODULES: Mod[] = [
 		subpath: 'cache',
 		desc: 'match/put wrappers with key + TTL helpers.',
 		status: 'Messaging',
+		guide: true,
 	},
-	{ name: 'Workers AI', subpath: 'ai', desc: 'Typed run() per model family.', status: 'AI & Data' },
+	{
+		name: 'Workers AI',
+		subpath: 'ai',
+		desc: 'Typed run() per model family.',
+		status: 'AI & Data',
+		guide: true,
+	},
 	{
 		name: 'Vectorize',
 		subpath: 'vectorize',

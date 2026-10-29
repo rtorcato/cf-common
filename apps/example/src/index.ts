@@ -4,11 +4,14 @@
  * the published exports resolve and run under workerd.
  *
  * Run it with `pnpm --filter @rtorcato/cf-common-example dev`, then hit the
- * routes listed at `/`. `/`, `/env`, `/whoami`, and `/echo` work out of the
- * box; `/kv`, `/r2`, `/d1`, `/queue`, and `/ai` need their binding uncommented in
- * `wrangler.jsonc`.
+ * routes listed at `/`. `/`, `/env`, `/whoami`, `/echo`, `/cache`, `/ratelimit`
+ * and `/turnstile` work out of the box; `/kv`, `/r2`, `/d1`, `/queue`, and `/ai`
+ * need their binding uncommented in `wrangler.jsonc`. The `scheduled` handler
+ * runs under `wrangler dev --test-scheduled`.
  */
 import { runAi } from '@rtorcato/cf-common/ai'
+import { buildCacheKey, createCache } from '@rtorcato/cf-common/cache'
+import { defineScheduled } from '@rtorcato/cf-common/cron'
 import { queryFirst } from '@rtorcato/cf-common/d1'
 import { getEnv, requireEnv } from '@rtorcato/cf-common/env'
 import { defineFetch, preflight, withCors } from '@rtorcato/cf-common/http'
@@ -16,7 +19,9 @@ import { createKvStore } from '@rtorcato/cf-common/kv'
 import { createProducer, defineQueue } from '@rtorcato/cf-common/queues'
 import { createR2Store } from '@rtorcato/cf-common/r2'
 import { presignR2Url } from '@rtorcato/cf-common/r2-presign'
+import { type RateLimitBinding, rateLimit } from '@rtorcato/cf-common/ratelimit'
 import { bearerToken, cf, clientIp, parseJson } from '@rtorcato/cf-common/request'
+import { assertTurnstile } from '@rtorcato/cf-common/turnstile'
 
 interface Env {
 	// Index signature so the whole object is assignable to cf-common's
@@ -32,6 +37,9 @@ interface Env {
 	R2_SECRET_ACCESS_KEY?: string
 	QUEUE?: Queue<{ at: string }>
 	AI?: Ai
+	LIMITER?: RateLimitBinding
+	// Cloudflare's always-pass test secret in wrangler.jsonc; `wrangler secret put` a real one.
+	TURNSTILE_SECRET: string
 }
 
 const ROUTES = [
@@ -45,6 +53,9 @@ const ROUTES = [
 	'/d1',
 	'/queue',
 	'/ai',
+	'/cache',
+	'/ratelimit',
+	'/turnstile',
 ] as const
 
 // parseJson only needs a `.parse`, so any validator works. In a real Worker
@@ -62,7 +73,7 @@ const echoSchema = {
 // defineFetch wraps the handler: anything that throws a CloudflareError — a
 // missing var via requireEnv, a bad body via parseJson — becomes a clean JSON
 // Response with the right status. No try/catch to repeat.
-const api = defineFetch<Env>(async (req, env) => {
+const api = defineFetch<Env>(async (req, env, ctx) => {
 	const { pathname } = new URL(req.url)
 
 	// CORS preflight in one line (permissive defaults; tighten `origin` in prod).
@@ -160,21 +171,67 @@ const api = defineFetch<Env>(async (req, env) => {
 			return Response.json({ response })
 		}
 
+		case '/cache': {
+			// Read through the Cache API: the first call misses and stores a 60s entry,
+			// later calls in the same data center get `X-Cache: HIT` until it expires.
+			const cache = createCache(caches.default)
+			const key = buildCacheKey(req.url, { v: 1 })
+			const hit = await cache.match(key)
+			if (hit) return withHeader(hit, 'X-Cache', 'HIT')
+			const res = Response.json({ at: new Date().toISOString() })
+			ctx.waitUntil(cache.put(key, res.clone(), { ttl: 60 }))
+			return withHeader(res, 'X-Cache', 'MISS')
+		}
+
+		case '/ratelimit': {
+			// 5 requests per 10s per client IP (see `ratelimits` in wrangler.jsonc).
+			if (!env.LIMITER) return missingBinding('LIMITER', 'ratelimits')
+			const { success } = await rateLimit(env.LIMITER).limitByIp(req)
+			if (!success) return Response.json({ error: 'Too many requests' }, { status: 429 })
+			return Response.json({ ok: true })
+		}
+
+		case '/turnstile': {
+			// POST a widget token as `cf-turnstile-response`. The test secret in
+			// wrangler.jsonc passes every token; swap in the always-fail one
+			// (`2x0000000000000000000000000000000AA`) to see the 403 defineFetch maps.
+			const form = await req.formData()
+			const result = await assertTurnstile(
+				String(form.get('cf-turnstile-response') ?? ''),
+				requireEnv(env, 'TURNSTILE_SECRET'),
+				{ remoteip: clientIp(req) ?? undefined }
+			)
+			return Response.json({ ok: true, hostname: result.hostname ?? null })
+		}
+
 		default:
 			return Response.json({ error: 'Not found', routes: ROUTES }, { status: 404 })
 	}
 })
 
 // Same Worker consumes the queue it produces to: the handler logs each job, and a
-// throw would retry just that message (here after 10s).
+// throw would retry just that message (here after 10s). The `scheduled` keys
+// match `triggers.crons` in wrangler.jsonc.
 export default {
 	...api,
+	scheduled: defineScheduled<Env>({
+		'*/5 * * * *': (controller) => {
+			console.log('cron', controller.cron, new Date(controller.scheduledTime).toISOString())
+		},
+	}),
 	queue: defineQueue<{ at: string }, Env>(
 		(job) => {
 			console.log('queue job', job.at)
 		},
 		{ retryDelay: 10 }
 	),
+}
+
+/** Copy `res` with one extra header (a cached Response's headers are immutable). */
+function withHeader(res: Response, name: string, value: string): Response {
+	const copy = new Response(res.body, res)
+	copy.headers.set(name, value)
+	return copy
 }
 
 /** A 500 explaining which `wrangler.jsonc` binding a route needs. */

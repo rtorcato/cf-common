@@ -10,8 +10,16 @@
   // `wrangler deploy`, which need real resources and `wrangler login`
   // (or CLOUDFLARE_API_TOKEN in CI). Replace the placeholders then.
   "vars": {
-    "GREETING": "hello from cf-common"
+    "GREETING": "hello from cf-common",
+    // Cloudflare's public always-pass Turnstile test secret. For a real site key,
+    // remove it and use `wrangler secret put TURNSTILE_SECRET`.
+    "TURNSTILE_SECRET": "1x0000000000000000000000000000000AA"
   },
+  // Fires the `scheduled` handler; locally use `wrangler dev --test-scheduled`.
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "ratelimits": [
+    { "name": "LIMITER", "namespace_id": "1001", "simple": { "limit": 5, "period": 10 } }
+  ],
   "kv_namespaces": [{ "binding": "KV", "id": "local-placeholder-kv" }],
   "r2_buckets": [{ "binding": "R2", "bucket_name": "cf-common-example" }],
   "queues": {
