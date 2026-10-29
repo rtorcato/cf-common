@@ -126,6 +126,10 @@
       "import": "./dist/workflows/index.js",
       "types": "./dist/workflows/index.d.ts"
     },
+    "./secrets": {
+      "import": "./dist/secrets/index.js",
+      "types": "./dist/secrets/index.d.ts"
+    },
     "./api": {
       "import": "./dist/api/index.js",
       "types": "./dist/api/index.d.ts"
