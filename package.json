@@ -133,6 +133,10 @@
     "./do": {
       "import": "./dist/do/index.js",
       "types": "./dist/do/index.d.ts"
+    },
+    "./rpc": {
+      "import": "./dist/rpc/index.js",
+      "types": "./dist/rpc/index.d.ts"
     }
   },
   "files": [
