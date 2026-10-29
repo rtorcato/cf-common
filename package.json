@@ -169,6 +169,10 @@
     "./analytics": {
       "import": "./dist/analytics/index.js",
       "types": "./dist/analytics/index.d.ts"
+    },
+    "./images": {
+      "import": "./dist/images/index.js",
+      "types": "./dist/images/index.d.ts"
     }
   },
   "files": [
