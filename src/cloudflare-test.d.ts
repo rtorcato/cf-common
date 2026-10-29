@@ -10,5 +10,6 @@ declare module 'cloudflare:test' {
 		TEST_R2: R2Bucket
 		TEST_D1: D1Database
 		TEST_DO: DurableObjectNamespace<import('./do/fixture.workers').TestCounter>
+		TEST_SVC: Service<import('./do/fixture.workers').TestService>
 	}
 }
