@@ -94,6 +94,10 @@ and `expose: false`. That covers a non-2xx response, `success: false` in the
 body, a body that isn't JSON, and a network error. The message names the method,
 path and Cloudflare's first error message, but never the token.
 
+The named helpers reject a zone or record id of `.` or `..` before sending
+anything, with an exposed `400` and code `CF_API_INVALID_ID`, since `fetch`
+would resolve it to a different endpoint. Raw `request` sends its path as given.
+
 For an API error, `cause` holds the upstream status and Cloudflare's `errors`,
 so you can branch on a 404 or a 429:
 
