@@ -15,9 +15,11 @@ export const MODULES: Record<string, string> = {
 	request: 'Typed request.cf metadata, JSON body, bearer token and client IP.',
 	ratelimit: 'Typed rate limiting by IP or arbitrary key.',
 	http: 'defineFetch error mapping, error responses and CORS helpers.',
+	access: 'Verify the Cloudflare Access JWT assertion against the team JWKS.',
 	turnstile: 'Verify or assert a Turnstile token server-side.',
 	cron: 'Dispatch scheduled events to jobs by cron expression.',
 	ai: 'Typed run() over the Workers AI binding, with error mapping.',
 	queues: 'Typed Queue producer and a consumer that acks or retries each message.',
 	hyperdrive: 'Per-request database client over a Hyperdrive binding, always closed.',
+	do: 'Durable Object base class with typed storage.',
 }

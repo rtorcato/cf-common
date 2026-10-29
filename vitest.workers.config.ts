@@ -8,6 +8,8 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	plugins: [
 		cloudflareTest({
+			// Durable Object classes must come from `main`; the do suite's lives here.
+			main: './src/do/fixture.workers.ts',
 			miniflare: {
 				// workerd needs a compatibility date; keep it in step with the
 				// example Worker's wrangler.jsonc.
@@ -15,6 +17,7 @@ export default defineConfig({
 				kvNamespaces: ['TEST_KV'],
 				r2Buckets: ['TEST_R2'],
 				d1Databases: ['TEST_D1'],
+				durableObjects: { TEST_DO: 'TestCounter' },
 			},
 		}),
 	],
