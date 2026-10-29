@@ -32,6 +32,7 @@ const sidebars: SidebarsConfig = {
 				'guides/ratelimit',
 				'guides/turnstile',
 				'guides/access',
+				'guides/secrets',
 				'guides/ai',
 				'guides/ai-gateway',
 				'guides/api',
