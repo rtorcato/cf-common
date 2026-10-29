@@ -21,6 +21,7 @@ export const MODULES: Record<string, string> = {
 	ai: 'Typed run() over the Workers AI binding, with error mapping.',
 	vectorize: 'Typed upsert/query over a Vectorize index, with chunked upserts.',
 	queues: 'Typed Queue producer and a consumer that acks or retries each message.',
+	api: 'Typed Cloudflare REST client: zones, DNS, cache purge.',
 	hyperdrive: 'Per-request database client over a Hyperdrive binding, always closed.',
 	do: 'Durable Object base class with typed storage.',
 	rpc: 'Typed service binding accessor and RPC call error mapping.',

@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
 				'guides/turnstile',
 				'guides/access',
 				'guides/ai',
+				'guides/api',
 				'guides/vectorize',
 				'guides/hyperdrive',
 			],

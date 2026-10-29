@@ -181,6 +181,7 @@ const MODULES: Mod[] = [
 		subpath: 'api',
 		desc: 'Account-level client over fetch, typed responses.',
 		status: 'REST',
+		guide: true,
 	},
 ]
 

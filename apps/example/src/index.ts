@@ -6,10 +6,12 @@
  * Run it with `pnpm --filter @rtorcato/cf-common-example dev`, then hit the
  * routes listed at `/`. `/`, `/env`, `/whoami`, `/echo`, `/cache`, `/ratelimit`
  * and `/turnstile` work out of the box; `/kv`, `/r2`, `/d1`, `/queue`, and `/ai`
- * need their binding uncommented in `wrangler.jsonc`. The `scheduled` handler
+ * need their binding uncommented in `wrangler.jsonc`, and `/api` needs a
+ * `CLOUDFLARE_API_TOKEN` secret. The `scheduled` handler
  * runs under `wrangler dev --test-scheduled`.
  */
 import { runAi } from '@rtorcato/cf-common/ai'
+import { createCloudflareApi } from '@rtorcato/cf-common/api'
 import { buildCacheKey, createCache } from '@rtorcato/cf-common/cache'
 import { defineScheduled } from '@rtorcato/cf-common/cron'
 import { queryFirst } from '@rtorcato/cf-common/d1'
@@ -37,6 +39,8 @@ interface Env {
 	R2_SECRET_ACCESS_KEY?: string
 	QUEUE?: Queue<{ at: string }>
 	AI?: Ai
+	// Only for /api: a Cloudflare API token with Zone Read, set with `wrangler secret put`.
+	CLOUDFLARE_API_TOKEN?: string
 	LIMITER?: RateLimitBinding
 	// Cloudflare's always-pass test secret in wrangler.jsonc; `wrangler secret put` a real one.
 	TURNSTILE_SECRET: string
@@ -53,6 +57,7 @@ const ROUTES = [
 	'/d1',
 	'/queue',
 	'/ai',
+	'/api',
 	'/cache',
 	'/ratelimit',
 	'/turnstile',
@@ -169,6 +174,23 @@ const api = defineFetch<Env>(async (req, env, ctx) => {
 				prompt: 'Say hello in five words.',
 			})
 			return Response.json({ response })
+		}
+
+		case '/api': {
+			// Lists the zones the token can read. Calls the real REST API, so it needs a
+			// token even under `wrangler dev`.
+			if (!env.CLOUDFLARE_API_TOKEN) {
+				return Response.json(
+					{ error: 'Set CLOUDFLARE_API_TOKEN (wrangler secret put).' },
+					{ status: 500 }
+				)
+			}
+			const cfApi = createCloudflareApi({ token: env.CLOUDFLARE_API_TOKEN })
+			const { result, resultInfo } = await cfApi.zones.list({ per_page: 5 })
+			return Response.json({
+				zones: result.map((z) => z.name),
+				total: resultInfo.total_count,
+			})
 		}
 
 		case '/cache': {
