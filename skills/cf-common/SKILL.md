@@ -19,7 +19,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ai`, `vectorize`, `access`, `hyperdrive`, `rpc`, `api`, `email`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ai`, `vectorize`, `access`, `hyperdrive`, `rpc`, `api`, `email`, `analytics`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -64,6 +64,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `vectorize` | `createVectorStore<M>(index)` → `upsert`/`query`/`queryById`/`getByIds`/`deleteByIds` | Typed metadata `M` (asserted, not validated). `upsert` chunks at 1000 and returns the `mutationId`s in order, stopping at the first failed chunk. Every method maps a failure to a non-exposed 502 `VECTORIZE_FAILED`. Mutations are async |
 | `hyperdrive` | `withHyperdrive(hd, { connect, close, ctx? }, work)` | Opens one client per call over the Hyperdrive binding and always closes it, also when `work` throws. `connect` and `close` are yours, so no driver is bundled. A failed connect throws a non-exposed 502 `HYPERDRIVE_CONNECT_FAILED`. Errors from `work` pass through unchanged |
 | `email` | `sendEmail(binding, message)` | Over the `send_email` binding. `message` is fields (`from`, `to`/`cc`/`bcc`, `subject`, `text`/`html`, `attachments`; the runtime builds the MIME) or an `EmailMessage` from `cloudflare:email` with raw MIME. Returns `{ messageId }`. A failed send throws a non-exposed 502 `EMAIL_SEND_FAILED` with the original as `cause`. Senders and recipients must be allowed by the binding config |
+| `analytics` | `writeDataPoint(dataset, point)`, `createDataset(dataset, { blobs?, doubles?, index? })` → `write(fields)`/`columns` | Over the Analytics Engine binding, fire-and-forget (returns `void`). `createDataset` names the slots in order (`blobs[0]` → `blob1`, `index` → `index1`); missing blobs are written as `null`, doubles and the index are required. `columns` maps each name to its SQL API column. Only append to a schema, since reordering moves data between columns. A point the runtime rejects throws a non-exposed 500 `ANALYTICS_WRITE_FAILED` with the original as `cause` |
 
 ## Recipes
 

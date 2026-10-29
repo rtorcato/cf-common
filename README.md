@@ -89,6 +89,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/api`](https://docs.torcato.dev/cf-common/docs/api/api) | `createCloudflareApi` — token-authenticated REST client for zones, DNS records and cache purge, plus raw `request`/`requestPage` | ✅ Shipped |
 | [`@rtorcato/cf-common/rpc`](https://docs.torcato.dev/cf-common/docs/api/rpc) | `getService` + `callService` — typed Service Binding / `WorkerEntrypoint` accessor, and RPC failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/email`](https://docs.torcato.dev/cf-common/docs/api/email) | `sendEmail` — send over a `send_email` binding from fields or raw MIME, failures mapped to a `CloudflareError` | ✅ Shipped |
+| [`@rtorcato/cf-common/analytics`](https://docs.torcato.dev/cf-common/docs/api/analytics) | `writeDataPoint` + `createDataset` — Analytics Engine writes with named columns instead of `blob1`/`double1` positions | ✅ Shipped |
 | [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
 
 More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers
