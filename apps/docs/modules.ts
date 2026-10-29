@@ -20,6 +20,7 @@ export const MODULES: Record<string, string> = {
 	turnstile: 'Verify or assert a Turnstile token server-side.',
 	cron: 'Dispatch scheduled events to jobs by cron expression.',
 	ai: 'Typed run() over the Workers AI binding, with error mapping.',
+	'ai-gateway': 'AI Gateway URLs, cf-aig-* headers and a provider client.',
 	vectorize: 'Typed upsert/query over a Vectorize index, with chunked upserts.',
 	queues: 'Typed Queue producer and a consumer that acks or retries each message.',
 	api: 'Typed Cloudflare REST client: zones, DNS, cache purge.',
