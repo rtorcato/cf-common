@@ -1,6 +1,6 @@
 ---
 name: cf-common
-description: Use when writing a Cloudflare Worker in a project that depends on @rtorcato/cf-common — reading bindings/vars from env, typed KV/R2/D1 access, D1 migrations, JSON error responses and CORS, parsing request bodies, bearer tokens or client IP, cron triggers, Queues producers and consumers, or Turnstile verification. Triggers on "Cloudflare Worker", "workerd", "KV namespace", "R2 bucket", "D1 query", "D1 migration", "getBinding", "defineFetch", "CloudflareError", "scheduled handler", "Queue consumer", "Turnstile siteverify", or "/cf-common".
+description: Use when writing a Cloudflare Worker in a project that depends on @rtorcato/cf-common — reading bindings/vars from env, typed KV/R2/D1 access, D1 migrations, JSON error responses and CORS, parsing request bodies, bearer tokens or client IP, cron triggers, Queues producers and consumers, Durable Objects with typed storage, or Turnstile verification. Triggers on "Cloudflare Worker", "workerd", "KV namespace", "R2 bucket", "D1 query", "D1 migration", "getBinding", "defineFetch", "CloudflareError", "scheduled handler", "Queue consumer", "Durable Object", "Turnstile siteverify", or "/cf-common".
 ---
 
 # Using @rtorcato/cf-common
@@ -19,7 +19,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
    import { getBinding, requireEnv } from '@rtorcato/cf-common/env'
    import { createKvStore } from '@rtorcato/cf-common/kv'
    ```
-   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `ai`, `api`. Don't import from `dist/`.
+   Subpaths: `errors`, `env`, `kv`, `r2`, `r2-presign`, `cache`, `d1`, `http`, `request`, `ratelimit`, `turnstile`, `cron`, `queues`, `do`, `ai`, `api`. Don't import from `dist/`.
 
 2. **Throw `CloudflareError`, map it once at the edge.** Every helper throws `CloudflareError` (`status`, `expose`, optional `code`). Wrap the handler in `defineFetch` so a thrown error becomes `{ error, code }` JSON with the right status. `expose` defaults to `true` for 4xx and `false` for 5xx, and a non-exposed message is sent as `'Internal error'`, so internal details don't leak.
    ```ts
@@ -56,6 +56,7 @@ pnpm add -D @cloudflare/workers-types   # KVNamespace, R2Bucket, D1Database, …
 | `turnstile` | `verifyTurnstile`, `assertTurnstile` | `verify…` returns the result, so check `.success`. `assert…` throws a 403 whose `code` is Turnstile's first error code. A failed HTTP call throws 502 `TURNSTILE_HTTP_ERROR` |
 | `cron` | `defineScheduled({ '<cron>': job })` | Keys must match the `crons` in your wrangler config. An unmatched trigger throws `CRON_NO_MATCH` |
 | `queues` | `createProducer<T>(queue)` → `send`/`sendBatch`. `defineQueue(handler, { retryDelay? })` | `sendBatch` splits into chunks of 100 and throws `QUEUE_SEND_FAILED` (502). `defineQueue` runs `handler(body, message, env, ctx)` per message: returns → `ack()`, throws → `retry()` for that message only. `retryDelay` is seconds or `(attempts) => seconds` |
+| `do` | `BaseDurableObject<Env, Schema>`, `typedStorage<Schema>(storage)` → `get`/`put`/`delete` | Extends `DurableObject` from `cloudflare:workers` (RPC, `fetch`, `alarm` still work) and adds a typed `this.storage`. `get(key, fallback?)` returns `undefined` (or `fallback`) for a key never written. Only loads under workerd. Use `this.ctx.storage` for `list`, transactions, alarms and SQL |
 | `ai` | `runAi(ai, model, inputs, options?)` | Typed `run()` over the Workers AI binding; input and output types follow the model name. A failed call throws a non-exposed 502 `AI_RUN_FAILED` with the original error as `cause`. Use the binding directly for streaming |
 | `api` | `createCloudflareApi({ token })` → `zones.list`/`get`, `dns.list`/`create`/`update`/`delete`, `cache.purge`, raw `request`/`requestPage` | REST API v4 with an API token (`wrangler secret put`). Lists return one page `{ result, resultInfo }`; no auto-pagination or retries. Any failure throws a non-exposed 502 `CF_API_ERROR`; the upstream status and `errors` are on `cause`. For other endpoints use `request`, or the official `cloudflare` SDK |
 

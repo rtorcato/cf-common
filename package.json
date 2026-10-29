@@ -121,6 +121,10 @@
     "./api": {
       "import": "./dist/api/index.js",
       "types": "./dist/api/index.d.ts"
+    },
+    "./do": {
+      "import": "./dist/do/index.js",
+      "types": "./dist/do/index.d.ts"
     }
   },
   "files": [

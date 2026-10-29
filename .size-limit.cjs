@@ -8,7 +8,9 @@ const NODE_BUILTINS = builtinModules.flatMap((m) => [m, `node:${m}`])
 
 // Peer dependencies are the consumer's install, not this package's weight, and
 // a subpath importing one (e.g. a vite config importing 'vite') fails to bundle.
-const IGNORE = [...NODE_BUILTINS, ...Object.keys(pkg.peerDependencies || {})]
+// `cloudflare:*` modules are provided by workerd at runtime (the do subpath
+// imports cloudflare:workers).
+const IGNORE = [...NODE_BUILTINS, 'cloudflare:workers', ...Object.keys(pkg.peerDependencies || {})]
 
 // Per-subpath budget overrides, e.g. { './clipboard': '500 B' }.
 const OVERRIDES = {}
