@@ -17,7 +17,7 @@ export default defineConfig({
 				kvNamespaces: ['TEST_KV'],
 				r2Buckets: ['TEST_R2'],
 				d1Databases: ['TEST_D1'],
-				durableObjects: { TEST_DO: 'TestCounter' },
+				durableObjects: { TEST_DO: 'TestCounter', TEST_WS: 'TestChat' },
 				workflows: { TEST_WF: { name: 'test-wf', className: 'TestWorkflow' } },
 				// The symbol is miniflare's kCurrentWorker (binds to this worker's own
 				// entrypoint); miniflare isn't a direct dependency, so it's not imported.

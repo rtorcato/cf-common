@@ -4,6 +4,7 @@ import {
 	type WorkflowEvent,
 	type WorkflowStep,
 } from 'cloudflare:workers'
+import { acceptWebSocket, broadcast, getAttachment, parseMessage, sendMessage } from '../ws/index'
 import { BaseDurableObject } from './index'
 
 // The workers pool's `main` (vitest.workers.config.ts): Miniflare can only bind
@@ -40,6 +41,31 @@ export class TestService extends WorkerEntrypoint {
 export class TestWorkflow extends WorkflowEntrypoint<unknown, { n: number }> {
 	override async run(event: Readonly<WorkflowEvent<{ n: number }>>, step: WorkflowStep) {
 		return step.do('double', async () => ({ doubled: event.payload.n * 2 }))
+	}
+}
+
+// The ws suite's chat room, bound as TEST_WS: hibernatable sockets tagged by
+// room, each echoing a validated message to the others with the sender's name.
+export class TestChat extends BaseDurableObject {
+	override async fetch(request: Request): Promise<Response> {
+		const url = new URL(request.url)
+		return acceptWebSocket(request, this.ctx, {
+			tags: [url.searchParams.get('room') ?? 'lobby'],
+			attachment: { name: url.searchParams.get('name') ?? 'anon' },
+		})
+	}
+
+	override async webSocketMessage(ws: WebSocket, message: string | ArrayBuffer) {
+		const from = getAttachment<{ name: string }>(ws)?.name
+		try {
+			const { text, room } = parseMessage(message, {
+				parse: (input) => input as { text: string; room?: string },
+			})
+			const sent = broadcast(this.ctx, { from, text }, { tag: room, except: ws })
+			sendMessage(ws, { ack: sent })
+		} catch (e) {
+			sendMessage(ws, { error: (e as { code?: string }).code })
+		}
 	}
 }
 
