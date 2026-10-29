@@ -80,6 +80,7 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/access`](https://docs.torcato.dev/cf-common/docs/api/access) | `verifyAccessJwt` + `accessJwt` — verify the Cloudflare Access JWT assertion against the team JWKS | ✅ Shipped |
 | [`@rtorcato/cf-common/ai`](https://docs.torcato.dev/cf-common/docs/api/ai) | `runAi` — typed Workers AI `run()`, input and output types picked by model name | ✅ Shipped |
 | [`@rtorcato/cf-common/ai-gateway`](https://docs.torcato.dev/cf-common/docs/api/ai-gateway) | `createAiGateway` + `gatewayUrl` + `gatewayHeaders` — route provider calls through AI Gateway with typed `cf-aig-*` cache, metadata and retry options | ✅ Shipped |
+| [`@rtorcato/cf-common/browser`](https://docs.torcato.dev/cf-common/docs/api/browser) | `withBrowser` + `screenshot` + `pdf` — Browser Rendering with the browser always closed, and one-call screenshots and PDFs of a URL or HTML (peer dependency `@cloudflare/puppeteer`) | ✅ Shipped |
 | [`@rtorcato/cf-common/vectorize`](https://docs.torcato.dev/cf-common/docs/api/vectorize) | `createVectorStore` — typed metadata, upserts chunked at 1000, and failures mapped to `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/hyperdrive`](https://docs.torcato.dev/cf-common/docs/api/hyperdrive) | `withHyperdrive` — per-request client over a Hyperdrive binding, always closed; driver-agnostic | ✅ Shipped |
 | [`@rtorcato/cf-common/r2`](https://docs.torcato.dev/cf-common/docs/api/r2) | `createR2Store` + `multipartUpload` — object helpers and a multipart driver | ✅ Shipped |
@@ -92,9 +93,11 @@ Each module is a separate subpath import, so you ship only what you use.
 | [`@rtorcato/cf-common/rpc`](https://docs.torcato.dev/cf-common/docs/api/rpc) | `getService` + `callService` — typed Service Binding / `WorkerEntrypoint` accessor, and RPC failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/ws`](https://docs.torcato.dev/cf-common/docs/api/ws) | `acceptWebSocket` + `broadcast` + `parseMessage` — Hibernatable WebSockets on a Durable Object: upgrade, typed attachments, validated JSON messages | ✅ Shipped |
 | [`@rtorcato/cf-common/workflows`](https://docs.torcato.dev/cf-common/docs/api/workflows) | `createWorkflow` — typed client over a Workflow binding: `create` with typed params, `get`, and `status` with a typed `output` | ✅ Shipped |
+| [`@rtorcato/cf-common/secrets`](https://docs.torcato.dev/cf-common/docs/api/secrets) | `getSecret` — read a Secrets Store secret by binding name, failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/email`](https://docs.torcato.dev/cf-common/docs/api/email) | `sendEmail` — send over a `send_email` binding from fields or raw MIME, failures mapped to a `CloudflareError` | ✅ Shipped |
 | [`@rtorcato/cf-common/analytics`](https://docs.torcato.dev/cf-common/docs/api/analytics) | `writeDataPoint` + `createDataset` — Analytics Engine writes with named columns instead of `blob1`/`double1` positions | ✅ Shipped |
 | [`@rtorcato/cf-common/pipelines`](https://docs.torcato.dev/cf-common/docs/api/pipelines) | `createPipelineProducer` — typed `send` and chunked `sendBatch` over a Pipeline binding, with failures mapped to `CloudflareError` | ✅ Shipped |
+| [`@rtorcato/cf-common/images`](https://docs.torcato.dev/cf-common/docs/api/images) | `createImagesApi` + `imageUrl` + `transformUrl` + `signImageUrl` — Cloudflare Images uploads (direct creator URLs too), typed variant and transform URLs, and signed delivery URLs | ✅ Shipped |
 | [`@rtorcato/cf-common/d1`](https://docs.torcato.dev/cf-common/docs/api/d1) | `query`/`queryFirst`/`execute`/`batch` + idempotent `runMigrations` | ✅ Shipped |
 
 More land incrementally (HTTP, Request, Queues, Durable Objects, Cache, Workers
