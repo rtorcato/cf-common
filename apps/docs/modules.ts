@@ -11,6 +11,7 @@ export const MODULES: Record<string, string> = {
 	r2: 'Typed R2 object get/put/list with JSON helpers.',
 	'r2-presign': 'Presigned R2 GET/PUT URLs via the S3 API and SigV4.',
 	cache: 'Cache API match/put/delete with key builder and TTL.',
+	assets: 'Static Assets binding fetch with SPA and 404-page fallback.',
 	d1: 'Typed query helpers and batch over D1.',
 	request: 'Typed request.cf metadata, JSON body, bearer token and client IP.',
 	ratelimit: 'Typed rate limiting by IP or arbitrary key.',
