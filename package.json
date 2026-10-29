@@ -122,6 +122,10 @@
       "import": "./dist/queues/index.js",
       "types": "./dist/queues/index.d.ts"
     },
+    "./vectorize": {
+      "import": "./dist/vectorize/index.js",
+      "types": "./dist/vectorize/index.d.ts"
+    },
     "./do": {
       "import": "./dist/do/index.js",
       "types": "./dist/do/index.d.ts"

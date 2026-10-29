@@ -167,6 +167,7 @@ const MODULES: Mod[] = [
 		subpath: 'vectorize',
 		desc: 'Upsert/query helpers with typed metadata.',
 		status: 'AI & Data',
+		guide: true,
 	},
 	{ name: 'Hyperdrive', subpath: 'hyperdrive', desc: 'Connection helper.', status: 'AI & Data' },
 	{
