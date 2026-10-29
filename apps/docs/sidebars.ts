@@ -41,6 +41,7 @@ const sidebars: SidebarsConfig = {
 				'guides/hyperdrive',
 				'guides/email',
 				'guides/analytics',
+				'guides/pipelines',
 				'guides/images',
 			],
 		},

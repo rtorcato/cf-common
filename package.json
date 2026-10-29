@@ -127,6 +127,10 @@
       "import": "./dist/ai-gateway/index.js",
       "types": "./dist/ai-gateway/index.d.ts"
     },
+    "./pipelines": {
+      "import": "./dist/pipelines/index.js",
+      "types": "./dist/pipelines/index.d.ts"
+    },
     "./browser": {
       "import": "./dist/browser/index.js",
       "types": "./dist/browser/index.d.ts"
