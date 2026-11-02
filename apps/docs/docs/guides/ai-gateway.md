@@ -103,7 +103,7 @@ Without a binding, call Workers AI over REST through the gateway with provider
 
 | Code | Status | When |
 | --- | --- | --- |
-| `AI_GATEWAY_FAILED` | 502 (not exposed) | Network error, a non-2xx response, or a non-JSON body from `json`. The upstream status and body are on `cause` |
+| `AI_GATEWAY_FAILED` | 502 (not exposed) | Network error, a non-2xx response (a 3xx included, since redirects are never followed), or a non-JSON body from `json`. The upstream status and body are on `cause` |
 | `AI_GATEWAY_INVALID` | 500 (not exposed) | An empty account or gateway id, or a `.`/`..` id, provider or path segment |
 
 Neither the gateway token nor a provider key appears in the error message.

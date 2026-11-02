@@ -140,6 +140,17 @@ describe('ai-gateway module', () => {
 		expect(err.message).not.toContain(TOKEN)
 	})
 
+	it('never follows a redirect, even when init asks to, and fails on a 3xx', async () => {
+		const calls = stubFetch(
+			() => new Response(null, { status: 302, headers: { location: 'https://evil.example/' } })
+		)
+		const gw = createAiGateway({ accountId: 'acct', gatewayId: 'prod', token: TOKEN })
+		const err = await caught(gw.fetch('openai', '/x', { redirect: 'follow' }))
+
+		expect(first(calls).init.redirect).toBe('manual')
+		expect(err).toMatchObject({ code: 'AI_GATEWAY_FAILED', cause: { status: 302 } })
+	})
+
 	it('maps a network error and a non-JSON body to AI_GATEWAY_FAILED', async () => {
 		const gw = createAiGateway({ accountId: 'acct', gatewayId: 'prod' })
 		vi.stubGlobal('fetch', async () => {
