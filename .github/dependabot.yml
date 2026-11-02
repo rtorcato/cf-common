@@ -39,6 +39,11 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    groups:
+      # init and analyze must run the same version or CodeQL fails the job.
+      codeql-action:
+        patterns:
+          - "github/codeql-action/*"
     commit-message:
       prefix: ci
       include: scope
