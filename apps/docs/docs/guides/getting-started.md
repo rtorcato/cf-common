@@ -62,12 +62,6 @@ export default {
 }
 ```
 
-:::note
-The module APIs shown here land incrementally — see the
-[milestones](https://github.com/rtorcato/cf-common/milestones) for which
-modules are published. This page updates as each one ships.
-:::
-
 ## Agent skill
 
 This repo ships an agent skill (`skills/cf-common/SKILL.md`) that teaches coding
