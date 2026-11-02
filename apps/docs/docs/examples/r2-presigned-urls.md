@@ -84,7 +84,7 @@ that allows your origin and the `PUT` method.
 
 | Code | Status | When |
 | --- | --- | --- |
-| `R2_PRESIGN_INVALID` | 500, not exposed | `accountId` isn't 32 hex characters, or `expiresIn` isn't an integer from 1 to 604800 |
+| `R2_PRESIGN_INVALID` | 500, not exposed | `accountId` isn't 32 hex characters, `bucket` is empty, `.` or `..`, or `expiresIn` isn't an integer from 1 to 604800 |
 | `R2_PRESIGN_INVALID_KEY` | 400 | the key is empty or has a `.` or `..` segment |
 
 See the [`r2-presign` API reference](/docs/api/r2-presign) for every option.

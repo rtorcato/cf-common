@@ -71,6 +71,14 @@ describe('presignR2Url', () => {
 		expect(err.expose).toBe(false)
 	})
 
+	it.each(['', '.', '..'])('rejects bucket %j with a non-exposed 500', async (bucket) => {
+		await expect(presignR2Url({ ...base, bucket })).rejects.toMatchObject({
+			status: 500,
+			expose: false,
+			code: 'R2_PRESIGN_INVALID',
+		})
+	})
+
 	it.each(['', '.', '..', 'a/../b', 'a/./b'])('rejects key %j with an exposed 400', async (key) => {
 		await expect(presignR2Url({ ...base, key })).rejects.toMatchObject({
 			status: 400,
