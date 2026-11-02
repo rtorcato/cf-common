@@ -25,7 +25,8 @@ export interface AiGatewayClient {
 	 * Send a request to `provider` through the gateway and return the response,
 	 * so a streamed body is still readable. `path` is the provider's own path
 	 * (for `openai`, `/chat/completions`). A network error or a non-2xx status
-	 * throws a non-exposed 502 `AI_GATEWAY_FAILED`.
+	 * throws a non-exposed 502 `AI_GATEWAY_FAILED`. Redirects are never followed
+	 * (an `init.redirect` is overridden), so a 3xx fails the same way.
 	 */
 	fetch(
 		provider: string,
@@ -157,7 +158,9 @@ export function createAiGateway(config: AiGatewayConfig): AiGatewayClient {
 		}
 		let res: Response
 		try {
-			res = await fetch(target.href, { ...init, headers })
+			// Never follow a redirect: it would carry the gateway token and provider
+			// key to whatever host the response names. A 3xx then fails as non-2xx.
+			res = await fetch(target.href, { ...init, headers, redirect: 'manual' })
 		} catch (err) {
 			throw fail(provider, 'network', err)
 		}
