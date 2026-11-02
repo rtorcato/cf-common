@@ -12,6 +12,7 @@ export interface R2PresignOptions {
 	accessKeyId: string
 	/** An R2 API token's secret access key. Keep it in a secret, never a var. */
 	secretAccessKey: string
+	/** The bucket name. Empty, `.` and `..` are rejected. */
 	bucket: string
 	/** The object key. `/` separates path segments; `.` and `..` segments are rejected. */
 	key: string
@@ -33,7 +34,7 @@ export interface R2PresignOptions {
  *
  * Only the `host` header is signed, so a `PUT` client may send any
  * `Content-Type`. Throws a non-exposed 500 `R2_PRESIGN_INVALID` for a bad
- * `accountId` or `expiresIn`, and an exposed 400 `R2_PRESIGN_INVALID_KEY` for an
+ * `accountId`, `bucket` (empty, `.` or `..`) or `expiresIn`, and an exposed 400 `R2_PRESIGN_INVALID_KEY` for an
  * empty key or one with a `.` or `..` segment, since keys often come from users.
  *
  * @example
@@ -56,6 +57,10 @@ export async function presignR2Url(options: R2PresignOptions): Promise<string> {
 		throw new CloudflareError(`expiresIn must be an integer from 1 to ${MAX_EXPIRES_IN}`, {
 			code: 'R2_PRESIGN_INVALID',
 		})
+	}
+	// An empty or dot bucket would sign `//key` or `/../key`, not a bucket path.
+	if (!bucket || bucket === '.' || bucket === '..') {
+		throw new CloudflareError('bucket must be a bucket name', { code: 'R2_PRESIGN_INVALID' })
 	}
 	const segments = key.split('/')
 	// A client that skips URL normalization could send `/bucket/../other/x` with a
