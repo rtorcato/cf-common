@@ -50,7 +50,7 @@
     "husky": "^9.0.0",
     "lint-staged": "^17.6.0",
     "size-limit": "^14.3.0",
-    "tsup": "^8.0.0",
+    "tsup": "^9.0.0",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5",
     "wrangler": "4.153.0"
@@ -200,7 +200,7 @@
     "*.{json,md,yml,yaml}": "biome format --write --no-errors-on-unmatched"
   },
   "dependencies": {
-    "@rtorcato/js-common": "^5.0.0"
+    "@rtorcato/js-common": "^6.1.0"
   },
   "peerDependencies": {
     "@cloudflare/puppeteer": "^1.4.0"
