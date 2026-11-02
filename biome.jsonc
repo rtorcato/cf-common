@@ -8,6 +8,10 @@
     "clientKind": "git",
     "useIgnoreFile": true
   },
+  // Biome 2.6 formats .md/.yaml and turns changeset frontmatter into a heading.
+  "formatter": {
+    "includes": ["**", "!**/*.md", "!**/*.mdx", "!**/*.yaml", "!**/*.yml"]
+  },
   "files": {
     "includes": [
       "**/src/**/*",
