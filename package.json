@@ -193,7 +193,7 @@
   },
   "packageManager": "pnpm@11.22.0",
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": "biome check --fix --no-errors-on-unmatched",
