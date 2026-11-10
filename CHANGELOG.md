@@ -1,5 +1,16 @@
 # @rtorcato/cf-common
 
+## 2.0.0
+
+### Major Changes
+
+- d900bca: Node 24 is now required (`engines.node` is `>=24`, up from `>=22`), to match `@rtorcato/js-common` 6, which cf-common now depends on (`^6.1.0`, up from `^5.0.0`). The js-common bump also brings 6.1.0's `HttpError` fix: the error message now shows a redacted URL (no userinfo, query or fragment), so a `?token=…` in a request URL no longer ends up in error messages or logs. `error.url` still holds the raw URL.
+
+### Patch Changes
+
+- a9d43a6: `createAiGateway`'s `fetch` and `json` no longer follow redirects: requests go out with `redirect: 'manual'` (overriding any `init.redirect`), so a 3xx from the gateway can't send the gateway token or provider key to another host. A 3xx now throws `AI_GATEWAY_FAILED` like any other non-2xx status.
+- c78c655: `presignR2Url` now rejects an empty bucket and a bucket of `.` or `..` with the non-exposed 500 `R2_PRESIGN_INVALID`, instead of signing a `//key` or `/../key` path.
+
 ## 1.9.0
 
 ### Minor Changes
