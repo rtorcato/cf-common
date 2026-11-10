@@ -32,6 +32,25 @@ import { createKvStore } from '@rtorcato/cf-common/kv'
 import { createKvStore } from '@rtorcato/cf-common'
 ```
 
+## Configure TypeScript
+
+Add the Workers types and leave the DOM lib out. `@cloudflare/workers-types`
+declares the same globals (`Request`, `Response`, `fetch`, …) that the DOM lib
+does, so keeping DOM in your default `lib` gives duplicate-identifier errors on
+your first Worker.
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types"],
+    "strict": true,
+    "noEmit": true
+  }
+}
+```
+
 ## Type your environment
 
 Cloudflare passes bindings on the `env` argument. Declare them once so every
