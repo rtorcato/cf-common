@@ -30,8 +30,10 @@ dependencies, built for the Workers (workerd) runtime.
 pnpm add @rtorcato/cf-common
 ```
 
-**Requirements:** a Cloudflare Workers project (Wrangler). TypeScript ≥ 5.0 is
-recommended — every public API ships with strict types and JSDoc.
+**Requirements:** Node >= 24 and a Cloudflare Workers project (Wrangler).
+TypeScript ≥ 5.0 is recommended — every public API ships with strict types and
+JSDoc. On older Node, npm quietly installs the last 1.x release instead of the
+current major, with no warning.
 
 ## Quick start
 
