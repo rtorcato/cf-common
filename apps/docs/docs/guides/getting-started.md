@@ -12,6 +12,8 @@ subpath export, so your Worker bundle stays small.
 
 ## Install
 
+**Node >= 24.** The package sets `engines.node` to `>=24`. On older Node, npm quietly installs the last 1.x release instead of the current major, with no warning.
+
 ```bash
 pnpm add @rtorcato/cf-common
 ```
