@@ -96,7 +96,9 @@ async function render<T>(
 				if (options.viewport) await page.setViewport(options.viewport)
 				const wait = { waitUntil: options.waitUntil, timeout: options.timeout }
 				if ('url' in target) await page.goto(target.url, wait)
-				else await page.setContent(target.html, wait)
+				// 2.x types narrow setContent's waitUntil to 'load' | 'domcontentloaded',
+				// but its lifecycle watcher still honours 'networkidle0' / 'networkidle2'.
+				else await page.setContent(target.html, wait as Parameters<typeof page.setContent>[1])
 				return await capture(page)
 			} catch (cause) {
 				if (isCloudflareError(cause)) throw cause
